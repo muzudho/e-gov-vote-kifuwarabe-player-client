@@ -1,0 +1,366 @@
+[2021-11-05 21:55:17] < LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif
+
+[2021-11-05 21:55:17] > LOGIN:e-gov-vote-kifuwarabe OK
+
+[2021-11-05 21:55:17] > <LINE>LOGIN:e-gov-vote-kifuwarabe OK</LINE>
+[2021-11-05 21:55:17] : self._state.name=[<None/>] result=[<NoneState.LoginOk/>]
+[2021-11-05 21:59:59] > BEGIN Game_Summary
+Protocol_Version:1.2
+Protocol_Mode:Server
+Format:Shogi 1.0
+Declaration:Jishogi 1.1
+Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005
+Name+:e-gov-vote-kifuwarabe
+Name-:Kristallweizen-Core2Duo-P7450
+Your_Turn:+
+Rematch_On_Draw:NO
+To_Move:+
+Max_Moves:256
+BEGIN Time
+Time_Unit:1sec
+Total_Time:300
+Byoyomi:0
+Increment:10
+Least_Time_Per_Move:0
+END Time
+BEGIN Position
+P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+P2 * -HI *  *  *  *  * -KA * 
+P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+P4 *  *  *  *  *  *  *  *  * 
+P5 *  *  *  *  *  *  *  *  * 
+P6 *  *  *  *  *  *  *  *  * 
+P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+P8 * +KA *  *  *  *  * +HI * 
+P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
++
+END Position
+END Game_Summary
+
+[2021-11-05 21:59:59] > <LINE>BEGIN Game_Summary</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Protocol_Version:1.2</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Protocol_Mode:Server</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Format:Shogi 1.0</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Declaration:Jishogi 1.1</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<GameId/>]
+[2021-11-05 21:59:59] > <LINE>Name+:e-gov-vote-kifuwarabe</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Name-:Kristallweizen-Core2Duo-P7450</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Your_Turn:+</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Rematch_On_Draw:NO</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>To_Move:+</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Max_Moves:256</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>BEGIN Time</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Time_Unit:1sec</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Total_Time:300</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Byoyomi:0</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Increment:10</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>Least_Time_Per_Move:0</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>END Time</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>BEGIN Position</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P1-KY-KE-GI-KI-OU-KI-GI-KE-KY</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P2 * -HI *  *  *  *  * -KA * </LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P3-FU-FU-FU-FU-FU-FU-FU-FU-FU</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P4 *  *  *  *  *  *  *  *  * </LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P5 *  *  *  *  *  *  *  *  * </LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P6 *  *  *  *  *  *  *  *  * </LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P7+FU+FU+FU+FU+FU+FU+FU+FU+FU</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P8 * +KA *  *  *  *  * +HI * </LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>P9+KY+KE+GI+KI+OU+KI+GI+KE+KY</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>+</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>END Position</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 21:59:59] > <LINE>END Game_Summary</LINE>
+[2021-11-05 21:59:59] : self._state.name=[<LoggedIn/>] result=[<EndGameSummary/>]
+[2021-11-05 21:59:59] < AGREE wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005
+
+[2021-11-05 22:00:02] > START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005
+
+[2021-11-05 22:00:02] > <LINE>START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005</LINE>
+[2021-11-05 22:00:02] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:00:22] < +5756FU
+
+[2021-11-05 22:00:22] > +5756FU,T20
+
+[2021-11-05 22:00:22] > <LINE>+5756FU,T20</LINE>
+[2021-11-05 22:00:22] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:00:57] > -3334FU,T35
+
+[2021-11-05 22:00:57] > <LINE>-3334FU,T35</LINE>
+[2021-11-05 22:00:57] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:01:12] < +5655FU
+
+[2021-11-05 22:01:12] > +5655FU,T14
+
+[2021-11-05 22:01:12] > <LINE>+5655FU,T14</LINE>
+[2021-11-05 22:01:12] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:01:20] > -2255KA,T8
+
+[2021-11-05 22:01:20] > <LINE>-2255KA,T8</LINE>
+[2021-11-05 22:01:20] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:01:32] < +2858HI
+
+[2021-11-05 22:01:32] > +2858HI,T12
+
+[2021-11-05 22:01:32] > <LINE>+2858HI,T12</LINE>
+[2021-11-05 22:01:32] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:01:34] > -5544KA,T1
+
+[2021-11-05 22:01:34] > <LINE>-5544KA,T1</LINE>
+[2021-11-05 22:01:34] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:01:53] < +7776FU
+
+[2021-11-05 22:01:53] > +7776FU,T19
+
+[2021-11-05 22:01:53] > <LINE>+7776FU,T19</LINE>
+[2021-11-05 22:01:53] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:02:02] > -6152KI,T8
+
+[2021-11-05 22:02:02] > <LINE>-6152KI,T8</LINE>
+[2021-11-05 22:02:02] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:02:50] < +3928GI
+
+[2021-11-05 22:02:50] > +3928GI,T47
+
+[2021-11-05 22:02:50] > <LINE>+3928GI,T47</LINE>
+[2021-11-05 22:02:50] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:03:07] > -8384FU,T17
+
+[2021-11-05 22:03:07] > <LINE>-8384FU,T17</LINE>
+[2021-11-05 22:03:07] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:03:26] < +6978KI
+
+[2021-11-05 22:03:26] > +6978KI,T19
+
+[2021-11-05 22:03:26] > <LINE>+6978KI,T19</LINE>
+[2021-11-05 22:03:26] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:03:43] > -5142OU,T17
+
+[2021-11-05 22:03:43] > <LINE>-5142OU,T17</LINE>
+[2021-11-05 22:03:43] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:04:09] < +5948OU
+
+[2021-11-05 22:04:09] > +5948OU,T25
+
+[2021-11-05 22:04:09] > <LINE>+5948OU,T25</LINE>
+[2021-11-05 22:04:09] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:04:25] > -7162GI,T16
+
+[2021-11-05 22:04:25] > <LINE>-7162GI,T16</LINE>
+[2021-11-05 22:04:25] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:04:37] < +4838OU
+
+[2021-11-05 22:04:37] > +4838OU,T11
+
+[2021-11-05 22:04:37] > <LINE>+4838OU,T11</LINE>
+[2021-11-05 22:04:37] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:04:43] > -1314FU,T6
+
+[2021-11-05 22:04:43] > <LINE>-1314FU,T6</LINE>
+[2021-11-05 22:04:43] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:05:01] < +1716FU
+
+[2021-11-05 22:05:01] > +1716FU,T18
+
+[2021-11-05 22:05:01] > <LINE>+1716FU,T18</LINE>
+[2021-11-05 22:05:01] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:05:18] > -4232OU,T17
+
+[2021-11-05 22:05:18] > <LINE>-4232OU,T17</LINE>
+[2021-11-05 22:05:18] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:05:30] < +4939KI
+
+[2021-11-05 22:05:30] > +4939KI,T12
+
+[2021-11-05 22:05:30] > <LINE>+4939KI,T12</LINE>
+[2021-11-05 22:05:30] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:05:59] > -3142GI,T29
+
+[2021-11-05 22:05:59] > <LINE>-3142GI,T29</LINE>
+[2021-11-05 22:05:59] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:06:15] < +3736FU
+
+[2021-11-05 22:06:15] > +3736FU,T15
+
+[2021-11-05 22:06:15] > <LINE>+3736FU,T15</LINE>
+[2021-11-05 22:06:15] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:06:26] > -6364FU,T11
+
+[2021-11-05 22:06:26] > <LINE>-6364FU,T11</LINE>
+[2021-11-05 22:06:26] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:06:46] < +2937KE
+
+[2021-11-05 22:06:46] > +2937KE,T19
+
+[2021-11-05 22:06:46] > <LINE>+2937KE,T19</LINE>
+[2021-11-05 22:06:46] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:06:52] > -8485FU,T6
+
+[2021-11-05 22:06:52] > <LINE>-8485FU,T6</LINE>
+[2021-11-05 22:06:52] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:07:02] < +3829OU
+
+[2021-11-05 22:07:02] > +3829OU,T10
+
+[2021-11-05 22:07:02] > <LINE>+3829OU,T10</LINE>
+[2021-11-05 22:07:02] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:07:11] > -4488UM,T9
+
+[2021-11-05 22:07:11] > <LINE>-4488UM,T9</LINE>
+[2021-11-05 22:07:11] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:07:23] < +7988GI
+
+[2021-11-05 22:07:23] > +7988GI,T11
+
+[2021-11-05 22:07:23] > <LINE>+7988GI,T11</LINE>
+[2021-11-05 22:07:23] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:07:25] > -4233GI,T1
+
+[2021-11-05 22:07:25] > <LINE>-4233GI,T1</LINE>
+[2021-11-05 22:07:25] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:08:24] < +8877GI
+
+[2021-11-05 22:08:24] > +8877GI,T58
+
+[2021-11-05 22:08:24] > <LINE>+8877GI,T58</LINE>
+[2021-11-05 22:08:24] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:08:46] > -3435FU,T22
+
+[2021-11-05 22:08:46] > <LINE>-3435FU,T22</LINE>
+[2021-11-05 22:08:46] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:09:11] < +3635FU
+
+[2021-11-05 22:09:11] > +3635FU,T24
+
+[2021-11-05 22:09:11] > <LINE>+3635FU,T24</LINE>
+[2021-11-05 22:09:11] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:09:13] > -0036FU,T1
+
+[2021-11-05 22:09:13] > <LINE>-0036FU,T1</LINE>
+[2021-11-05 22:09:13] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:09:27] < +3745KE
+
+[2021-11-05 22:09:27] > +3745KE,T14
+
+[2021-11-05 22:09:27] > <LINE>+3745KE,T14</LINE>
+[2021-11-05 22:09:27] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:09:37] > -3344GI,T9
+
+[2021-11-05 22:09:37] > <LINE>-3344GI,T9</LINE>
+[2021-11-05 22:09:37] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:10:08] < +0066KA
+
+[2021-11-05 22:10:08] > +0066KA,T30
+
+[2021-11-05 22:10:08] > <LINE>+0066KA,T30</LINE>
+[2021-11-05 22:10:08] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:10:15] > -6465FU,T7
+
+[2021-11-05 22:10:15] > <LINE>-6465FU,T7</LINE>
+[2021-11-05 22:10:15] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:10:43] < +6644KA
+
+[2021-11-05 22:10:43] > +6644KA,T28
+
+[2021-11-05 22:10:43] > <LINE>+6644KA,T28</LINE>
+[2021-11-05 22:10:43] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:10:45] > -4344FU,T2
+
+[2021-11-05 22:10:45] > <LINE>-4344FU,T2</LINE>
+[2021-11-05 22:10:45] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:11:20] < +4553NK
+
+[2021-11-05 22:11:20] > +4553NK,T34
+
+[2021-11-05 22:11:20] > <LINE>+4553NK,T34</LINE>
+[2021-11-05 22:11:20] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:11:27] > -6253GI,T7
+
+[2021-11-05 22:11:27] > <LINE>-6253GI,T7</LINE>
+[2021-11-05 22:11:27] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:12:00] < +3534FU
+
+[2021-11-05 22:12:00] > +3534FU,T33
+
+[2021-11-05 22:12:00] > <LINE>+3534FU,T33</LINE>
+[2021-11-05 22:12:00] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:12:08] > -0064KA,T7
+
+[2021-11-05 22:12:08] > <LINE>-0064KA,T7</LINE>
+[2021-11-05 22:12:08] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:12:43] < +0033GI
+
+[2021-11-05 22:12:43] > +0033GI,T35
+
+[2021-11-05 22:12:43] > <LINE>+0033GI,T35</LINE>
+[2021-11-05 22:12:43] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:12:55] > -2133KE,T12
+
+[2021-11-05 22:12:55] > <LINE>-2133KE,T12</LINE>
+[2021-11-05 22:12:55] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:13:04] < +3433TO
+
+[2021-11-05 22:13:04] > +3433TO,T8
+
+[2021-11-05 22:13:04] > <LINE>+3433TO,T8</LINE>
+[2021-11-05 22:13:04] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:13:13] > -3233OU,T9
+
+[2021-11-05 22:13:13] > <LINE>-3233OU,T9</LINE>
+[2021-11-05 22:13:13] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:13:28] < +0035FU
+
+[2021-11-05 22:13:28] > +0035FU,T15
+
+[2021-11-05 22:13:28] > <LINE>+0035FU,T15</LINE>
+[2021-11-05 22:13:28] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:13:36] > -3637TO,T7
+
+[2021-11-05 22:13:36] > <LINE>-3637TO,T7</LINE>
+[2021-11-05 22:13:36] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:13:53] < +0025KE
+
+[2021-11-05 22:13:53] > +0025KE,T17
+
+[2021-11-05 22:13:53] > <LINE>+0025KE,T17</LINE>
+[2021-11-05 22:13:53] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:14:28] > -3343OU,T34
+
+[2021-11-05 22:14:28] > <LINE>-3343OU,T34</LINE>
+[2021-11-05 22:14:28] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:14:53] > #TIME_UP
+#LOSE
+
+[2021-11-05 22:14:53] > <LINE>#TIME_UP</LINE>
+[2021-11-05 22:14:53] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]
+[2021-11-05 22:14:53] > <LINE>#LOSE</LINE>
+[2021-11-05 22:14:53] : self._state.name=[<LoggedIn/>] result=[<LoggedInState.Unknown>]

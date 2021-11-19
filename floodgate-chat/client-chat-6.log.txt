@@ -1,0 +1,358 @@
+[2021-11-07 21:59:04] : [DEBUG] state=[<NoneState/>] result=[<NoneState.LoginOk/>]
+[2021-11-07 21:59:04] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:04] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21[2021-11-07 21:59:57] > BEGIN Game_Summary
+Protocol_Version:1.2
+Protocol_Mode:Server
+Format:Shogi 1.0
+Declaration:Jishogi 1.1
+Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107220001
+Name+:e-gov-vote-kifuwarabe
+Name-:John
+Your_Turn:+
+Rematch_On_Draw:NO
+To_Move:+
+Max_Moves:256
+BEGIN Time
+Time_Unit:1sec
+Total_Time:300
+Byoyomi:0
+Increment:10
+Least_Time_Per_Move:0
+END Time
+BEGIN Position
+P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+P2 * -HI *  *  *  *  * -KA * 
+P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+P4 *  *  *  *  *  *  *  *  * 
+P5 *  *  *  *  *  *  *  *  * 
+P6 *  *  *  *  *  *  *  *  * 
+P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+P8 * +KA *  *  *  *  * +HI * 
+P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
++
+END Position
+END Game_Summary
+
+[2021-11-07 21:59:57] > BEGIN Game_Summary
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Protocol_Version:1.2
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Protocol_Mode:Server
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Format:Shogi 1.0
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Declaration:Jishogi 1.1
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107220001
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.GameId/>]
+[2021-11-07 21:59:57] > Name+:e-gov-vote-kifuwarabe
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Turn/>]
+[2021-11-07 21:59:57] > Name-:John
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Turn/>]
+[2021-11-07 21:59:57] > Your_Turn:+
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.MyTurn/>]
+[2021-11-07 21:59:57] > Rematch_On_Draw:NO
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > To_Move:+
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.StartPosTurn/>]
+[2021-11-07 21:59:57] > Max_Moves:256
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > BEGIN Time
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Time_Unit:1sec
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Total_Time:300
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Byoyomi:0
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Increment:10
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > Least_Time_Per_Move:0
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > END Time
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > BEGIN Position
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P2 * -HI *  *  *  *  * -KA * 
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P4 *  *  *  *  *  *  *  *  * 
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P5 *  *  *  *  *  *  *  *  * 
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P6 *  *  *  *  *  *  *  *  * 
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P8 * +KA *  *  *  *  * +HI * 
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 21:59:57] > +
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > END Position
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 21:59:57] > END Game_Summary
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.EndGameSummary/>]
+[2021-11-07 21:59:57] < AGREE wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107220001
+
+[2021-11-07 21:59:57] > START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107220001
+
+[2021-11-07 21:59:57] > START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107220001
+[2021-11-07 21:59:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Start/>]
+[2021-11-07 22:00:32] < +6766FU
+
+[2021-11-07 22:00:32] > +6766FU,T35
+
+[2021-11-07 22:00:32] > +6766FU,T35
+[2021-11-07 22:00:32] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:00:37] > -8384FU,T5
+
+[2021-11-07 22:00:37] > -8384FU,T5
+[2021-11-07 22:00:37] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:00:56] < +2868HI
+
+[2021-11-07 22:00:56] > +2868HI,T18
+
+[2021-11-07 22:00:56] > +2868HI,T18
+[2021-11-07 22:00:56] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:01] > -8485FU,T4
+
+[2021-11-07 22:01:01] > -8485FU,T4
+[2021-11-07 22:01:01] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:13] < +6978KI
+
+[2021-11-07 22:01:13] > +6978KI,T12
+
+[2021-11-07 22:01:13] > +6978KI,T12
+[2021-11-07 22:01:13] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:18] > -8586FU,T5
+
+[2021-11-07 22:01:18] > -8586FU,T5
+[2021-11-07 22:01:18] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:29] < +8786FU
+
+[2021-11-07 22:01:29] > +8786FU,T10
+
+[2021-11-07 22:01:29] > +8786FU,T10
+[2021-11-07 22:01:29] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:34] > -8286HI,T5
+
+[2021-11-07 22:01:34] > -8286HI,T5
+[2021-11-07 22:01:34] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:01:59] < +9796FU
+
+[2021-11-07 22:01:59] > +9796FU,T24
+
+[2021-11-07 22:01:59] > +9796FU,T24
+[2021-11-07 22:01:59] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:02:05] > -8682HI,T5
+
+[2021-11-07 22:02:05] > -8682HI,T5
+[2021-11-07 22:02:05] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:02:31] < +0087FU
+
+[2021-11-07 22:02:31] > +0087FU,T26
+
+[2021-11-07 22:02:31] > +0087FU,T26
+[2021-11-07 22:02:31] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:02:38] > -7162GI,T6
+
+[2021-11-07 22:02:38] > -7162GI,T6
+[2021-11-07 22:02:38] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:08] < +6665FU
+
+[2021-11-07 22:03:08] > +6665FU,T30
+
+[2021-11-07 22:03:08] > +6665FU,T30
+[2021-11-07 22:03:08] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:13] > -5142OU,T5
+
+[2021-11-07 22:03:13] > -5142OU,T5
+[2021-11-07 22:03:13] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:21] < +6564FU
+
+[2021-11-07 22:03:21] > +6564FU,T7
+
+[2021-11-07 22:03:21] > +6564FU,T7
+[2021-11-07 22:03:21] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:31] > -6364FU,T9
+
+[2021-11-07 22:03:31] > -6364FU,T9
+[2021-11-07 22:03:31] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:41] < +6864HI
+
+[2021-11-07 22:03:41] > +6864HI,T10
+
+[2021-11-07 22:03:41] > +6864HI,T10
+[2021-11-07 22:03:41] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:03:48] > -4232OU,T7
+
+[2021-11-07 22:03:48] > -4232OU,T7
+[2021-11-07 22:03:48] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:04:15] < +0063FU
+
+[2021-11-07 22:04:15] > +0063FU,T27
+
+[2021-11-07 22:04:15] > +0063FU,T27
+[2021-11-07 22:04:15] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:04:22] > -6271GI,T6
+
+[2021-11-07 22:04:22] > -6271GI,T6
+[2021-11-07 22:04:22] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:04:29] < +7776FU
+
+[2021-11-07 22:04:29] > +7776FU,T7
+
+[2021-11-07 22:04:29] > +7776FU,T7
+[2021-11-07 22:04:29] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:04:42] > -4152KI,T12
+
+[2021-11-07 22:04:42] > -4152KI,T12
+[2021-11-07 22:04:42] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:04:58] < +5948OU
+
+[2021-11-07 22:04:58] > +5948OU,T16
+
+[2021-11-07 22:04:58] > +5948OU,T16
+[2021-11-07 22:04:58] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:05:08] > -7172GI,T10
+
+[2021-11-07 22:05:08] > -7172GI,T10
+[2021-11-07 22:05:08] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:05:28] < +8866KA
+
+[2021-11-07 22:05:28] > +8866KA,T19
+
+[2021-11-07 22:05:28] > +8866KA,T19
+[2021-11-07 22:05:28] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:05:34] > -7263GI,T5
+
+[2021-11-07 22:05:34] > -7263GI,T5
+[2021-11-07 22:05:34] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:05:51] < +6484HI
+
+[2021-11-07 22:05:51] > +6484HI,T17
+
+[2021-11-07 22:05:51] > +6484HI,T17
+[2021-11-07 22:05:51] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:06:10] > -8284HI,T18
+
+[2021-11-07 22:06:10] > -8284HI,T18
+[2021-11-07 22:06:10] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:06:19] < +6684KA
+
+[2021-11-07 22:06:19] > +6684KA,T9
+
+[2021-11-07 22:06:19] > +6684KA,T9
+[2021-11-07 22:06:19] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:06:29] > -3334FU,T9
+
+[2021-11-07 22:06:29] > -3334FU,T9
+[2021-11-07 22:06:29] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:06:44] < +8977KE
+
+[2021-11-07 22:06:44] > +8977KE,T14
+
+[2021-11-07 22:06:44] > +8977KE,T14
+[2021-11-07 22:06:44] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:06:52] > -0089HI,T8
+
+[2021-11-07 22:06:52] > -0089HI,T8
+[2021-11-07 22:06:52] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:07:19] < +9997KY
+
+[2021-11-07 22:07:19] > +9997KY,T27
+
+[2021-11-07 22:07:19] > +9997KY,T27
+[2021-11-07 22:07:19] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:07:32] > -8999RY,T12
+
+[2021-11-07 22:07:32] > -8999RY,T12
+[2021-11-07 22:07:32] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:07:39] < +8475KA
+
+[2021-11-07 22:07:39] > +8475KA,T7
+
+[2021-11-07 22:07:39] > +8475KA,T7
+[2021-11-07 22:07:39] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:07:59] > -2277UM,T19
+
+[2021-11-07 22:07:59] > -2277UM,T19
+[2021-11-07 22:07:59] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:08:08] < +7877KI
+
+[2021-11-07 22:08:08] > +7877KI,T9
+
+[2021-11-07 22:08:08] > +7877KI,T9
+[2021-11-07 22:08:08] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:08:09] > -9979RY,T1
+
+[2021-11-07 22:08:09] > -9979RY,T1
+[2021-11-07 22:08:09] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:08:22] < +7767KI
+
+[2021-11-07 22:08:22] > +7767KI,T12
+
+[2021-11-07 22:08:22] > +7767KI,T12
+[2021-11-07 22:08:22] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:08:42] > -0055KE,T20
+
+[2021-11-07 22:08:42] > -0055KE,T20
+[2021-11-07 22:08:42] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:02] < +1716FU
+
+[2021-11-07 22:09:02] > +1716FU,T19
+
+[2021-11-07 22:09:02] > +1716FU,T19
+[2021-11-07 22:09:02] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:10] > -5547NK,T8
+
+[2021-11-07 22:09:10] > -5547NK,T8
+[2021-11-07 22:09:10] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:24] < +4847OU
+
+[2021-11-07 22:09:24] > +4847OU,T13
+
+[2021-11-07 22:09:24] > +4847OU,T13
+[2021-11-07 22:09:24] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:25] > -7949RY,T0
+
+[2021-11-07 22:09:25] > -7949RY,T0
+[2021-11-07 22:09:25] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:47] < +0048HI
+
+[2021-11-07 22:09:47] > +0048HI,T22
+
+[2021-11-07 22:09:47] > +0048HI,T22
+[2021-11-07 22:09:47] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:09:56] > -4939RY,T9
+
+[2021-11-07 22:09:56] > -4939RY,T9
+[2021-11-07 22:09:56] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:10:09] < +5756FU
+
+[2021-11-07 22:10:09] > +5756FU,T12
+
+[2021-11-07 22:10:09] > +5756FU,T12
+[2021-11-07 22:10:09] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:10:14] > -3929RY,T5
+
+[2021-11-07 22:10:14] > -3929RY,T5
+[2021-11-07 22:10:14] : [DEBUG] state=[<GameState/>] result=[<Position.Move/>]
+[2021-11-07 22:10:24] < %TORYO
+
+[2021-11-07 22:10:24] > %TORYO
+#RESIGN
+#LOSE
+
+[2021-11-07 22:10:24] > %TORYO
+[2021-11-07 22:10:24] : [DEBUG] state=[<GameState/>] result=[<Position.Unknown/>]
+[2021-11-07 22:10:24] > #RESIGN
+[2021-11-07 22:10:24] : [DEBUG] state=[<GameState/>] result=[<Position.Unknown/>]
+[2021-11-07 22:10:24] > #LOSE
+[2021-11-07 22:10:24] : [DEBUG] state=[<GameState/>] result=[<Position.Lose/>]

@@ -1,0 +1,119 @@
+[2021-11-07 18:26:21] < LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif
+
+[2021-11-07 18:26:21] > LOGIN:e-gov-vote-kifuwarabe OK
+
+[2021-11-07 18:26:21] > LOGIN:e-gov-vote-kifuwarabe OK
+[2021-11-07 18:26:21] : [DEBUG] state=[<NoneState/>] result=[<NoneState.LoginOk/>]
+[2021-11-07 18:29:57] > BEGIN Game_Summary
+Protocol_Version:1.2
+Protocol_Mode:Server
+Format:Shogi 1.0
+Declaration:Jishogi 1.1
+Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002
+Name+:e-gov-vote-kifuwarabe
+Name-:John
+Your_Turn:+
+Rematch_On_Draw:NO
+To_Move:+
+Max_Moves:256
+BEGIN Time
+Time_Unit:1sec
+Total_Time:300
+Byoyomi:0
+Increment:10
+Least_Time_Per_Move:0
+END Time
+BEGIN Position
+P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+P2 * -HI *  *  *  *  * -KA * 
+P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+P4 *  *  *  *  *  *  *  *  * 
+P5 *  *  *  *  *  *  *  *  * 
+P6 *  *  *  *  *  *  *  *  * 
+P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+P8 * +KA *  *  *  *  * +HI * 
+P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
++
+END Position
+END Game_Summary
+
+[2021-11-07 18:29:57] > BEGIN Game_Summary
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Protocol_Version:1.2
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Protocol_Mode:Server
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Format:Shogi 1.0
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Declaration:Jishogi 1.1
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Game_ID:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.GameId/>]
+[2021-11-07 18:29:57] > Name+:e-gov-vote-kifuwarabe
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Turn/>]
+[2021-11-07 18:29:57] > Name-:John
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Turn/>]
+[2021-11-07 18:29:57] > Your_Turn:+
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.MyTurn/>]
+[2021-11-07 18:29:57] > Rematch_On_Draw:NO
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > To_Move:+
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.StartPosTurn/>]
+[2021-11-07 18:29:57] > Max_Moves:256
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > BEGIN Time
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Time_Unit:1sec
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Total_Time:300
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Byoyomi:0
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Increment:10
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > Least_Time_Per_Move:0
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > END Time
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > BEGIN Position
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P2 * -HI *  *  *  *  * -KA * 
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P4 *  *  *  *  *  *  *  *  * 
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P5 *  *  *  *  *  *  *  *  * 
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P6 *  *  *  *  *  *  *  *  * 
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P8 * +KA *  *  *  *  * +HI * 
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<Position.BeginPosRow/>]
+[2021-11-07 18:29:57] > +
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > END Position
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:29:57] > END Game_Summary
+[2021-11-07 18:29:57] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.EndGameSummary/>]
+[2021-11-07 18:29:57] < AGREE wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002
+
+[2021-11-07 18:30:35] < +7776FU
+
+[2021-11-07 18:31:13] < AGREE wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002
+
+[2021-11-07 18:31:13] > ##[ERROR] you are in start_waiting status. AGREE is valid in agree_waiting status
+
+[2021-11-07 18:31:13] > ##[ERROR] you are in start_waiting status. AGREE is valid in agree_waiting status
+[2021-11-07 18:31:13] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
+[2021-11-07 18:31:28] < +7776FU
+
+[2021-11-07 18:31:58] > REJECT:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002 by the Server (timed out)
+
+[2021-11-07 18:31:58] > REJECT:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+John+20211107183002 by the Server (timed out)
+[2021-11-07 18:31:58] : [DEBUG] state=[<LoggedInState/>] result=[<LoggedInState.Unknown>]
