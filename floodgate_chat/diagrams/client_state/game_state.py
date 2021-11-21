@@ -40,8 +40,11 @@ class GameState():
         self._player_names = val
 
     def forward_by_line(self, line):
+        """状態遷移します"""
 
-        # 指し手
+        # ----[+5756FU,T20]---->
+        #      ------- ---
+        #      指し手   消費時間
         result = self._move_pattern.match(line)
         if result:
             phase = result.group(1)
@@ -147,14 +150,21 @@ class GameState():
 
             return '<Position.Move/>'
 
+        # ----[#WIN]---->
+        #      ----
+        #      勝ち
         if line == '#WIN':
-            # 勝ち
             return '<Position.Win/>'
 
+        # ----[#LOSE]---->
+        #      -----
+        #      負け
         if line == '#LOSE':
-            # 負け
             return '<Position.Lose/>'
 
+        # ----[??????]---->
+        #      ------
+        #      その他
         return '<Position.Unknown/>'
 
 

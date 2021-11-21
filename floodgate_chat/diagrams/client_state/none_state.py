@@ -3,8 +3,9 @@ import re
 
 class NoneState():
     def __init__(self):
-        # Format: `LOGIN:<username> OK`
-        # Example: `LOGIN:e-gov-vote-kifuwarabe OK`
+        # [LOGIN:e-gov-vote-kifuwarabe OK]
+        #        ---------------------
+        #        1. username
         self._login_ok_pattern = re.compile(
             r'^LOGIN:([0-9A-Za-z_-]{1,32}) OK$')
 
@@ -23,9 +24,13 @@ class NoneState():
         self._user_name = val
 
     def forward_by_line(self, line):
+        """状態遷移します"""
+
+        # ----[LOGIN:e-gov-vote-kifuwarabe OK]----> ログイン成功
+        #            ---------------------
+        #            1. username
         matched = self._login_ok_pattern.match(line)
         if matched:
-            # ログイン成功
             self._user_name = matched.group(1)
             return '<NoneState.LoginOk/>'
 

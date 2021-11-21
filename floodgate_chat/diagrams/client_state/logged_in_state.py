@@ -5,50 +5,54 @@ from floodgate_chat.scripts.position import Position
 class LoggedInState():
 
     def __init__(self):
-        # Format: `Game_ID:<GameId>`
-        # Example: `Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002`
+        # [Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]
+        #          ---------------------------------------------------------------------
+        #          1. game_id
         self._game_id_pattern = re.compile(r'^Game_ID:([0-9A-Za-z_+-]+)$')
         self._game_id = ''
 
-        # 先手、後手プレイヤー名判定
-        # Format: `Name<SenteOrGote>:<PlayerName>`
-        # Example: `Name+:John`
-        # Example: `Name-:e-gov-vote-kifuwarabe`
+        # [Name+:John]
+        # [Name-:John]
+        #      - ----
+        #      | |
+        #      +------- 1. (+)先手、(-)後手
+        #        +----- 2. プレイヤー名
         self._player_name_pattern = re.compile(
             r'^Name([+-]):([0-9A-Za-z_-]+)$')
         # プレイヤー名 [未使用, 先手プレイヤー名, 後手プレイヤー名]
         self._player_names = ['', '', '']
 
-        # わたしの手番
-        # Format: `Your_Turn:<Turn>`
-        # Example: `Your_Turn:+`
+        # [Your_Turn:+]
+        #            -
+        #            1. わたしの手番(+)(-)
         self._my_turn_pattern = re.compile(
             r'^Your_Turn:([+-])$')
         self._my_turn = ''
 
-        # 開始局面での手番
-        # Format: `To_Move:<Turn>`
-        # Example: `To_Move:+`
+        # [To_Move:+]
+        #          -
+        #          1. 開始局面での手番(+)(-)
         self._startpos_turn_pattern = re.compile(
             r'^To_Move:([+-])$')
         self._startpos_turn = ''
 
-        # Format: `START:<GameID>`
-        # Example: `START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005`
+        # [START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]
+        #        ------------------------------------------------------------------------------------------
+        #        1. game_id
         self._start_pattern = re.compile(r'^START:([0-9A-Za-z_+-]+)$')
         self._start_game_id = ''
 
-        # 開始局面の各行
-        # Example:
-        # P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
-        # P2 * -HI *  *  *  *  * -KA *
-        # P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
-        # P4 *  *  *  *  *  *  *  *  *
-        # P5 *  *  *  *  *  *  *  *  *
-        # P6 *  *  *  *  *  *  *  *  *
-        # P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
-        # P8 * +KA *  *  *  *  * +HI *
-        # P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
+        # [P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+        #  P2 * -HI *  *  *  *  * -KA *
+        #  P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+        #  P4 *  *  *  *  *  *  *  *  *
+        #  P5 *  *  *  *  *  *  *  *  *
+        #  P6 *  *  *  *  *  *  *  *  *
+        #  P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+        #  P8 * +KA *  *  *  *  * +HI *
+        #  P9+KY+KE+GI+KI+OU+KI+GI+KE+KY]
+        #  -----------------------------
+        #  開始局面の各行
         self._begin_pos_row_pattern = re.compile(
             r"^P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
@@ -87,12 +91,20 @@ class LoggedInState():
         return self._startpos_turn
 
     def forward_by_line(self, line):
+        """状態遷移します"""
 
-        # 初期局面終了
+        # ----[END Game_Summary]---->
+        #      ----------------
+        #      初期局面終了
         if line == 'END Game_Summary':
             return '<LoggedInState.EndGameSummary/>'
 
-        # 先手、後手プレイヤー名
+        # ----[Name+:John]---->
+        #     [Name-:John]
+        #          - ----
+        #          | |
+        #          +------- 1. (+)先手、(-)後手
+        #            +----- 2. プレイヤー名
         matched = self._player_name_pattern.match(line)
         if matched:
             turn = matched.group(1)
@@ -106,26 +118,31 @@ class LoggedInState():
 
             return '<LoggedInState.Turn/>'
 
-        # 自分のターン
+        # ----[Your_Turn:+]---->
+        #                -
+        #                1. わたしの手番(+)(-)
         matched = self._my_turn_pattern.match(line)
         if matched:
             self._my_turn = matched.group(1)
             return '<LoggedInState.MyTurn/>'
 
-        # 開始局面のターン
+        # ----[To_Move:+]---->
+        #              -
+        #              1. 開始局面での手番(+)(-)
         matched = self._startpos_turn_pattern.match(line)
         if matched:
             self._startpos_turn = matched.group(1)
             return '<LoggedInState.StartPosTurn/>'
 
-        # Game_ID
+        # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
+        #              ---------------------------------------------------------------------
+        #              1. game_id
         matched = self._game_id_pattern.match(line)
         if matched:
-            # ログイン成功
             self._game_id = matched.group(1)
             return '<LoggedInState.GameId/>'
 
-        # 開始局面の各行
+        # ----[開始局面の各行]---->
         matched = self._begin_pos_row_pattern.match(line)
         if matched:
             rank = int(matched.group(1))
@@ -141,10 +158,11 @@ class LoggedInState():
 
             return '<Position.BeginPosRow/>'
 
-        # START
+        # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
+        #            ------------------------------------------------------------------------------------------
+        #            1. game_id
         matched = self._start_pattern.match(line)
         if matched:
-            # 対局合意成立
             self._start_game_id = matched.group(1)
             return '<LoggedInState.Start/>'
 
