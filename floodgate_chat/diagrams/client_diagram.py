@@ -1,7 +1,10 @@
+import time
 from floodgate_chat.diagrams.client_state.none_state import NoneState
 from floodgate_chat.diagrams.client_state.logged_in_state import LoggedInState
 from floodgate_chat.diagrams.client_state.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
+from dynamodb.e_gov_bestmove import get_bestmove
+from floodgate_chat.scripts.client_socket import client_socket
 
 
 def SplitTextBlock(text_block):
@@ -107,6 +110,22 @@ class ClientDiagram():
                 next_state = GameState()
                 next_state.position = self._state.position
                 next_state.player_names = self._state.player_names
+
+                def go_func():
+                    while True:
+                        m = get_bestmove()
+
+                        if not(m is None):
+                            # 指します
+                            log_output.display_and_log_internal(f"指します [{m}]")
+                            client_socket.send_line(m)
+                            break
+
+                        # 5秒待ちます
+                        time.sleep(5)
+
+                next_state.go_func = go_func
+
                 self._state = next_state
 
         elif self._state.name == '<GameState/>':

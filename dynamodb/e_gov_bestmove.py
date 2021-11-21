@@ -5,10 +5,17 @@ python.exe e_gov_bestmove.py
 
 import random
 from pprint import pprint
-from e_gov_scan_bestmove_table import scan_bestmove_table
+from dynamodb.e_gov_scan_bestmove_table import scan_bestmove_table
 
 
 def get_bestmove():
+    """
+    Returns
+    -------
+    str
+        該当がなければ None
+    """
+
     item_list = scan_bestmove_table()
     if item_list:
         print("Scan bestmove table succeeded:")
@@ -36,6 +43,9 @@ def get_bestmove():
             max_key_list.append(key)
 
     print(f"max_value=[{max_value}] max_key_list=[{max_key_list}]")
+
+    if len(max_key_list) < 1:
+        return None
 
     return random.choice(max_key_list)
 
