@@ -86,7 +86,7 @@ class LoggedInState():
     def startpos_turn(self):
         return self._startpos_turn
 
-    def parse_line(self, line):
+    def forward_by_line(self, line):
 
         # 初期局面終了
         if line == 'END Game_Summary':

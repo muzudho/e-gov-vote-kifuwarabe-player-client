@@ -1,6 +1,6 @@
-from floodgate_chat.scripts.client_state.none_state import NoneState
-from floodgate_chat.scripts.client_state.logged_in_state import LoggedInState
-from floodgate_chat.scripts.client_state.game_state import GameState
+from floodgate_chat.parser.client_state.none_state import NoneState
+from floodgate_chat.parser.client_state.logged_in_state import LoggedInState
+from floodgate_chat.parser.client_state.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 
 
@@ -66,8 +66,11 @@ class ClientP():
     def agree_func(self, func):
         self._agree_func = func
 
-    def parse_line(self, line):
-        result = self._state.parse_line(line)
+    def forward_by_line(self, line):
+
+        # ここで状態遷移します
+        result = self._state.forward_by_line(line)
+
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] result=[{result}]")
 

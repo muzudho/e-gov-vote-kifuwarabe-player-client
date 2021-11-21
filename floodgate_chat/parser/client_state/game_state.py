@@ -39,7 +39,7 @@ class GameState():
     def player_names(self, val):
         self._player_names = val
 
-    def parse_line(self, line):
+    def forward_by_line(self, line):
 
         # 指し手
         result = self._move_pattern.match(line)
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
 
     none_state = GameState()
-    result = none_state.parse_line(line)
+    result = none_state.forward_by_line(line)
     if result == '<NoneState.LoginOk/>':
         print('.', end='')
     else:

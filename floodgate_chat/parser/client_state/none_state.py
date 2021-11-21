@@ -22,7 +22,7 @@ class NoneState():
     def user_name(self, val):
         self._user_name = val
 
-    def parse_line(self, line):
+    def forward_by_line(self, line):
         matched = self._login_ok_pattern.match(line)
         if matched:
             # ログイン成功
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
 
     none_state = NoneState()
-    result = none_state.parse_line(line)
+    result = none_state.forward_by_line(line)
     if result == '<NoneState.LoginOk/>':
         print('.', end='')
     else:

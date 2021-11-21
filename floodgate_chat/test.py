@@ -1,7 +1,7 @@
 import sys
 import signal
 from client import Client
-from floodgate_chat.scripts.client_p import SplitTextBlock
+from floodgate_chat.parser.client_p import SplitTextBlock
 
 
 class Test():
@@ -20,7 +20,7 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            self._client.client_p.parse_line(received)
+            self._client.client_p.forward_by_line(received)
 
         self._client.client_p.agree_func = __agree_func
 
@@ -35,7 +35,7 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        self._client.client_p.parse_line(received)
+        self._client.client_p.forward_by_line(received)
         if self._client.client_p.state.name != '<LoggedInState/>':
             print('Unimplemented login')
 
@@ -78,7 +78,7 @@ END Game_Summary
         for line in lines:
             print(
                 f"[DEBUG] state=[{self._client.client_p.state.name}] line=[{line}]")
-            self._client.client_p.parse_line(line)
+            self._client.client_p.forward_by_line(line)
 
         if self._client.client_p.state.name != '<GameState/>':
             print(
@@ -98,13 +98,13 @@ END Game_Summary
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        self._client.client_p.parse_line(received)
+        self._client.client_p.forward_by_line(received)
         text = self._client.client_p.state.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        self._client.client_p.parse_line(received)
+        self._client.client_p.forward_by_line(received)
         text = self._client.client_p.state.position.formatBoard()
         print(text)
 
