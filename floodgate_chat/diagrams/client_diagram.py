@@ -143,7 +143,6 @@ class ClientDiagram():
                             log_output.display_and_log_internal(
                                 f"投票が無いので投了しよ tryal_count = [{m}]")
                             client_socket.send_line('%TORYO')
-                            pass
 
                         # 投票が 0件 だったら、入力中かも知れないので、5秒待ちます
                         time.sleep(5)
@@ -170,6 +169,11 @@ class ClientDiagram():
                 except Exception as e:
                     log_output.display_and_log_internal(
                         f"(Err.163) テーブル作成できなかった [{e}]")
+
+                if self._my_turn == self._current_turn:
+                    # 初手を指します
+                    log_output.display_and_log_internal(f"(177) 初手を指します")
+                    next_state.go_func()
 
                 self._state = next_state
 

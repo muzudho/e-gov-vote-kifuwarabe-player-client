@@ -46,6 +46,7 @@ class Client():
         # Login
         client_socket.send_line(f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
 
+        # このスレッドはコンピューターが自動入力するためのものです
         # make a thread that listens for messages to this client & print them
         thr = Thread(target=self.listen_for_messages)
         # make the thread daemon so it ends whenever the main thread ends
@@ -53,6 +54,7 @@ class Client():
         # start the thread
         thr.start()
 
+        # このループは人間が入力するためのものです
         while True:
             # input message we want to send to the server
             # 末尾に改行は付いていません
@@ -68,6 +70,7 @@ class Client():
             client_socket.send_line(to_send)
 
     def listen_for_messages(self):
+        """コンピューターの動き"""
         global client_socket
 
         while True:
