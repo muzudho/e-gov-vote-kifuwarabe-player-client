@@ -132,17 +132,17 @@ class ClientDiagram():
                         m = get_bestmove()
 
                         if not(m is None):
-                            # 指します
-                            log_output.display_and_log_internal(f"指します [{m}]")
-                            client_socket.send_line(m)
-                            break
+                            # 投票が溜まってたので指します
+                            log_output.display_and_log_internal(
+                                f"投票が溜まってたので指します [{m}]")
+                            return m
 
                         # 10回試せば 5*10 + 10 = 1分。 17回試せば 17*10 + 10 = 3分。
                         if 17 < tryal_count:
                             # 投了しよ
                             log_output.display_and_log_internal(
                                 f"投票が無いので投了しよ tryal_count = [{m}]")
-                            client_socket.send_line('%TORYO')
+                            return '%TORYO'
 
                         # 投票が 0件 だったら、入力中かも知れないので、5秒待ちます
                         time.sleep(5)
@@ -171,9 +171,12 @@ class ClientDiagram():
                         f"(Err.163) テーブル作成できなかった [{e}]")
 
                 if self._my_turn == self._current_turn:
-                    # 初手を指します
-                    log_output.display_and_log_internal(f"(177) 初手を指します")
-                    next_state.go_func()
+                    # 初手を考えます
+                    log_output.display_and_log_internal(f"(175) 初手を考えます")
+                    m = next_state.go_func()
+                    client_socket.send_line(f'{m}\n')
+                    log_output.display_and_log_internal(
+                        f"(178) 初手を指します m=[{m}]")
 
                 self._state = next_state
 

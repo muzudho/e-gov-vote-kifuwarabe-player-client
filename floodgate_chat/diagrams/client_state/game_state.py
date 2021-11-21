@@ -1,5 +1,7 @@
 import re
 from floodgate_chat.scripts.position import Position
+from floodgate_chat.scripts.client_socket import client_socket
+from floodgate_chat.scripts.log_output import log_output
 
 
 class GameState():
@@ -182,9 +184,12 @@ class GameState():
 
             # 相手の指し手だったら、自分の指し手を入力する番になります
             if phase != self._my_turn:
-                print(f"自分の手番が回ってきました: phase=[{phase}]")
+                print(
+                    f"自分の手番が回ってきました。考えます: phase=[{phase}] self._my_turn=[{self._my_turn}]")
                 m = self.go_func()
-                print(f"Bestmove: m=[{m}]")
+                client_socket.send_line(f'{m}\n')
+                log_output.display_and_log_internal(
+                    f"(191) 自分の手番で指した m=[{m}]")
 
             return '<Position.Move/>'
 

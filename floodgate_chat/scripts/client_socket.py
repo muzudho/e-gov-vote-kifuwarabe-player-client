@@ -24,6 +24,8 @@ class ClientSocket():
         return self._sock.recv(MESSAGE_SIZE).decode()
 
     def send_line(self, line):
+        """末尾に \n を付けてください"""
+
         global client_socket
         global log_output
 
