@@ -1,5 +1,5 @@
 import re
-from scripts.position import Position
+from floodgate_chat.scripts.position import Position
 
 
 class GameState():

@@ -1,7 +1,7 @@
-from scripts.client_state.none_state import NoneState
-from scripts.client_state.logged_in_state import LoggedInState
-from scripts.client_state.game_state import GameState
-from scripts.log_output import log_output
+from floodgate_chat.scripts.client_state.none_state import NoneState
+from floodgate_chat.scripts.client_state.logged_in_state import LoggedInState
+from floodgate_chat.scripts.client_state.game_state import GameState
+from floodgate_chat.scripts.log_output import log_output
 
 
 def SplitTextBlock(text_block):

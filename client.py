@@ -1,10 +1,10 @@
 import sys
 import signal
 from threading import Thread
-from scripts.client_p import ClientP, SplitTextBlock
-from scripts.log_output import log_output
-from scripts.client_socket import client_socket
-from client_config import CLIENT_USER, CLIENT_PASS
+from floodgate_chat.scripts.client_p import ClientP, SplitTextBlock
+from floodgate_chat.scripts.log_output import log_output
+from floodgate_chat.scripts.client_socket import client_socket
+from floodgate_chat.client_config import CLIENT_USER, CLIENT_PASS
 
 
 class Client():

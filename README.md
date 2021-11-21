@@ -4,3 +4,9 @@
 
 📖 [AWSにデータベースサーバーってどうやって置くの（＾～＾）？](https://crieit.net/drafts/61890804402ea)  
 📖 [e-gov-vote-kifuwarabe-server](https://github.com/muzudho/e-gov-vote-kifuwarabe-server)  
+
+## Run
+
+```shell
+python.exe client.py
+```

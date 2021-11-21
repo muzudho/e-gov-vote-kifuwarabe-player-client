@@ -1,4 +1,4 @@
-# floodgate-chat
+# floodgate_chat
 
 フラッドゲートと通信する練習（＾～＾）
 
@@ -14,7 +14,7 @@ Example:
 ## Run
 
 ```shell
-# cd floodgate-chat
+# cd floodgate_chat
 client.py
 ```
 

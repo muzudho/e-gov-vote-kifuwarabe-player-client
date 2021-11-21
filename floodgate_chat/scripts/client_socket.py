@@ -1,6 +1,6 @@
 import socket
-from client_config import SERVER_HOST, SERVER_PORT, MESSAGE_SIZE
-from scripts.log_output import LogOutput, log_output
+from floodgate_chat.client_config import SERVER_HOST, SERVER_PORT, MESSAGE_SIZE
+from floodgate_chat.scripts.log_output import LogOutput, log_output
 
 
 class ClientSocket():
