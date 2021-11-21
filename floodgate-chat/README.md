@@ -14,6 +14,7 @@ Example:
 ## Run
 
 ```shell
+# cd floodgate-chat
 client.py
 ```
 
