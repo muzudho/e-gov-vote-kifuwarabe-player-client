@@ -16,7 +16,7 @@ def SplitTextBlock(text_block):
     return lines
 
 
-class ClientP():
+class ClientDiagram():
     def __init__(self):
         self._state = NoneState()
         self._user_name = ''
