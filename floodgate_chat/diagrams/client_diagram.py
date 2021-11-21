@@ -124,8 +124,19 @@ class ClientDiagram():
                 # コールバック関数の初期設定
                 def go_func():
 
-                    # 投票中なので、10秒待ちます
-                    time.sleep(10)
+                    # a. 手番が回ってきた直後の待ち時間
+                    init_sec = 20  # 10, 20
+                    # b. 投票が無かったときの追加の待ち時間
+                    interval_sec = 10  # 5, 10
+                    # c. 投票を待つ回数
+                    tryal_max = 34  # 70, 34
+                    # サンプル
+                    #  a,  b,  c なら、 c*b +  a
+                    # 10,  5, 70 なら、70*5 + 10 = 360 = 6分
+                    # 20, 10, 34 なら、34*10 +20 = 360 = 6分
+
+                    # 手番が回ってきた直後の待ち時間
+                    time.sleep(init_sec)
 
                     tryal_count = 0
                     while True:
@@ -137,15 +148,14 @@ class ClientDiagram():
                                 f"投票が溜まってたので指します [{m}]")
                             return m
 
-                        # 70回試せば 70*5 + 10 = 360 = 6分。
-                        if 70 < tryal_count:
+                        if tryal_max < tryal_count:
                             # 投了しよ
                             log_output.display_and_log_internal(
                                 f"投票が無いので投了しよ tryal_count = [{m}]")
                             return '%TORYO'
 
-                        # 投票が 0件 だったら、入力中かも知れないので、5秒待ちます
-                        time.sleep(5)
+                        # 投票が無かったときの追加の待ち時間
+                        time.sleep(interval_sec)
                         tryal_count += 1
 
                 next_state.go_func = go_func
