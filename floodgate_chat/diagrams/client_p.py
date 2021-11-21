@@ -1,6 +1,6 @@
-from floodgate_chat.parser.client_state.none_state import NoneState
-from floodgate_chat.parser.client_state.logged_in_state import LoggedInState
-from floodgate_chat.parser.client_state.game_state import GameState
+from floodgate_chat.diagrams.client_state.none_state import NoneState
+from floodgate_chat.diagrams.client_state.logged_in_state import LoggedInState
+from floodgate_chat.diagrams.client_state.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 
 
