@@ -3,8 +3,10 @@ from floodgate_chat.diagrams.client_state.none_state import NoneState
 from floodgate_chat.diagrams.client_state.logged_in_state import LoggedInState
 from floodgate_chat.diagrams.client_state.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
-from dynamodb.e_gov_bestmove import get_bestmove
 from floodgate_chat.scripts.client_socket import client_socket
+from dynamodb.e_gov_bestmove import get_bestmove
+from dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
+from dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 
 def SplitTextBlock(text_block):
@@ -79,9 +81,10 @@ class ClientDiagram():
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] result=[{result}]")
 
+        # [無]状態
         if self._state.name == '<NoneState/>':
+            # ログインした
             if result == '<NoneState.LoginOk/>':
-                # ログインした
 
                 # 読み取った情報の記憶
                 self._user_name = self._state.user_name
@@ -90,16 +93,19 @@ class ClientDiagram():
                 next_state = LoggedInState()
                 self._state = next_state
 
+        # [ログイン済]状態
         elif self._state.name == '<LoggedInState/>':
+            # Game ID を取得した
             if result == '<LoggedInState.GameId/>':
-                # Game ID を取得
                 self._game_id = self._state.game_id
+
+            # 初期局面情報取得した
             elif result == '<LoggedInState.EndGameSummary/>':
-                # 初期局面終了
                 # 常に AGREE を返します
                 self._agree_func()
+
+            # 対局成立した
             elif result == '<LoggedInState.Start/>':
-                # 対局成立
                 self._start_game_id = self._state.start_game_id
 
                 # 読み取った情報の記憶
@@ -111,6 +117,7 @@ class ClientDiagram():
                 next_state.position = self._state.position
                 next_state.player_names = self._state.player_names
 
+                # コールバック関数の初期設定
                 def go_func():
                     while True:
                         m = get_bestmove()
@@ -126,25 +133,49 @@ class ClientDiagram():
 
                 next_state.go_func = go_func
 
+                # テーブルを削除します
+                try:
+                    delete_bestmove_table()
+                except Exception as e:
+                    log_output.display_and_log_internal(f"テーブル削除できなかった [{e}]")
+                # テーブルを作成します
+                try:
+                    create_bestmove_table()
+                except Exception as e:
+                    log_output.display_and_log_internal(f"テーブル作成できなかった [{e}]")
+
                 self._state = next_state
 
+        # [対局]状態
         elif self._state.name == '<GameState/>':
+            # 指し手を反映した
             if result == '<Position.Move/>':
-                # 指し手を反映した
+
+                # テーブルを削除します
+                try:
+                    delete_bestmove_table()
+                except Exception as e:
+                    log_output.display_and_log_internal(f"テーブル削除できなかった [{e}]")
+                # テーブルを作成します
+                try:
+                    create_bestmove_table()
+                except Exception as e:
+                    log_output.display_and_log_internal(f"テーブル作成できなかった [{e}]")
+
                 # 盤表示
                 text = self.state.position.formatBoard()
                 log_output.display_and_log_internal(text)
 
+            # 勝ち
             elif result == '<Position.Win/>':
-                # 勝ち
                 s = f"""+----------+
 |    WIN   |
 +----------+
 """
                 log_output.display_and_log_internal(s)
 
+            # 負け
             elif result == '<Position.Lose/>':
-                # 負け
                 s = f"""+----------+
 |   LOSE   |
 +----------+

@@ -5,7 +5,7 @@ python.exe e_gov_create_bestmove_table.py
 import boto3
 
 
-def create_table(dynamodb=None):
+def create_bestmove_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb',
                                   region_name="us-east-2")
@@ -46,5 +46,5 @@ def create_table(dynamodb=None):
 
 
 if __name__ == '__main__':
-    bestmove_table = create_table()
+    bestmove_table = create_bestmove_table()
     print("Table status:", bestmove_table.table_status)
