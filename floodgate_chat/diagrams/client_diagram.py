@@ -28,6 +28,7 @@ class ClientDiagram():
         def none_func():
             pass
 
+        # アグリーを返すコールバック関数
         self._agree_func = none_func
 
     @property
@@ -60,6 +61,7 @@ class ClientDiagram():
 
     @property
     def agree_func(self):
+        """アグリーを返すコールバック関数"""
         return self._agree_func
 
     @agree_func.setter

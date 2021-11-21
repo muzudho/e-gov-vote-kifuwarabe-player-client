@@ -22,6 +22,12 @@ class GameState():
         # 局面
         self._position = Position()
 
+        def none_func():
+            return "Unimplemented[none_func]"
+
+        # 指し手を返すコールバック関数
+        self._go_func = none_func
+
     @property
     def name(self):
         return "<GameState/>"
@@ -41,6 +47,15 @@ class GameState():
     @player_names.setter
     def player_names(self, val):
         self._player_names = val
+
+    @property
+    def go_func(self):
+        """指し手を返すコールバック関数"""
+        return self._go_func
+
+    @go_func.setter
+    def go_func(self, func):
+        self._go_func = func
 
     def forward_by_line(self, line):
         """状態遷移します"""
@@ -153,6 +168,10 @@ class GameState():
                 self._position._expend_times[1] += expendTime
             else:
                 self._position._expend_times[2] += expendTime
+
+            # TODO 相手の指し手だったら、自分の指し手を入力する番になります
+            m = self.go_func()
+            print(f"Bestmove: m=[{m}]")
 
             return '<Position.Move/>'
 
