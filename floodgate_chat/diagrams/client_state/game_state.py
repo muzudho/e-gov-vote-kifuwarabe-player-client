@@ -7,9 +7,12 @@ class GameState():
 
     def __init__(self):
 
-        # 自分または相手の指し手と、その消費時間
-        # Format: `<先後><元升><先升><駒>,T<秒>`
-        # Example: `+5756FU,T20`
+        # [+5756FU,T20]
+        #  -            先後(+)(-)
+        #   --          元升
+        #     --        先升
+        #       --      駒
+        #          ---  消費時間（秒）
         self._move_pattern = re.compile(
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
@@ -43,8 +46,11 @@ class GameState():
         """状態遷移します"""
 
         # ----[+5756FU,T20]---->
-        #      ------- ---
-        #      指し手   消費時間
+        #      -            先後(+)(-)
+        #       --          元升
+        #         --        先升
+        #           --      駒
+        #              ---  消費時間（秒）
         result = self._move_pattern.match(line)
         if result:
             phase = result.group(1)
