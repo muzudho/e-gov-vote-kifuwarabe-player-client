@@ -27,7 +27,10 @@ class ClientDiagram():
         self._user_name = ''
         self._game_id = ''
         self._start_game_id = ''
+
+        # 自分の手番符号
         self._my_turn = ''
+
         self._current_turn = ''
 
         def none_func():
@@ -116,6 +119,7 @@ class ClientDiagram():
                 next_state = GameState()
                 next_state.position = self._state.position
                 next_state.player_names = self._state.player_names
+                next_state.my_turn = self._my_turn
 
                 # コールバック関数の初期設定
                 def go_func():

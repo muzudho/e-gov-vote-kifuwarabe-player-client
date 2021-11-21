@@ -16,6 +16,9 @@ class GameState():
         self._move_pattern = re.compile(
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
+        # 自分の手番符号
+        self._my_turn = None
+
         # プレイヤー名 [未使用, 先手プレイヤー名, 後手プレイヤー名]
         self._player_names = ['', '', '']
 
@@ -39,6 +42,14 @@ class GameState():
     @position.setter
     def position(self, val):
         self._position = val
+
+    @property
+    def my_turn(self):
+        return self._my_turn
+
+    @my_turn.setter
+    def my_turn(self, val):
+        self._my_turn = val
 
     @property
     def player_names(self):
@@ -169,9 +180,11 @@ class GameState():
             else:
                 self._position._expend_times[2] += expendTime
 
-            # TODO 相手の指し手だったら、自分の指し手を入力する番になります
-            m = self.go_func()
-            print(f"Bestmove: m=[{m}]")
+            # 相手の指し手だったら、自分の指し手を入力する番になります
+            if phase != self._my_turn:
+                print(f"自分の手番が回ってきました: phase=[{phase}]")
+                m = self.go_func()
+                print(f"Bestmove: m=[{m}]")
 
             return '<Position.Move/>'
 
