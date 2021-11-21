@@ -45,6 +45,13 @@ def create_bestmove_table(dynamodb=None):
     return table
 
 
+# cd dynamodb
+# python.exe e_gov_create_bestmove_table.py
 if __name__ == '__main__':
-    bestmove_table = create_bestmove_table()
-    print("Table status:", bestmove_table.table_status)
+    # テーブルを作成します
+    try:
+        bestmove_table = create_bestmove_table()
+        print(f"Table status:{bestmove_table.table_status}")
+
+    except Exception as e:
+        print(f"(Err.163) テーブル作成できなかった [{e}]")

@@ -123,6 +123,11 @@ class ClientDiagram():
 
                 # コールバック関数の初期設定
                 def go_func():
+
+                    # 投票中なので、10秒待ちます
+                    time.sleep(10)
+
+                    tryal_count = 0
                     while True:
                         m = get_bestmove()
 
@@ -132,21 +137,39 @@ class ClientDiagram():
                             client_socket.send_line(m)
                             break
 
-                        # 5秒待ちます
+                        # 10回試せば 5*10 + 10 = 1分。 17回試せば 17*10 + 10 = 3分。
+                        if 17 < tryal_count:
+                            # 投了しよ
+                            log_output.display_and_log_internal(
+                                f"投票が無いので投了しよ tryal_count = [{m}]")
+                            client_socket.send_line('%TORYO')
+                            pass
+
+                        # 投票が 0件 だったら、入力中かも知れないので、5秒待ちます
                         time.sleep(5)
+                        tryal_count += 1
 
                 next_state.go_func = go_func
 
                 # テーブルを削除します
                 try:
                     delete_bestmove_table()
+
+                    # 時間間隔を開けてみる
+                    time.sleep(5)
                 except Exception as e:
-                    log_output.display_and_log_internal(f"テーブル削除できなかった [{e}]")
+                    log_output.display_and_log_internal(
+                        f"(Err.158) テーブル削除できなかった [{e}]")
+
                 # テーブルを作成します
                 try:
                     create_bestmove_table()
+
+                    # 時間間隔を開けてみる
+                    time.sleep(5)
                 except Exception as e:
-                    log_output.display_and_log_internal(f"テーブル作成できなかった [{e}]")
+                    log_output.display_and_log_internal(
+                        f"(Err.163) テーブル作成できなかった [{e}]")
 
                 self._state = next_state
 
@@ -158,13 +181,21 @@ class ClientDiagram():
                 # テーブルを削除します
                 try:
                     delete_bestmove_table()
+
+                    # 時間間隔を開けてみる
+                    time.sleep(5)
                 except Exception as e:
-                    log_output.display_and_log_internal(f"テーブル削除できなかった [{e}]")
+                    log_output.display_and_log_internal(
+                        f"(Err.178) テーブル削除できなかった [{e}]")
                 # テーブルを作成します
                 try:
                     create_bestmove_table()
+
+                    # 時間間隔を開けてみる
+                    time.sleep(5)
                 except Exception as e:
-                    log_output.display_and_log_internal(f"テーブル作成できなかった [{e}]")
+                    log_output.display_and_log_internal(
+                        f"(Err.183) テーブル作成できなかった [{e}]")
 
                 # 盤表示
                 text = self.state.position.formatBoard()
