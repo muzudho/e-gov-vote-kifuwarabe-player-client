@@ -16,31 +16,32 @@ def get_bestmove():
         該当がなければ None
     """
 
+    # 指し手とその投票数のディクショナリー
+    summary_dict = {}
+
     item_list = scan_bestmove_table()
     if item_list:
         print("Scan bestmove table succeeded:")
         pprint(item_list, sort_dicts=False)
 
-        move_dict = {}
-
         for item in item_list:
             # move
             m = item['bestmove']
 
-            if m in move_dict.keys():
-                move_dict[m] += 1
+            if m in summary_dict.keys():
+                summary_dict[m] += 1
             else:
-                move_dict[m] = 1
+                summary_dict[m] = 1
 
     max_key_list = []
     max_value = 0
 
-    for key, value in move_dict.items():
-        if max_value < value:
-            max_key_list = [key]
-            max_value = value
-        elif max_value == value:
-            max_key_list.append(key)
+    for csa_move, vote_count in summary_dict.items():
+        if max_value < vote_count:
+            max_key_list = [csa_move]
+            max_value = vote_count
+        elif max_value == vote_count:
+            max_key_list.append(csa_move)
 
     print(f"max_value=[{max_value}] max_key_list=[{max_key_list}]")
 
