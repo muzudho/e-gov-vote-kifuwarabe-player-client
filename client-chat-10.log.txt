@@ -1,0 +1,6 @@
+[2021-11-21 20:13:11] < LOGIN kifuwarabe kifu315
+
+[2021-11-21 20:13:11] > LOGIN:kifuwarabe OK
+
+[2021-11-21 20:13:11] > LOGIN:kifuwarabe OK
+[2021-11-21 20:13:11] : [DEBUG] state=[<NoneState/>] result=[<NoneState.LoginOk/>]

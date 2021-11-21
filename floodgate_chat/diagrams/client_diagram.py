@@ -137,8 +137,8 @@ class ClientDiagram():
                                 f"投票が溜まってたので指します [{m}]")
                             return m
 
-                        # 10回試せば 5*10 + 10 = 1分。 17回試せば 17*10 + 10 = 3分。
-                        if 17 < tryal_count:
+                        # 70回試せば 70*5 + 10 = 360 = 6分。
+                        if 70 < tryal_count:
                             # 投了しよ
                             log_output.display_and_log_internal(
                                 f"投票が無いので投了しよ tryal_count = [{m}]")
