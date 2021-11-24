@@ -1,7 +1,7 @@
 import re
 
 
-class NoneState():
+class LoginChoice():
     def __init__(self):
         # [LOGIN:e-gov-vote-kifuwarabe OK]
         #        ---------------------
@@ -13,7 +13,7 @@ class NoneState():
 
     @property
     def name(self):
-        return "<NoneState/>"
+        return "[Border]<Login>"
 
     @property
     def user_name(self):
@@ -23,8 +23,18 @@ class NoneState():
     def user_name(self, val):
         self._user_name = val
 
-    def forward_by_line(self, line):
-        """状態遷移します"""
+    def forward(self, line):
+        """状態遷移します
+        Parameters
+        ----------
+        str : line
+            入力文字列
+
+        Returns
+        -------
+        str
+            辺の名前
+        """
 
         # ----[LOGIN:e-gov-vote-kifuwarabe OK]----> ログイン成功
         #            ---------------------
@@ -32,19 +42,19 @@ class NoneState():
         matched = self._login_ok_pattern.match(line)
         if matched:
             self._user_name = matched.group(1)
-            return '<NoneState.LoginOk/>'
+            return '--Ok--'
 
-        return '<NoneState.Unknown>'
+        return '--Fail--'
 
 
 # Test
-# python.exe "./scripts/client_state/none_state.py"
+# python.exe "./scripts/border_state.py"
 if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
 
-    none_state = NoneState()
-    result = none_state.forward_by_line(line)
-    if result == '<NoneState.LoginOk/>':
+    login_choice = LoginChoice()
+    edge = login_choice.forward(line)
+    if edge == '--Ok--':
         print('.', end='')
     else:
         print('f', end='')

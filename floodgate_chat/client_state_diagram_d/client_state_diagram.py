@@ -1,7 +1,7 @@
 import time
-from floodgate_chat.client_state_diagram_d.client_state.none_state import NoneState
-from floodgate_chat.client_state_diagram_d.client_state.logged_in_state import LoggedInState
-from floodgate_chat.client_state_diagram_d.client_state.game_state import GameState
+from floodgate_chat.client_state_diagram_d.border_state import LoginChoice
+from floodgate_chat.client_state_diagram_d.logged_in_state import LoggedInChoice
+from floodgate_chat.client_state_diagram_d.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from dynamodb.e_gov_bestmove import get_bestmove
@@ -23,7 +23,7 @@ def SplitTextBlock(text_block):
 
 class ClientStateDiagram():
     def __init__(self):
-        self._state = NoneState()
+        self._state = LoginChoice()
         self._user_name = ''
         self._game_id = ''
         self._start_game_id = ''
@@ -76,39 +76,44 @@ class ClientStateDiagram():
     def agree_func(self, func):
         self._agree_func = func
 
-    def forward_by_line(self, line):
+    def forward(self, line):
+        """状態遷移します
+        Parameters
+        ----------
+        str : line
+            入力文字列（末尾に改行なし）
+        """
 
         # ここで状態遷移します
-        result = self._state.forward_by_line(line)
+        edge = self._state.forward(line)
 
         log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._state.name}] result=[{result}]")
+            f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")
 
-        # [無]状態
-        if self._state.name == '<NoneState/>':
+        # [Border]<Login> choice
+        if self._state.name == '[Border]<Login>':
             # ログインした
-            if result == '<NoneState.LoginOk/>':
+            if edge == '--Ok--':
 
                 # 読み取った情報の記憶
                 self._user_name = self._state.user_name
 
                 # 次のステートへ引継ぎ
-                next_state = LoggedInState()
-                self._state = next_state
+                self._state = LoggedInChoice()
 
-        # [ログイン済]状態
-        elif self._state.name == '<LoggedInState/>':
+        # [LoggedIn]<LoggedIn> choice
+        elif self._state.name == '[LoggedIn]<LoggedIn>':
             # Game ID を取得した
-            if result == '<LoggedInState.GameId/>':
+            if edge == '--GameId--':
                 self._game_id = self._state.game_id
 
             # 初期局面情報取得した
-            elif result == '<LoggedInState.EndGameSummary/>':
+            elif edge == '--EndGameSummary--':
                 # 常に AGREE を返します
                 self._agree_func()
 
             # 対局成立した
-            elif result == '<LoggedInState.Start/>':
+            elif edge == '--Start--':
                 self._start_game_id = self._state.start_game_id
 
                 # 読み取った情報の記憶
@@ -116,10 +121,10 @@ class ClientStateDiagram():
                 self._current_turn = self._state.startpos_turn
 
                 # 次のステートへ引継ぎ
-                next_state = GameState()
-                next_state.position = self._state.position
-                next_state.player_names = self._state.player_names
-                next_state.my_turn = self._my_turn
+                game_state = GameState()
+                game_state.position = self._state.position
+                game_state.player_names = self._state.player_names
+                game_state.my_turn = self._my_turn
 
                 # コールバック関数の初期設定
                 def go_func():
@@ -158,7 +163,7 @@ class ClientStateDiagram():
                         time.sleep(interval_sec)
                         tryal_count += 1
 
-                next_state.go_func = go_func
+                game_state.go_func = go_func
 
                 # テーブルを削除します
                 try:
@@ -183,17 +188,17 @@ class ClientStateDiagram():
                 if self._my_turn == self._current_turn:
                     # 初手を考えます
                     log_output.display_and_log_internal(f"(175) 初手を考えます")
-                    m = next_state.go_func()
+                    m = game_state.go_func()
                     client_socket.send_line(f'{m}\n')
                     log_output.display_and_log_internal(
                         f"(178) 初手を指します m=[{m}]")
 
-                self._state = next_state
+                self._state = game_state
 
         # [対局]状態
-        elif self._state.name == '<GameState/>':
+        elif self._state.name == '[Game]':
             # 指し手を反映した
-            if result == '<Position.Move/>':
+            if edge == '--Move--':
 
                 # テーブルを削除します
                 try:
@@ -219,7 +224,7 @@ class ClientStateDiagram():
                 log_output.display_and_log_internal(text)
 
             # 勝ち
-            elif result == '<Position.Win/>':
+            elif edge == '--Win--':
                 s = f"""+----------+
 |    WIN   |
 +----------+
@@ -227,7 +232,7 @@ class ClientStateDiagram():
                 log_output.display_and_log_internal(s)
 
             # 負け
-            elif result == '<Position.Lose/>':
+            elif edge == '--Lose--':
                 s = f"""+----------+
 |   LOSE   |
 +----------+

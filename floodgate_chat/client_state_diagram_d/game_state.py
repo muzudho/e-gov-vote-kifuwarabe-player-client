@@ -35,7 +35,7 @@ class GameState():
 
     @property
     def name(self):
-        return "<GameState/>"
+        return "[Game]"
 
     @property
     def position(self):
@@ -70,8 +70,18 @@ class GameState():
     def go_func(self, func):
         self._go_func = func
 
-    def forward_by_line(self, line):
-        """状態遷移します"""
+    def forward(self, line):
+        """状態遷移します
+        Parameters
+        ----------
+        str : line
+            入力文字列
+
+        Returns
+        -------
+        str
+            次のノード名
+        """
 
         # ----[+5756FU,T20]---->
         #      -            先後(+)(-)
@@ -191,24 +201,24 @@ class GameState():
                 log_output.display_and_log_internal(
                     f"(191) 自分の手番で指した m=[{m}]")
 
-            return '<Position.Move/>'
+            return '--Move--'
 
         # ----[#WIN]---->
         #      ----
         #      勝ち
         if line == '#WIN':
-            return '<Position.Win/>'
+            return '--Win--'
 
         # ----[#LOSE]---->
         #      -----
         #      負け
         if line == '#LOSE':
-            return '<Position.Lose/>'
+            return '--Lose--'
 
         # ----[??????]---->
         #      ------
         #      その他
-        return '<Position.Unknown/>'
+        return '--Unknown--'
 
 
 # Test
@@ -216,9 +226,9 @@ class GameState():
 if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
 
-    none_state = GameState()
-    result = none_state.forward_by_line(line)
-    if result == '<NoneState.LoginOk/>':
+    game_state = GameState()
+    result = game_state.forward(line)
+    if result == '--Ok--':
         print('.', end='')
     else:
         print('f', end='')

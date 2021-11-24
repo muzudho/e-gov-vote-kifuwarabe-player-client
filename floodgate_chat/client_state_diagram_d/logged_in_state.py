@@ -2,7 +2,7 @@ import re
 from floodgate_chat.scripts.position import Position
 
 
-class LoggedInState():
+class LoggedInChoice():
 
     def __init__(self):
         # [Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]
@@ -60,7 +60,7 @@ class LoggedInState():
 
     @property
     def name(self):
-        return "<LoggedInState/>"
+        return "[LoggedIn]<LoggedIn>"
 
     @property
     def game_id(self):
@@ -90,14 +90,19 @@ class LoggedInState():
     def startpos_turn(self):
         return self._startpos_turn
 
-    def forward_by_line(self, line):
-        """状態遷移します"""
+    def forward(self, line):
+        """状態遷移します
+        Parameters
+        ----------
+        str : line
+            辺の名前
+        """
 
         # ----[END Game_Summary]---->
         #      ----------------
         #      初期局面終了
         if line == 'END Game_Summary':
-            return '<LoggedInState.EndGameSummary/>'
+            return '--EndGameSummary--'
 
         # ----[Name+:John]---->
         #     [Name-:John]
@@ -116,7 +121,7 @@ class LoggedInState():
                 # Error
                 raise ValueError(f'ここにはこないはず')
 
-            return '<LoggedInState.Turn/>'
+            return '--Turn--'
 
         # ----[Your_Turn:+]---->
         #                -
@@ -124,7 +129,7 @@ class LoggedInState():
         matched = self._my_turn_pattern.match(line)
         if matched:
             self._my_turn = matched.group(1)
-            return '<LoggedInState.MyTurn/>'
+            return '--MyTurn--'
 
         # ----[To_Move:+]---->
         #              -
@@ -132,7 +137,7 @@ class LoggedInState():
         matched = self._startpos_turn_pattern.match(line)
         if matched:
             self._startpos_turn = matched.group(1)
-            return '<LoggedInState.StartPosTurn/>'
+            return '--StartPosTurn--'
 
         # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
         #              ---------------------------------------------------------------------
@@ -140,7 +145,7 @@ class LoggedInState():
         matched = self._game_id_pattern.match(line)
         if matched:
             self._game_id = matched.group(1)
-            return '<LoggedInState.GameId/>'
+            return '--GameId--'
 
         # ----[開始局面の各行]---->
         matched = self._begin_pos_row_pattern.match(line)
@@ -156,7 +161,7 @@ class LoggedInState():
             self._position.board[20 + rank] = matched.group(9)
             self._position.board[10 + rank] = matched.group(10)
 
-            return '<Position.BeginPosRow/>'
+            return '--BeginPosRow--'
 
         # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
         #            ------------------------------------------------------------------------------------------
@@ -164,6 +169,6 @@ class LoggedInState():
         matched = self._start_pattern.match(line)
         if matched:
             self._start_game_id = matched.group(1)
-            return '<LoggedInState.Start/>'
+            return '--Start--'
 
-        return '<LoggedInState.Unknown>'
+        return '--Unknown--'

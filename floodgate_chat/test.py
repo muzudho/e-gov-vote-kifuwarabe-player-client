@@ -20,7 +20,7 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            self._client.state_diagram.forward_by_line(received)
+            self._client.state_diagram.forward(received)
 
         self._client.state_diagram.agree_func = __agree_func
 
@@ -35,8 +35,8 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        self._client.state_diagram.forward_by_line(received)
-        if self._client.state_diagram.state.name != '<LoggedInState/>':
+        self._client.state_diagram.forward(received)
+        if self._client.state_diagram.state.name != '[LoggedIn]<LoggedIn>':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -78,9 +78,9 @@ END Game_Summary
         for line in lines:
             print(
                 f"[DEBUG] state=[{self._client.state_diagram.state.name}] line=[{line}]")
-            self._client.state_diagram.forward_by_line(line)
+            self._client.state_diagram.forward(line)
 
-        if self._client.state_diagram.state.name != '<GameState/>':
+        if self._client.state_diagram.state.name != '[Game]':
             print(
                 f'Unimplemented begin board. client.state_diagram.state.name=[{self._client.state_diagram.state.name}]')
 
@@ -99,13 +99,13 @@ END Game_Summary
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        self._client.state_diagram.forward_by_line(received)
+        self._client.state_diagram.forward(received)
         text = self._client.state_diagram.state.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        self._client.state_diagram.forward_by_line(received)
+        self._client.state_diagram.forward(received)
         text = self._client.state_diagram.state.position.formatBoard()
         print(text)
 
