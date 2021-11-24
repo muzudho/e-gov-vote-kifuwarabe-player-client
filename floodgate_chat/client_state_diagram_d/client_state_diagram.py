@@ -41,6 +41,45 @@ class ClientStateDiagram():
         # アグリーを返すコールバック関数
         self._agree_func = none_func
 
+        # 指し手を返すコールバック関数
+        def go_func():
+
+            # a. 手番が回ってきた直後の待ち時間
+            init_sec = 20  # 10, 20
+            # b. 投票が無かったときの追加の待ち時間
+            interval_sec = 10  # 5, 10
+            # c. 投票を待つ回数
+            tryal_max = 34  # 70, 34
+            # サンプル
+            #  a,  b,  c なら、 c*b +  a
+            # 10,  5, 70 なら、70*5 + 10 = 360 = 6分
+            # 20, 10, 34 なら、34*10 +20 = 360 = 6分
+
+            # 手番が回ってきた直後の待ち時間
+            time.sleep(init_sec)
+
+            tryal_count = 0
+            while True:
+                m = get_bestmove()
+
+                if not(m is None):
+                    # 投票が溜まってたので指します
+                    log_output.display_and_log_internal(
+                        f"投票が溜まってたので指します [{m}]")
+                    return m
+
+                if tryal_max < tryal_count:
+                    # 投了しよ
+                    log_output.display_and_log_internal(
+                        f"投票が無いので投了しよ tryal_count = [{m}]")
+                    return '%TORYO'
+
+                # 投票が無かったときの追加の待ち時間
+                time.sleep(interval_sec)
+                tryal_count += 1
+
+        self._go_func = go_func
+
     @property
     def state(self):
         return self._state
@@ -77,6 +116,15 @@ class ClientStateDiagram():
     @agree_func.setter
     def agree_func(self, func):
         self._agree_func = func
+
+    @property
+    def go_func(self):
+        """指し手を返すコールバック関数"""
+        return self._go_func
+
+    @go_func.setter
+    def go_func(self, func):
+        self._go_func = func
 
     def create_login_choice(self):
         """ステート生成"""
@@ -142,7 +190,7 @@ class ClientStateDiagram():
             if self._my_turn == self._current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(f"(175) 初手を考えます")
-                m = game_state.go_func()
+                m = self.go_func()
                 client_socket.send_line(f'{m}\n')
                 log_output.display_and_log_internal(
                     f"(178) 初手を指します m=[{m}]")
@@ -160,47 +208,17 @@ class ClientStateDiagram():
         stat.player_names = self._state.player_names
         stat.my_turn = self._my_turn
 
-        # コールバック関数の初期設定
-        def go_func():
-
-            # a. 手番が回ってきた直後の待ち時間
-            init_sec = 20  # 10, 20
-            # b. 投票が無かったときの追加の待ち時間
-            interval_sec = 10  # 5, 10
-            # c. 投票を待つ回数
-            tryal_max = 34  # 70, 34
-            # サンプル
-            #  a,  b,  c なら、 c*b +  a
-            # 10,  5, 70 なら、70*5 + 10 = 360 = 6分
-            # 20, 10, 34 なら、34*10 +20 = 360 = 6分
-
-            # 手番が回ってきた直後の待ち時間
-            time.sleep(init_sec)
-
-            tryal_count = 0
-            while True:
-                m = get_bestmove()
-
-                if not(m is None):
-                    # 投票が溜まってたので指します
-                    log_output.display_and_log_internal(
-                        f"投票が溜まってたので指します [{m}]")
-                    return m
-
-                if tryal_max < tryal_count:
-                    # 投了しよ
-                    log_output.display_and_log_internal(
-                        f"投票が無いので投了しよ tryal_count = [{m}]")
-                    return '%TORYO'
-
-                # 投票が無かったときの追加の待ち時間
-                time.sleep(interval_sec)
-                tryal_count += 1
-
-        stat.go_func = go_func
-
         def on_move():
-            """指し手を反映した"""
+            """指し手"""
+            # 相手の指し手だったら、自分の指し手を入力する番になります
+            if self._current_turn != self._my_turn:
+                print(
+                    f"自分の手番が回ってきました。考えます: self._current_turn=[{self._current_turnse}] self._my_turn=[{self._my_turn}]")
+                m = self.go_func()
+                client_socket.send_line(f'{m}\n')
+                log_output.display_and_log_internal(
+                    f"(191) 自分の手番で指した m=[{m}]")
+
             # テーブルを削除します
             try:
                 delete_bestmove_table()

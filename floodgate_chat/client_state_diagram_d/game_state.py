@@ -30,9 +30,6 @@ class GameState():
         def none_func():
             return "Unimplemented[none_func]"
 
-        # 指し手を返すコールバック関数
-        self._go_func = none_func
-
         # --Move-- 時のコールバック関数
         self._on_move = none_func
 
@@ -69,15 +66,6 @@ class GameState():
     @player_names.setter
     def player_names(self, val):
         self._player_names = val
-
-    @property
-    def go_func(self):
-        """指し手を返すコールバック関数"""
-        return self._go_func
-
-    @go_func.setter
-    def go_func(self, func):
-        self._go_func = func
 
     @property
     def on_move(self):
@@ -227,15 +215,6 @@ class GameState():
                 self._position._expend_times[1] += expendTime
             else:
                 self._position._expend_times[2] += expendTime
-
-            # 相手の指し手だったら、自分の指し手を入力する番になります
-            if phase != self._my_turn:
-                print(
-                    f"自分の手番が回ってきました。考えます: phase=[{phase}] self._my_turn=[{self._my_turn}]")
-                m = self.go_func()
-                client_socket.send_line(f'{m}\n')
-                log_output.display_and_log_internal(
-                    f"(191) 自分の手番で指した m=[{m}]")
 
             self.on_move()
             return '--Move--'
