@@ -52,7 +52,7 @@ class LoggedInChoice():
             r"^P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
         def none_func(context):
-            pass
+            return '--Unimplemented--'
 
         # --GameId-- 時のコールバック関数
         self._on_game_id = none_func
@@ -106,7 +106,7 @@ class LoggedInChoice():
         #      ----------------
         #      初期局面終了
         if line == 'END Game_Summary':
-            self.on_end_game_summary()
+            self.on_end_game_summary(context)
             return '--EndGameSummary--'
 
         # ----[Name+:John]---->

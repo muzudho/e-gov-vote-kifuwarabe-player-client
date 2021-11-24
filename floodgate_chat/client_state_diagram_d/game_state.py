@@ -18,8 +18,8 @@ class GameState():
         self._move_pattern = re.compile(
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
-        def none_func():
-            return "Unimplemented[none_func]"
+        def none_func(context):
+            return '--Unimplemented--'
 
         # --Move-- 時のコールバック関数
         self._on_move = none_func
@@ -183,21 +183,21 @@ class GameState():
             else:
                 context.position._expend_times[2] += expendTime
 
-            self.on_move()
+            self.on_move(context)
             return '--Move--'
 
         # ----[#WIN]---->
         #      ----
         #      勝ち
         if line == '#WIN':
-            self.on_win()
+            self.on_win(context)
             return '--Win--'
 
         # ----[#LOSE]---->
         #      -----
         #      負け
         if line == '#LOSE':
-            self.on_lose()
+            self.on_lose(context)
             return '--Lose--'
 
         # ----[??????]---->

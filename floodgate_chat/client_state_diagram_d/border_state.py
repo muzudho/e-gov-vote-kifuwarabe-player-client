@@ -10,8 +10,8 @@ class LoginChoice():
         self._login_ok_pattern = re.compile(
             r'^LOGIN:([0-9A-Za-z_-]{1,32}) OK$')
 
-        def none_func():
-            pass
+        def none_func(context):
+            return '--Unimplemented--'
 
         # --Ok-- 時のコールバック関数
         self._on_ok = none_func
