@@ -88,11 +88,12 @@ END Game_Summary
         print(text)
 
         # 自分が先手か後手か
-        print(f"[DEBUG] my_turn=[{self._client.state_diagram.my_turn}]")
         print(
-            f"[DEBUG] current_turn=[{self._client.state_diagram.current_turn}]")
+            f"[DEBUG] my_turn=[{self._client.state_diagram.context.my_turn}]")
+        print(
+            f"[DEBUG] current_turn=[{self._client.state_diagram.context.current_turn}]")
 
-        if self._client.state_diagram.my_turn != self._client.state_diagram.current_turn:
+        if self._client.state_diagram.context.my_turn != self._client.state_diagram.context.current_turn:
             print(f"[ERROR] 手番が違う")
             return
 

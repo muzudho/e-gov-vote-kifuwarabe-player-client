@@ -10,8 +10,6 @@ class LoginChoice():
         self._login_ok_pattern = re.compile(
             r'^LOGIN:([0-9A-Za-z_-]{1,32}) OK$')
 
-        self._user_name = ''
-
         def none_func():
             pass
 
@@ -21,14 +19,6 @@ class LoginChoice():
     @property
     def name(self):
         return "[Border]<Login>"
-
-    @property
-    def user_name(self):
-        return self._user_name
-
-    @user_name.setter
-    def user_name(self, val):
-        self._user_name = val
 
     @property
     def on_ok(self):
@@ -57,7 +47,7 @@ class LoginChoice():
         #            1. username
         matched = self._login_ok_pattern.match(line)
         if matched:
-            self._user_name = matched.group(1)
+            context.user_name = matched.group(1)
 
             self.on_ok()
 

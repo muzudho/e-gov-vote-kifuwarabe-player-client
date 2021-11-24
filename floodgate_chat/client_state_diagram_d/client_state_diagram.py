@@ -30,15 +30,6 @@ class ClientStateDiagram():
         # 初期状態
         self._state = self.create_login_choice()
 
-        self._user_name = ''
-        self._game_id = ''
-        self._start_game_id = ''
-
-        # 自分の手番符号
-        self._my_turn = ''
-
-        self._current_turn = ''
-
         def none_func():
             pass
 
@@ -97,30 +88,6 @@ class ClientStateDiagram():
         return self._state
 
     @property
-    def user_name(self):
-        return self._user_name
-
-    @user_name.setter
-    def user_name(self, val):
-        self._user_name = val
-
-    @property
-    def my_turn(self):
-        return self._my_turn
-
-    @my_turn.setter
-    def my_turn(self, val):
-        self._my_turn = val
-
-    @property
-    def current_turn(self):
-        return self._current_turn
-
-    @current_turn.setter
-    def current_turn(self, val):
-        self._current_turn = val
-
-    @property
     def agree_func(self):
         """アグリーを返すコールバック関数"""
         return self._agree_func
@@ -143,8 +110,6 @@ class ClientStateDiagram():
         stat = LoginChoice()
 
         def on_ok():
-            # 読み取った情報の記憶
-            self._user_name = self._state.user_name
             # 次のステートへ引継ぎ
             self._state = self.create_logged_in_choice()
 
@@ -157,7 +122,7 @@ class ClientStateDiagram():
 
         def on_game_id():
             """Game ID を取得した"""
-            self._game_id = self._state.game_id
+            pass
 
         stat.on_game_id = on_game_id
 
@@ -168,14 +133,8 @@ class ClientStateDiagram():
 
         stat.on_end_game_summary = on_end_game_summary
 
-        def on_start():
+        def on_start(context):
             """対局成立した"""
-            self._start_game_id = self._state.start_game_id
-
-            # 読み取った情報の記憶
-            self._my_turn = self._state.my_turn
-            self._current_turn = self._state.startpos_turn
-
             # テーブルを削除します
             try:
                 delete_bestmove_table()
@@ -199,7 +158,7 @@ class ClientStateDiagram():
             # 次のステートへ引継ぎ
             game_state = self.create_game_state()
 
-            if self._my_turn == self._current_turn:
+            if self.context.my_turn == self.context.current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(f"(175) 初手を考えます")
                 m = self.go_func()
@@ -218,14 +177,13 @@ class ClientStateDiagram():
         stat = GameState()
         stat.position = self._state.position
         stat.player_names = self._state.player_names
-        stat.my_turn = self._my_turn
 
         def on_move():
             """指し手"""
             # 相手の指し手だったら、自分の指し手を入力する番になります
-            if self._current_turn != self._my_turn:
+            if self.context.current_turn != self.context.my_turn:
                 print(
-                    f"自分の手番が回ってきました。考えます: self._current_turn=[{self._current_turnse}] self._my_turn=[{self._my_turn}]")
+                    f"自分の手番が回ってきました。考えます: current_turn=[{self.context.current_turn}] my_turn=[{self.context.my_turn}]")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
                 log_output.display_and_log_internal(

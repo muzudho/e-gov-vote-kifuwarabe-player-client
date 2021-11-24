@@ -26,7 +26,7 @@ class Client():
         # Implement all handlers
         def __agree_func():
             client_socket.send_line(
-                f"AGREE {self.state_diagram._game_id}\n")
+                f"AGREE {self.state_diagram.context.game_id}\n")
 
         self.state_diagram.agree_func = __agree_func
 

@@ -10,7 +10,6 @@ class LoggedInChoice():
         #          ---------------------------------------------------------------------
         #          1. game_id
         self._game_id_pattern = re.compile(r'^Game_ID:([0-9A-Za-z_+-]+)$')
-        self._game_id = ''
 
         # [Name+:John]
         # [Name-:John]
@@ -28,20 +27,17 @@ class LoggedInChoice():
         #            1. わたしの手番(+)(-)
         self._my_turn_pattern = re.compile(
             r'^Your_Turn:([+-])$')
-        self._my_turn = ''
 
         # [To_Move:+]
         #          -
         #          1. 開始局面での手番(+)(-)
         self._startpos_turn_pattern = re.compile(
             r'^To_Move:([+-])$')
-        self._startpos_turn = ''
 
         # [START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]
         #        ------------------------------------------------------------------------------------------
         #        1. game_id
         self._start_pattern = re.compile(r'^START:([0-9A-Za-z_+-]+)$')
-        self._start_game_id = ''
 
         # [P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
         #  P2 * -HI *  *  *  *  * -KA *
@@ -59,7 +55,7 @@ class LoggedInChoice():
 
         self._position = Position()
 
-        def none_func():
+        def none_func(context):
             pass
 
         # --GameId-- 時のコールバック関数
@@ -76,32 +72,12 @@ class LoggedInChoice():
         return "[LoggedIn]<LoggedIn>"
 
     @property
-    def game_id(self):
-        return self._game_id
-
-    @property
-    def start_game_id(self):
-        return self._start_game_id
-
-    @property
-    def my_turn(self):
-        return self._my_turn
-
-    @property
     def position(self):
         return self._position
 
     @property
     def player_names(self):
         return self._player_names
-
-    @property
-    def my_turn(self):
-        return self._my_turn
-
-    @property
-    def startpos_turn(self):
-        return self._startpos_turn
 
     @property
     def on_game_id(self):
@@ -169,7 +145,7 @@ class LoggedInChoice():
         #                1. わたしの手番(+)(-)
         matched = self._my_turn_pattern.match(line)
         if matched:
-            self._my_turn = matched.group(1)
+            context.my_turn = matched.group(1)
             return '--MyTurn--'
 
         # ----[To_Move:+]---->
@@ -177,7 +153,7 @@ class LoggedInChoice():
         #              1. 開始局面での手番(+)(-)
         matched = self._startpos_turn_pattern.match(line)
         if matched:
-            self._startpos_turn = matched.group(1)
+            context.current_turn = matched.group(1)
             return '--StartPosTurn--'
 
         # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
@@ -185,7 +161,7 @@ class LoggedInChoice():
         #              1. game_id
         matched = self._game_id_pattern.match(line)
         if matched:
-            self._game_id = matched.group(1)
+            context.game_id = matched.group(1)
 
             self.on_game_id()
 
@@ -212,11 +188,13 @@ class LoggedInChoice():
         #            1. game_id
         matched = self._start_pattern.match(line)
         if matched:
-            self._start_game_id = matched.group(1)
-
-            self.on_start()
-
-            return '--Start--'
+            start_game_id = matched.group(1)
+            if context.game_id == start_game_id:
+                self.on_start(context)
+                return '--Start--'
+            else:
+                raise ValueError(
+                    f'GameIdが一致しませんでした GameId:{context.game_id} Start:{start_game_id}')
 
         return '--Unknown--'
 
