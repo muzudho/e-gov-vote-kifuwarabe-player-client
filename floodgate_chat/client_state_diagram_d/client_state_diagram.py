@@ -260,12 +260,12 @@ class ClientStateDiagram():
 
         return edge
 
-    def arrive(self, line):
+    def arrive(self, edge_name):
         """次の節の名前を返します
         Parameters
         ----------
-        str : line
-            入力文字列（末尾に改行なし）
+        str : edge_name
+            今辿っているエッジの名前
 
         Returns
         -------
@@ -273,12 +273,10 @@ class ClientStateDiagram():
             節の名前
         """
 
-        # TODO さっき去ったステートの名前
-        leaved_state_name = ""
-        # TODO 今辿っているエッジの名前
-        edge_name = ""
-        key = f"{leaved_state_name}.{edge_name}"
+        # さっき去ったステートの名前 . 今辿っているエッジの名前
+        key = f"{self.state.name}.{edge_name}"
 
         if key in connection_dict:
-            pass
-        pass
+            return connection_dict[key]
+
+        return ""
