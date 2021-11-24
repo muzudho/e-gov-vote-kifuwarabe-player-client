@@ -20,7 +20,7 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            _edge = self._client.state_diagram.forward(received)
+            _edge = self._client.state_diagram.leave(received)
 
         self._client.state_diagram.agree_func = __agree_func
 
@@ -35,7 +35,7 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        _edge = self._client.state_diagram.forward(received)
+        _edge = self._client.state_diagram.leave(received)
         if self._client.state_diagram.state.name != '[LoggedIn]<LoggedIn>':
             print('Unimplemented login')
 
@@ -78,13 +78,13 @@ END Game_Summary
         for line in lines:
             print(
                 f"[DEBUG] state=[{self._client.state_diagram.state.name}] line=[{line}]")
-            _edge = self._client.state_diagram.forward(line)
+            _edge = self._client.state_diagram.leave(line)
 
         if self._client.state_diagram.state.name != '[Game]':
             print(
                 f'Unimplemented begin board. client.state_diagram.state.name=[{self._client.state_diagram.state.name}]')
 
-        text = self._client.state_diagram.state.position.formatBoard()
+        text = self._client.state_diagram.context.position.formatBoard()
         print(text)
 
         # 自分が先手か後手か
@@ -100,14 +100,14 @@ END Game_Summary
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        _edge = self._client.state_diagram.forward(received)
-        text = self._client.state_diagram.state.position.formatBoard()
+        _edge = self._client.state_diagram.leave(received)
+        text = self._client.state_diagram.context.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        _edge = self._client.state_diagram.forward(received)
-        text = self._client.state_diagram.state.position.formatBoard()
+        _edge = self._client.state_diagram.leave(received)
+        text = self._client.state_diagram.context.position.formatBoard()
         print(text)
 
 

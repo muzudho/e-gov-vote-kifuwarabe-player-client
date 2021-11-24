@@ -61,7 +61,7 @@ class GameState():
     def on_lose(self, func):
         self._on_lose = func
 
-    def forward(self, context, line):
+    def leave(self, context, line):
         """次の辺の名前を返します
         Parameters
         ----------
@@ -213,7 +213,7 @@ if __name__ == "__main__":
     state = GameState()
 
     line = '+5756FU,T20'
-    edge = state.forward(context, line)
+    edge = state.leave(context, line)
     if edge == '--Move--':
         print('.', end='')
     else:

@@ -181,8 +181,6 @@ class ClientStateDiagram():
     def create_game_state(self):
         """ステート生成"""
         stat = GameState()
-        stat.position = self._state.position
-        stat.player_names = self._state.player_names
 
         def on_move(context):
             """指し手"""
@@ -215,7 +213,7 @@ class ClientStateDiagram():
                     f"(Err.183) テーブル作成できなかった [{e}]")
 
             # 盤表示
-            text = self.state.position.formatBoard()
+            text = self.context.position.formatBoard()
             log_output.display_and_log_internal(text)
 
         stat.on_move = on_move
@@ -242,7 +240,7 @@ class ClientStateDiagram():
 
         return stat
 
-    def forward(self, line):
+    def leave(self, line):
         """次の辺の名前を返します
         Parameters
         ----------
@@ -255,9 +253,32 @@ class ClientStateDiagram():
             辺の名前
         """
 
-        edge = self._state.forward(self._context, line)
+        edge = self._state.leave(self._context, line)
 
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")
 
         return edge
+
+    def arrive(self, line):
+        """次の節の名前を返します
+        Parameters
+        ----------
+        str : line
+            入力文字列（末尾に改行なし）
+
+        Returns
+        -------
+        str
+            節の名前
+        """
+
+        # TODO さっき去ったステートの名前
+        leaved_state_name = ""
+        # TODO 今辿っているエッジの名前
+        edge_name = ""
+        key = f"{leaved_state_name}.{edge_name}"
+
+        if key in connection_dict:
+            pass
+        pass

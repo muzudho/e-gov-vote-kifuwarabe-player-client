@@ -29,7 +29,7 @@ class LoginChoice():
     def on_ok(self, func):
         self._on_ok = func
 
-    def forward(self, context, line):
+    def leave(self, context, line):
         """次の辺の名前を返します
         Parameters
         ----------
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     state = LoginChoice()
 
     line = 'LOGIN:egov-kifuwarabe OK'
-    edge = state.forward(context, line)
+    edge = state.leave(context, line)
     if edge == '--Ok--':
         print('.', end='')
     else:
