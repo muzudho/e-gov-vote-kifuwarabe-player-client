@@ -218,3 +218,30 @@ class LoggedInChoice():
             return '--Start--'
 
         return '--Unknown--'
+
+
+# Test
+# python.exe -m floodgate_chat.client_state_diagram_d.logged_in_state
+if __name__ == "__main__":
+    state = LoggedInChoice()
+
+    line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
+    edge = state.forward(line)
+    if edge == '--GameId--':
+        print('.', end='')
+    else:
+        print('f', end='')
+
+    line = 'P1-KY-KE-GI-KI-OU-KI-GI-KE-KY'
+    edge = state.forward(line)
+    if edge == '--BeginPosRow--':
+        print('.', end='')
+    else:
+        print('f', end='')
+
+    line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
+    edge = state.forward(line)
+    if edge == '--Start--':
+        print('.', end='')
+    else:
+        print('f', end='')

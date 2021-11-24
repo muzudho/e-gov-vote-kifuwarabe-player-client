@@ -240,13 +240,13 @@ class GameState():
 
 
 # Test
-# python.exe "./scripts/client_state/game_state.py"
+# python.exe -m floodgate_chat.client_state_diagram_d.game_state
 if __name__ == "__main__":
-    line = 'LOGIN:egov-kifuwarabe OK'
+    line = '+5756FU,T20'
 
-    game_state = GameState()
-    result = game_state.forward(line)
-    if result == '--Ok--':
+    state = GameState()
+    result = state.forward(line)
+    if result == '--Move--':
         print('.', end='')
     else:
         print('f', end='')

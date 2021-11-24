@@ -66,12 +66,12 @@ class LoginChoice():
 
 
 # Test
-# python.exe "./scripts/border_state.py"
+# python.exe -m floodgate_chat.client_state_diagram_d.border_state
 if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
 
-    login_choice = LoginChoice()
-    edge = login_choice.forward(line)
+    state = LoginChoice()
+    edge = state.forward(line)
     if edge == '--Ok--':
         print('.', end='')
     else:
