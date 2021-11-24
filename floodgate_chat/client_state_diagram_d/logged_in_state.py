@@ -151,7 +151,7 @@ class LoggedInChoice():
         if matched:
             context.game_id = matched.group(1)
 
-            self.on_game_id()
+            self.on_game_id(context)
 
             return '--GameId--'
 

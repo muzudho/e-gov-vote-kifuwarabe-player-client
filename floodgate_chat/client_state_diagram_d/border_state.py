@@ -49,7 +49,7 @@ class LoginChoice():
         if matched:
             context.user_name = matched.group(1)
 
-            self.on_ok()
+            self.on_ok(context)
 
             return '--Ok--'
 

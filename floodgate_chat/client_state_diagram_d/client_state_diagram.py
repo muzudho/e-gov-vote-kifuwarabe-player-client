@@ -109,7 +109,7 @@ class ClientStateDiagram():
         """ステート生成"""
         stat = LoginChoice()
 
-        def on_ok():
+        def on_ok(_context):
             # 次のステートへ引継ぎ
             self._state = self.create_logged_in_choice()
 
