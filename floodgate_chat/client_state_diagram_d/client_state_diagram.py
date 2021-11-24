@@ -80,7 +80,7 @@ class ClientStateDiagram():
 
     def create_login_choice(self):
         """ステート生成"""
-        self._state = LoginChoice()
+        stat = LoginChoice()
 
         def on_ok():
             # 読み取った情報の記憶
@@ -88,24 +88,25 @@ class ClientStateDiagram():
             # 次のステートへ引継ぎ
             self._state = self.create_logged_in_choice()
 
-        self._state.on_ok = on_ok
+        stat.on_ok = on_ok
+        return stat
 
     def create_logged_in_choice(self):
         """ステート生成"""
-        state = LoggedInChoice()
+        stat = LoggedInChoice()
 
         def on_game_id():
             """Game ID を取得した"""
             self._game_id = self._state.game_id
 
-        self._state.on_game_id = on_game_id
+        stat.on_game_id = on_game_id
 
         def on_end_game_summary():
             """初期局面情報取得した"""
             # 常に AGREE を返します
             self._agree_func()
 
-        self._state.on_end_game_summary = on_end_game_summary
+        stat.on_end_game_summary = on_end_game_summary
 
         def on_start():
             """対局成立した"""
@@ -114,9 +115,6 @@ class ClientStateDiagram():
             # 読み取った情報の記憶
             self._my_turn = self._state.my_turn
             self._current_turn = self._state.startpos_turn
-
-            # 次のステートへ引継ぎ
-            game_state = self.create_game_state()
 
             # テーブルを削除します
             try:
@@ -138,6 +136,9 @@ class ClientStateDiagram():
                 log_output.display_and_log_internal(
                     f"(Err.163) テーブル作成できなかった [{e}]")
 
+            # 次のステートへ引継ぎ
+            game_state = self.create_game_state()
+
             if self._my_turn == self._current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(f"(175) 初手を考えます")
@@ -148,16 +149,16 @@ class ClientStateDiagram():
 
             self._state = game_state
 
-        self._state.on_start = on_start
+        stat.on_start = on_start
 
-        return state
+        return stat
 
     def create_game_state(self):
         """ステート生成"""
-        game_state = GameState()
-        game_state.position = self._state.position
-        game_state.player_names = self._state.player_names
-        game_state.my_turn = self._my_turn
+        stat = GameState()
+        stat.position = self._state.position
+        stat.player_names = self._state.player_names
+        stat.my_turn = self._my_turn
 
         # コールバック関数の初期設定
         def go_func():
@@ -196,7 +197,7 @@ class ClientStateDiagram():
                 time.sleep(interval_sec)
                 tryal_count += 1
 
-        game_state.go_func = go_func
+        stat.go_func = go_func
 
         def on_move():
             """指し手を反映した"""
@@ -223,7 +224,7 @@ class ClientStateDiagram():
             text = self.state.position.formatBoard()
             log_output.display_and_log_internal(text)
 
-        game_state.on_move = on_move
+        stat.on_move = on_move
 
         def on_win():
             """勝ち"""
@@ -233,7 +234,7 @@ class ClientStateDiagram():
 """
             log_output.display_and_log_internal(s)
 
-        game_state.on_win = on_win
+        stat.on_win = on_win
 
         def on_lose():
             """負け"""
@@ -243,9 +244,9 @@ class ClientStateDiagram():
 """
             log_output.display_and_log_internal(s)
 
-        game_state.on_lose = on_lose
+        stat.on_lose = on_lose
 
-        return game_state
+        return stat
 
     def forward(self, line):
         """状態遷移します
