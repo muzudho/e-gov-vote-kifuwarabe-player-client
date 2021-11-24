@@ -1,7 +1,7 @@
 import sys
 import signal
 from threading import Thread
-from floodgate_chat.diagrams.client_diagram import ClientDiagram, SplitTextBlock
+from floodgate_chat.client_state_diagram_d.client_state_diagram import ClientStateDiagram, SplitTextBlock
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from floodgate_chat.client_config import CLIENT_USER, CLIENT_PASS
@@ -9,11 +9,11 @@ from floodgate_chat.client_config import CLIENT_USER, CLIENT_PASS
 
 class Client():
     def __init__(self):
-        self._client_diagram = None
+        self._state_diagram = None
 
     @property
-    def client_diagram(self):
-        return self._client_diagram
+    def state_diagram(self):
+        return self._state_diagram
 
     def set_up(self):
         global log_output
@@ -21,13 +21,14 @@ class Client():
         print("# Set up")
         log_output.set_up()
 
-        self._client_diagram = ClientDiagram()
+        self._state_diagram = ClientStateDiagram()
 
         # Implement all handlers
         def __agree_func():
-            client_socket.send_line(f"AGREE {self.client_diagram._game_id}\n")
+            client_socket.send_line(
+                f"AGREE {self.state_diagram._game_id}\n")
 
-        self.client_diagram.agree_func = __agree_func
+        self.state_diagram.agree_func = __agree_func
 
     def clean_up(self):
         print("# Clean up")
@@ -88,8 +89,8 @@ class Client():
 
                 log_output.display_and_log_receive(line)
 
-                # 処理は client_diagram に委譲します
-                self._client_diagram.forward_by_line(line)
+                # 処理は ClientStateDiagram に委譲します
+                self._state_diagram.forward_by_line(line)
 
 
 def main():

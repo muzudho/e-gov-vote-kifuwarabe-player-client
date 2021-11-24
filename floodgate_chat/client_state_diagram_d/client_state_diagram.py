@@ -1,7 +1,7 @@
 import time
-from floodgate_chat.diagrams.client_state.none_state import NoneState
-from floodgate_chat.diagrams.client_state.logged_in_state import LoggedInState
-from floodgate_chat.diagrams.client_state.game_state import GameState
+from floodgate_chat.client_state_diagram_d.client_state.none_state import NoneState
+from floodgate_chat.client_state_diagram_d.client_state.logged_in_state import LoggedInState
+from floodgate_chat.client_state_diagram_d.client_state.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from dynamodb.e_gov_bestmove import get_bestmove
@@ -21,7 +21,7 @@ def SplitTextBlock(text_block):
     return lines
 
 
-class ClientDiagram():
+class ClientStateDiagram():
     def __init__(self):
         self._state = NoneState()
         self._user_name = ''

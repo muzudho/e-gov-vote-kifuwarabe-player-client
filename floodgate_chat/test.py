@@ -1,7 +1,7 @@
 import sys
 import signal
 from client import Client
-from floodgate_chat.diagrams.client_diagram import SplitTextBlock
+from floodgate_chat.client_state_diagram_d.client_state_diagram import SplitTextBlock
 
 
 class Test():
@@ -20,9 +20,9 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            self._client.client_diagram.forward_by_line(received)
+            self._client.state_diagram.forward_by_line(received)
 
-        self._client.client_diagram.agree_func = __agree_func
+        self._client.state_diagram.agree_func = __agree_func
 
     def clean_up(self):
         self._client.clean_up()
@@ -35,8 +35,8 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        self._client.client_diagram.forward_by_line(received)
-        if self._client.client_diagram.state.name != '<LoggedInState/>':
+        self._client.state_diagram.forward_by_line(received)
+        if self._client.state_diagram.state.name != '<LoggedInState/>':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -77,36 +77,36 @@ END Game_Summary
 
         for line in lines:
             print(
-                f"[DEBUG] state=[{self._client.client_diagram.state.name}] line=[{line}]")
-            self._client.client_diagram.forward_by_line(line)
+                f"[DEBUG] state=[{self._client.state_diagram.state.name}] line=[{line}]")
+            self._client.state_diagram.forward_by_line(line)
 
-        if self._client.client_diagram.state.name != '<GameState/>':
+        if self._client.state_diagram.state.name != '<GameState/>':
             print(
-                f'Unimplemented begin board. client.client_diagram.state.name=[{self._client.client_diagram.state.name}]')
+                f'Unimplemented begin board. client.state_diagram.state.name=[{self._client.state_diagram.state.name}]')
 
-        text = self._client.client_diagram.state.position.formatBoard()
+        text = self._client.state_diagram.state.position.formatBoard()
         print(text)
 
         # 自分が先手か後手か
-        print(f"[DEBUG] my_turn=[{self._client.client_diagram.my_turn}]")
+        print(f"[DEBUG] my_turn=[{self._client.state_diagram.my_turn}]")
         print(
-            f"[DEBUG] current_turn=[{self._client.client_diagram.current_turn}]")
+            f"[DEBUG] current_turn=[{self._client.state_diagram.current_turn}]")
 
-        if self._client.client_diagram.my_turn != self._client.client_diagram.current_turn:
+        if self._client.state_diagram.my_turn != self._client.state_diagram.current_turn:
             print(f"[ERROR] 手番が違う")
             return
 
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        self._client.client_diagram.forward_by_line(received)
-        text = self._client.client_diagram.state.position.formatBoard()
+        self._client.state_diagram.forward_by_line(received)
+        text = self._client.state_diagram.state.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        self._client.client_diagram.forward_by_line(received)
-        text = self._client.client_diagram.state.position.formatBoard()
+        self._client.state_diagram.forward_by_line(received)
+        text = self._client.state_diagram.state.position.formatBoard()
         print(text)
 
 
@@ -134,7 +134,7 @@ def test():
 
 
 # Test
-# python.exe "./scripts/client_diagram.py"
+# python.exe "./scripts/client_state_diagram.py"
 if __name__ == "__main__":
     """テストします"""
     sys.exit(test())
