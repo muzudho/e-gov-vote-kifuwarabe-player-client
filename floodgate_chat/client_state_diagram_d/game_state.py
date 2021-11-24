@@ -1,6 +1,5 @@
 import re
 from floodgate_chat.client_state_diagram_d.context import Context
-from floodgate_chat.scripts.position import Position
 from floodgate_chat.scripts.client_socket import client_socket
 from floodgate_chat.scripts.log_output import log_output
 
@@ -19,12 +18,6 @@ class GameState():
         self._move_pattern = re.compile(
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
-        # プレイヤー名 [未使用, 先手プレイヤー名, 後手プレイヤー名]
-        self._player_names = ['', '', '']
-
-        # 局面
-        self._position = Position()
-
         def none_func():
             return "Unimplemented[none_func]"
 
@@ -40,22 +33,6 @@ class GameState():
     @property
     def name(self):
         return "[Game]"
-
-    @property
-    def position(self):
-        return self._position
-
-    @position.setter
-    def position(self, val):
-        self._position = val
-
-    @property
-    def player_names(self):
-        return self._player_names
-
-    @player_names.setter
-    def player_names(self, val):
-        self._player_names = val
 
     @property
     def on_move(self):
@@ -111,8 +88,8 @@ class GameState():
             expendTime = int(result.group(5))
 
             piece = result.group(4)
-            srcPc = self._position.board[source]  # sourcePiece
-            dstPc = self._position.board[destination]  # destinationPiece
+            srcPc = context.position.board[source]  # sourcePiece
+            dstPc = context.position.board[destination]  # destinationPiece
             # print(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece} srcPc[{srcPc}] dstPc[{dstPc}]")
             if source != 0 and srcPc == ' * ':
                 raise Exception("空マスから駒を動かそうとしました")
@@ -122,89 +99,89 @@ class GameState():
                 if phase == '+':
                     srcPc = '+{}'.format(piece)
                     if piece == 'FU':
-                        self._position.hands[7] -= 1
+                        context.position.hands[7] -= 1
                     elif piece == 'KY':
-                        self._position.hands[6] -= 1
+                        context.position.hands[6] -= 1
                     elif piece == 'KE':
-                        self._position.hands[5] -= 1
+                        context.position.hands[5] -= 1
                     elif piece == 'GI':
-                        self._position.hands[4] -= 1
+                        context.position.hands[4] -= 1
                     elif piece == 'KI':
-                        self._position.hands[3] -= 1
+                        context.position.hands[3] -= 1
                     elif piece == 'KA':
-                        self._position.hands[2] -= 1
+                        context.position.hands[2] -= 1
                     elif piece == 'HI':
-                        self._position.hands[1] -= 1
+                        context.position.hands[1] -= 1
                     else:
                         raise Exception(f"+ phase={phase} piece={piece}")
                 elif phase == '-':
                     srcPc = '-{}'.format(piece)
                     if piece == 'FU':
-                        self._position.hands[14] -= 1
+                        context.position.hands[14] -= 1
                     elif piece == 'KY':
-                        self._position.hands[13] -= 1
+                        context.position.hands[13] -= 1
                     elif piece == 'KE':
-                        self._position.hands[12] -= 1
+                        context.position.hands[12] -= 1
                     elif piece == 'GI':
-                        self._position.hands[11] -= 1
+                        context.position.hands[11] -= 1
                     elif piece == 'KI':
-                        self._position.hands[10] -= 1
+                        context.position.hands[10] -= 1
                     elif piece == 'KA':
-                        self._position.hands[9] -= 1
+                        context.position.hands[9] -= 1
                     elif piece == 'HI':
-                        self._position.hands[8] -= 1
+                        context.position.hands[8] -= 1
                     else:
                         raise Exception(f"- phase={phase} piece={piece}")
 
             # 移動先に駒があれば駒台へ移動
             if phase == '+':
                 if dstPc == "-FU" or dstPc == "-TO":
-                    self._position.hands[7] += 1
+                    context.position.hands[7] += 1
                 elif dstPc == "-KY" or dstPc == "-NY":
-                    self._position.hands[6] += 1
+                    context.position.hands[6] += 1
                 elif dstPc == "-KE" or dstPc == "-NK":
-                    self._position.hands[5] += 1
+                    context.position.hands[5] += 1
                 elif dstPc == "-GI" or dstPc == "-NG":
-                    self._position.hands[4] += 1
+                    context.position.hands[4] += 1
                 elif dstPc == "-KI":
-                    self._position.hands[3] += 1
+                    context.position.hands[3] += 1
                 elif dstPc == "-KA" or dstPc == "-UM":
-                    self._position.hands[2] += 1
+                    context.position.hands[2] += 1
                 elif dstPc == "-HI" or dstPc == "-RY":
-                    self._position.hands[1] += 1
+                    context.position.hands[1] += 1
                 elif dstPc == "-OU":
                     pass
             elif phase == '-':
                 if dstPc == "+FU" or dstPc == "+TO":
-                    self._position.hands[14] += 1
+                    context.position.hands[14] += 1
                 elif dstPc == "+KY" or dstPc == "+NY":
-                    self._position.hands[13] += 1
+                    context.position.hands[13] += 1
                 elif dstPc == "+KE" or dstPc == "+NK":
-                    self._position.hands[12] += 1
+                    context.position.hands[12] += 1
                 elif dstPc == "+GI" or dstPc == "+NG":
-                    self._position.hands[11] += 1
+                    context.position.hands[11] += 1
                 elif dstPc == "+KI":
-                    self._position.hands[10] += 1
+                    context.position.hands[10] += 1
                 elif dstPc == "+KA" or dstPc == "+UM":
-                    self._position.hands[9] += 1
+                    context.position.hands[9] += 1
                 elif dstPc == "+HI" or dstPc == "+RY":
-                    self._position.hands[8] += 1
+                    context.position.hands[8] += 1
                 elif dstPc == "+OU":
                     pass
             else:
                 raise Exception(f"Caputure piece. phase={phase}")
 
             # 移動元の駒を消す
-            self._position.board[source] = " * "
+            context.position.board[source] = " * "
 
             # 移動先に駒を置く
-            self._position.board[destination] = srcPc
+            context.position.board[destination] = srcPc
 
             # 経過時間
             if phase == '+':
-                self._position._expend_times[1] += expendTime
+                context.position._expend_times[1] += expendTime
             else:
-                self._position._expend_times[2] += expendTime
+                context.position._expend_times[2] += expendTime
 
             self.on_move()
             return '--Move--'

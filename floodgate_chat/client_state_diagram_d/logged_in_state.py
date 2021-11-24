@@ -19,8 +19,6 @@ class LoggedInChoice():
         #        +----- 2. プレイヤー名
         self._player_name_pattern = re.compile(
             r'^Name([+-]):([0-9A-Za-z_-]+)$')
-        # プレイヤー名 [未使用, 先手プレイヤー名, 後手プレイヤー名]
-        self._player_names = ['', '', '']
 
         # [Your_Turn:+]
         #            -
@@ -53,8 +51,6 @@ class LoggedInChoice():
         self._begin_pos_row_pattern = re.compile(
             r"^P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
-        self._position = Position()
-
         def none_func(context):
             pass
 
@@ -70,14 +66,6 @@ class LoggedInChoice():
     @property
     def name(self):
         return "[LoggedIn]<LoggedIn>"
-
-    @property
-    def position(self):
-        return self._position
-
-    @property
-    def player_names(self):
-        return self._player_names
 
     @property
     def on_game_id(self):
@@ -131,9 +119,9 @@ class LoggedInChoice():
         if matched:
             turn = matched.group(1)
             if turn == '+':
-                self._player_names[1] = matched.group(2)
+                context.player_names[1] = matched.group(2)
             elif turn == '-':
-                self._player_names[2] = matched.group(2)
+                context.player_names[2] = matched.group(2)
             else:
                 # Error
                 raise ValueError(f'ここにはこないはず')
@@ -171,15 +159,15 @@ class LoggedInChoice():
         matched = self._begin_pos_row_pattern.match(line)
         if matched:
             rank = int(matched.group(1))
-            self._position.board[90 + rank] = matched.group(2)
-            self._position.board[80 + rank] = matched.group(3)
-            self._position.board[70 + rank] = matched.group(4)
-            self._position.board[60 + rank] = matched.group(5)
-            self._position.board[50 + rank] = matched.group(6)
-            self._position.board[40 + rank] = matched.group(7)
-            self._position.board[30 + rank] = matched.group(8)
-            self._position.board[20 + rank] = matched.group(9)
-            self._position.board[10 + rank] = matched.group(10)
+            context.position.board[90 + rank] = matched.group(2)
+            context.position.board[80 + rank] = matched.group(3)
+            context.position.board[70 + rank] = matched.group(4)
+            context.position.board[60 + rank] = matched.group(5)
+            context.position.board[50 + rank] = matched.group(6)
+            context.position.board[40 + rank] = matched.group(7)
+            context.position.board[30 + rank] = matched.group(8)
+            context.position.board[20 + rank] = matched.group(9)
+            context.position.board[10 + rank] = matched.group(10)
 
             return '--BeginPosRow--'
 

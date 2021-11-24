@@ -1,9 +1,15 @@
+from floodgate_chat.scripts.position import Position
+
+
 class Context():
     def __init__(self):
         self._user_name = ''
         self._game_id = ''
         self._my_turn = ''
         self._current_turn = ''
+        self._player_names = ['', '', '']
+        # 局面
+        self._position = Position()
 
     @property
     def user_name(self):
@@ -39,3 +45,20 @@ class Context():
     @current_turn.setter
     def current_turn(self, val):
         self._current_turn = val
+
+    @property
+    def player_names(self):
+        """プレイヤー名 [未使用, 先手プレイヤー名, 後手プレイヤー名]"""
+        return self._player_names
+
+    @player_names.setter
+    def player_names(self, val):
+        self._player_names = val
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, val):
+        self._position = val
