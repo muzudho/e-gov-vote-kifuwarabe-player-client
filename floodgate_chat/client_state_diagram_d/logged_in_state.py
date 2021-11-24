@@ -58,6 +58,18 @@ class LoggedInChoice():
 
         self._position = Position()
 
+        def none_func():
+            pass
+
+        # --GameId-- 時のコールバック関数
+        self._on_game_id = none_func
+
+        # --EndGameSummary-- 時のコールバック関数
+        self._on_end_game_summary = none_func
+
+        # --Start-- 時のコールバック関数
+        self._on_start = none_func
+
     @property
     def name(self):
         return "[LoggedIn]<LoggedIn>"
@@ -90,6 +102,33 @@ class LoggedInChoice():
     def startpos_turn(self):
         return self._startpos_turn
 
+    @property
+    def on_game_id(self):
+        """--GameId--時のコールバック関数"""
+        return self._on_game_id
+
+    @on_game_id.setter
+    def on_game_id(self, func):
+        self._on_game_id = func
+
+    @property
+    def on_end_game_summary(self):
+        """--EndGameSummary--時のコールバック関数"""
+        return self._on_end_game_summary
+
+    @on_end_game_summary.setter
+    def on_end_game_summary(self, func):
+        self._on_end_game_summary = func
+
+    @property
+    def on_start(self):
+        """--Start--時のコールバック関数"""
+        return self._on_start
+
+    @on_start.setter
+    def on_start(self, func):
+        self._on_start = func
+
     def forward(self, line):
         """状態遷移します
         Parameters
@@ -102,6 +141,7 @@ class LoggedInChoice():
         #      ----------------
         #      初期局面終了
         if line == 'END Game_Summary':
+            self.on_end_game_summary()
             return '--EndGameSummary--'
 
         # ----[Name+:John]---->
@@ -145,6 +185,9 @@ class LoggedInChoice():
         matched = self._game_id_pattern.match(line)
         if matched:
             self._game_id = matched.group(1)
+
+            self.on_game_id()
+
             return '--GameId--'
 
         # ----[開始局面の各行]---->
@@ -169,6 +212,9 @@ class LoggedInChoice():
         matched = self._start_pattern.match(line)
         if matched:
             self._start_game_id = matched.group(1)
+
+            self.on_start()
+
             return '--Start--'
 
         return '--Unknown--'

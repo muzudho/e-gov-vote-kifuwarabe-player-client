@@ -33,6 +33,15 @@ class GameState():
         # 指し手を返すコールバック関数
         self._go_func = none_func
 
+        # --Move-- 時のコールバック関数
+        self._on_move = none_func
+
+        # --Win-- 時のコールバック関数
+        self._on_win = none_func
+
+        # --Lose-- 時のコールバック関数
+        self._on_lose = none_func
+
     @property
     def name(self):
         return "[Game]"
@@ -69,6 +78,33 @@ class GameState():
     @go_func.setter
     def go_func(self, func):
         self._go_func = func
+
+    @property
+    def on_move(self):
+        """--Move--時のコールバック関数"""
+        return self._on_move
+
+    @on_move.setter
+    def on_move(self, func):
+        self._on_move = func
+
+    @property
+    def on_win(self):
+        """--Win--時のコールバック関数"""
+        return self._on_win
+
+    @on_win.setter
+    def on_win(self, func):
+        self._on_win = func
+
+    @property
+    def on_lose(self):
+        """--Lose--時のコールバック関数"""
+        return self._on_lose
+
+    @on_lose.setter
+    def on_lose(self, func):
+        self._on_lose = func
 
     def forward(self, line):
         """状態遷移します
@@ -201,18 +237,21 @@ class GameState():
                 log_output.display_and_log_internal(
                     f"(191) 自分の手番で指した m=[{m}]")
 
+            self.on_move()
             return '--Move--'
 
         # ----[#WIN]---->
         #      ----
         #      勝ち
         if line == '#WIN':
+            self.on_win()
             return '--Win--'
 
         # ----[#LOSE]---->
         #      -----
         #      負け
         if line == '#LOSE':
+            self.on_lose()
             return '--Lose--'
 
         # ----[??????]---->

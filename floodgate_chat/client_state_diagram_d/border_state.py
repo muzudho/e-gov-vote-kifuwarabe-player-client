@@ -11,6 +11,12 @@ class LoginChoice():
 
         self._user_name = ''
 
+        def none_func():
+            pass
+
+        # --Ok-- 時のコールバック関数
+        self._on_ok = none_func
+
     @property
     def name(self):
         return "[Border]<Login>"
@@ -22,6 +28,15 @@ class LoginChoice():
     @user_name.setter
     def user_name(self, val):
         self._user_name = val
+
+    @property
+    def on_ok(self):
+        """--Ok--時のコールバック関数"""
+        return self._on_ok
+
+    @on_ok.setter
+    def on_ok(self, func):
+        self._on_ok = func
 
     def forward(self, line):
         """状態遷移します
@@ -42,6 +57,9 @@ class LoginChoice():
         matched = self._login_ok_pattern.match(line)
         if matched:
             self._user_name = matched.group(1)
+
+            self.on_ok()
+
             return '--Ok--'
 
         return '--Fail--'

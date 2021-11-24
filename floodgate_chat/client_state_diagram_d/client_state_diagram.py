@@ -23,7 +23,9 @@ def SplitTextBlock(text_block):
 
 class ClientStateDiagram():
     def __init__(self):
-        self._state = LoginChoice()
+        # 初期状態
+        self._state = self.create_login_choice()
+
         self._user_name = ''
         self._game_id = ''
         self._start_game_id = ''
@@ -76,6 +78,175 @@ class ClientStateDiagram():
     def agree_func(self, func):
         self._agree_func = func
 
+    def create_login_choice(self):
+        """ステート生成"""
+        self._state = LoginChoice()
+
+        def on_ok():
+            # 読み取った情報の記憶
+            self._user_name = self._state.user_name
+            # 次のステートへ引継ぎ
+            self._state = self.create_logged_in_choice()
+
+        self._state.on_ok = on_ok
+
+    def create_logged_in_choice(self):
+        """ステート生成"""
+        state = LoggedInChoice()
+
+        def on_game_id():
+            """Game ID を取得した"""
+            self._game_id = self._state.game_id
+
+        self._state.on_game_id = on_game_id
+
+        def on_end_game_summary():
+            """初期局面情報取得した"""
+            # 常に AGREE を返します
+            self._agree_func()
+
+        self._state.on_end_game_summary = on_end_game_summary
+
+        def on_start():
+            """対局成立した"""
+            self._start_game_id = self._state.start_game_id
+
+            # 読み取った情報の記憶
+            self._my_turn = self._state.my_turn
+            self._current_turn = self._state.startpos_turn
+
+            # 次のステートへ引継ぎ
+            game_state = self.create_game_state()
+
+            # テーブルを削除します
+            try:
+                delete_bestmove_table()
+
+                # 時間間隔を開けてみる
+                time.sleep(5)
+            except Exception as e:
+                log_output.display_and_log_internal(
+                    f"(Err.158) テーブル削除できなかった [{e}]")
+
+            # テーブルを作成します
+            try:
+                create_bestmove_table()
+
+                # 時間間隔を開けてみる
+                time.sleep(5)
+            except Exception as e:
+                log_output.display_and_log_internal(
+                    f"(Err.163) テーブル作成できなかった [{e}]")
+
+            if self._my_turn == self._current_turn:
+                # 初手を考えます
+                log_output.display_and_log_internal(f"(175) 初手を考えます")
+                m = game_state.go_func()
+                client_socket.send_line(f'{m}\n')
+                log_output.display_and_log_internal(
+                    f"(178) 初手を指します m=[{m}]")
+
+            self._state = game_state
+
+        self._state.on_start = on_start
+
+        return state
+
+    def create_game_state(self):
+        """ステート生成"""
+        game_state = GameState()
+        game_state.position = self._state.position
+        game_state.player_names = self._state.player_names
+        game_state.my_turn = self._my_turn
+
+        # コールバック関数の初期設定
+        def go_func():
+
+            # a. 手番が回ってきた直後の待ち時間
+            init_sec = 20  # 10, 20
+            # b. 投票が無かったときの追加の待ち時間
+            interval_sec = 10  # 5, 10
+            # c. 投票を待つ回数
+            tryal_max = 34  # 70, 34
+            # サンプル
+            #  a,  b,  c なら、 c*b +  a
+            # 10,  5, 70 なら、70*5 + 10 = 360 = 6分
+            # 20, 10, 34 なら、34*10 +20 = 360 = 6分
+
+            # 手番が回ってきた直後の待ち時間
+            time.sleep(init_sec)
+
+            tryal_count = 0
+            while True:
+                m = get_bestmove()
+
+                if not(m is None):
+                    # 投票が溜まってたので指します
+                    log_output.display_and_log_internal(
+                        f"投票が溜まってたので指します [{m}]")
+                    return m
+
+                if tryal_max < tryal_count:
+                    # 投了しよ
+                    log_output.display_and_log_internal(
+                        f"投票が無いので投了しよ tryal_count = [{m}]")
+                    return '%TORYO'
+
+                # 投票が無かったときの追加の待ち時間
+                time.sleep(interval_sec)
+                tryal_count += 1
+
+        game_state.go_func = go_func
+
+        def on_move():
+            """指し手を反映した"""
+            # テーブルを削除します
+            try:
+                delete_bestmove_table()
+
+                # 時間間隔を開けてみる
+                time.sleep(5)
+            except Exception as e:
+                log_output.display_and_log_internal(
+                    f"(Err.178) テーブル削除できなかった [{e}]")
+            # テーブルを作成します
+            try:
+                create_bestmove_table()
+
+                # 時間間隔を開けてみる
+                time.sleep(5)
+            except Exception as e:
+                log_output.display_and_log_internal(
+                    f"(Err.183) テーブル作成できなかった [{e}]")
+
+            # 盤表示
+            text = self.state.position.formatBoard()
+            log_output.display_and_log_internal(text)
+
+        game_state.on_move = on_move
+
+        def on_win():
+            """勝ち"""
+            s = f"""+----------+
+|    WIN   |
++----------+
+"""
+            log_output.display_and_log_internal(s)
+
+        game_state.on_win = on_win
+
+        def on_lose():
+            """負け"""
+            s = f"""+----------+
+|   LOSE   |
++----------+
+"""
+            log_output.display_and_log_internal(s)
+
+        game_state.on_lose = on_lose
+
+        return game_state
+
     def forward(self, line):
         """状態遷移します
         Parameters
@@ -89,155 +260,3 @@ class ClientStateDiagram():
 
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")
-
-        # [Border]<Login> choice
-        if self._state.name == '[Border]<Login>':
-            # ログインした
-            if edge == '--Ok--':
-
-                # 読み取った情報の記憶
-                self._user_name = self._state.user_name
-
-                # 次のステートへ引継ぎ
-                self._state = LoggedInChoice()
-
-        # [LoggedIn]<LoggedIn> choice
-        elif self._state.name == '[LoggedIn]<LoggedIn>':
-            # Game ID を取得した
-            if edge == '--GameId--':
-                self._game_id = self._state.game_id
-
-            # 初期局面情報取得した
-            elif edge == '--EndGameSummary--':
-                # 常に AGREE を返します
-                self._agree_func()
-
-            # 対局成立した
-            elif edge == '--Start--':
-                self._start_game_id = self._state.start_game_id
-
-                # 読み取った情報の記憶
-                self._my_turn = self._state.my_turn
-                self._current_turn = self._state.startpos_turn
-
-                # 次のステートへ引継ぎ
-                game_state = GameState()
-                game_state.position = self._state.position
-                game_state.player_names = self._state.player_names
-                game_state.my_turn = self._my_turn
-
-                # コールバック関数の初期設定
-                def go_func():
-
-                    # a. 手番が回ってきた直後の待ち時間
-                    init_sec = 20  # 10, 20
-                    # b. 投票が無かったときの追加の待ち時間
-                    interval_sec = 10  # 5, 10
-                    # c. 投票を待つ回数
-                    tryal_max = 34  # 70, 34
-                    # サンプル
-                    #  a,  b,  c なら、 c*b +  a
-                    # 10,  5, 70 なら、70*5 + 10 = 360 = 6分
-                    # 20, 10, 34 なら、34*10 +20 = 360 = 6分
-
-                    # 手番が回ってきた直後の待ち時間
-                    time.sleep(init_sec)
-
-                    tryal_count = 0
-                    while True:
-                        m = get_bestmove()
-
-                        if not(m is None):
-                            # 投票が溜まってたので指します
-                            log_output.display_and_log_internal(
-                                f"投票が溜まってたので指します [{m}]")
-                            return m
-
-                        if tryal_max < tryal_count:
-                            # 投了しよ
-                            log_output.display_and_log_internal(
-                                f"投票が無いので投了しよ tryal_count = [{m}]")
-                            return '%TORYO'
-
-                        # 投票が無かったときの追加の待ち時間
-                        time.sleep(interval_sec)
-                        tryal_count += 1
-
-                game_state.go_func = go_func
-
-                # テーブルを削除します
-                try:
-                    delete_bestmove_table()
-
-                    # 時間間隔を開けてみる
-                    time.sleep(5)
-                except Exception as e:
-                    log_output.display_and_log_internal(
-                        f"(Err.158) テーブル削除できなかった [{e}]")
-
-                # テーブルを作成します
-                try:
-                    create_bestmove_table()
-
-                    # 時間間隔を開けてみる
-                    time.sleep(5)
-                except Exception as e:
-                    log_output.display_and_log_internal(
-                        f"(Err.163) テーブル作成できなかった [{e}]")
-
-                if self._my_turn == self._current_turn:
-                    # 初手を考えます
-                    log_output.display_and_log_internal(f"(175) 初手を考えます")
-                    m = game_state.go_func()
-                    client_socket.send_line(f'{m}\n')
-                    log_output.display_and_log_internal(
-                        f"(178) 初手を指します m=[{m}]")
-
-                self._state = game_state
-
-        # [対局]状態
-        elif self._state.name == '[Game]':
-            # 指し手を反映した
-            if edge == '--Move--':
-
-                # テーブルを削除します
-                try:
-                    delete_bestmove_table()
-
-                    # 時間間隔を開けてみる
-                    time.sleep(5)
-                except Exception as e:
-                    log_output.display_and_log_internal(
-                        f"(Err.178) テーブル削除できなかった [{e}]")
-                # テーブルを作成します
-                try:
-                    create_bestmove_table()
-
-                    # 時間間隔を開けてみる
-                    time.sleep(5)
-                except Exception as e:
-                    log_output.display_and_log_internal(
-                        f"(Err.183) テーブル作成できなかった [{e}]")
-
-                # 盤表示
-                text = self.state.position.formatBoard()
-                log_output.display_and_log_internal(text)
-
-            # 勝ち
-            elif edge == '--Win--':
-                s = f"""+----------+
-|    WIN   |
-+----------+
-"""
-                log_output.display_and_log_internal(s)
-
-            # 負け
-            elif edge == '--Lose--':
-                s = f"""+----------+
-|   LOSE   |
-+----------+
-"""
-                log_output.display_and_log_internal(s)
-
-        else:
-            pass
