@@ -62,7 +62,7 @@ class GameState():
         self._on_lose = func
 
     def forward(self, context, line):
-        """状態遷移します
+        """次の辺の名前を返します
         Parameters
         ----------
         str : line
@@ -71,7 +71,7 @@ class GameState():
         Returns
         -------
         str
-            次のノード名
+            辺の名前
         """
 
         # ----[+5756FU,T20]---->

@@ -90,7 +90,7 @@ class Client():
                 log_output.display_and_log_receive(line)
 
                 # 処理は ClientStateDiagram に委譲します
-                self._state_diagram.forward(line)
+                _edge = self._state_diagram.forward(line)
 
 
 def main():

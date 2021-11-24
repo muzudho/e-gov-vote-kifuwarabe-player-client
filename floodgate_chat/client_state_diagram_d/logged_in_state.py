@@ -95,10 +95,15 @@ class LoggedInChoice():
         self._on_start = func
 
     def forward(self, context, line):
-        """状態遷移します
+        """次の辺の名前を返します
         Parameters
         ----------
         str : line
+            文字列（末尾に改行なし）
+
+        Returns
+        -------
+        str
             辺の名前
         """
 

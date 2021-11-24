@@ -1,5 +1,6 @@
 import time
 from floodgate_chat.client_state_diagram_d.context import Context
+from floodgate_chat.client_state_diagram_d.mapping import connection_dict
 from floodgate_chat.client_state_diagram_d.border_state import LoginChoice
 from floodgate_chat.client_state_diagram_d.logged_in_state import LoggedInChoice
 from floodgate_chat.client_state_diagram_d.game_state import GameState
@@ -27,8 +28,15 @@ class ClientStateDiagram():
         # グローバル変数みたいなもん
         self._context = Context()
 
+        self._state_creators = {
+            "": self.create_login_choice,  # 初期値
+            "[Login].<Login>": self.create_login_choice,
+            "[LoggedIn].<LoggedIn>": self.create_logged_in_choice,
+            "[Game]": self.create_game_state
+        }
+
         # 初期状態
-        self._state = self.create_login_choice()
+        self._state = self._state_creators[""]()
 
         def none_func():
             pass
@@ -111,7 +119,7 @@ class ClientStateDiagram():
 
         def on_ok(_context):
             # 次のステートへ引継ぎ
-            self._state = self.create_logged_in_choice()
+            self._state = self._state_creators["[LoggedIn].<LoggedIn>"]()
 
         stat.on_ok = on_ok
         return stat
@@ -120,13 +128,13 @@ class ClientStateDiagram():
         """ステート生成"""
         stat = LoggedInChoice()
 
-        def on_game_id():
+        def on_game_id(context):
             """Game ID を取得した"""
             pass
 
         stat.on_game_id = on_game_id
 
-        def on_end_game_summary():
+        def on_end_game_summary(context):
             """初期局面情報取得した"""
             # 常に AGREE を返します
             self._agree_func()
@@ -155,9 +163,6 @@ class ClientStateDiagram():
                 log_output.display_and_log_internal(
                     f"(Err.163) テーブル作成できなかった [{e}]")
 
-            # 次のステートへ引継ぎ
-            game_state = self.create_game_state()
-
             if self.context.my_turn == self.context.current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(f"(175) 初手を考えます")
@@ -166,7 +171,8 @@ class ClientStateDiagram():
                 log_output.display_and_log_internal(
                     f"(178) 初手を指します m=[{m}]")
 
-            self._state = game_state
+            # 次のステートへ引継ぎ
+            self._state = self._state_creators["[Game]"]()
 
         stat.on_start = on_start
 
@@ -178,7 +184,7 @@ class ClientStateDiagram():
         stat.position = self._state.position
         stat.player_names = self._state.player_names
 
-        def on_move():
+        def on_move(context):
             """指し手"""
             # 相手の指し手だったら、自分の指し手を入力する番になります
             if self.context.current_turn != self.context.my_turn:
@@ -214,7 +220,7 @@ class ClientStateDiagram():
 
         stat.on_move = on_move
 
-        def on_win():
+        def on_win(context):
             """勝ち"""
             s = f"""+----------+
 |    WIN   |
@@ -224,7 +230,7 @@ class ClientStateDiagram():
 
         stat.on_win = on_win
 
-        def on_lose():
+        def on_lose(context):
             """負け"""
             s = f"""+----------+
 |   LOSE   |
@@ -237,15 +243,21 @@ class ClientStateDiagram():
         return stat
 
     def forward(self, line):
-        """状態遷移します
+        """次の辺の名前を返します
         Parameters
         ----------
         str : line
             入力文字列（末尾に改行なし）
+
+        Returns
+        -------
+        str
+            辺の名前
         """
 
-        # ここで状態遷移します
         edge = self._state.forward(self._context, line)
 
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")
+
+        return edge
