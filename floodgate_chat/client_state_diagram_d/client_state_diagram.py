@@ -1,4 +1,5 @@
 import time
+from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.client_state_diagram_d.border_state import LoginChoice
 from floodgate_chat.client_state_diagram_d.logged_in_state import LoggedInChoice
 from floodgate_chat.client_state_diagram_d.game_state import GameState
@@ -23,6 +24,9 @@ def SplitTextBlock(text_block):
 
 class ClientStateDiagram():
     def __init__(self):
+        # グローバル変数みたいなもん
+        self._context = Context()
+
         # 初期状態
         self._state = self.create_login_choice()
 
@@ -79,6 +83,14 @@ class ClientStateDiagram():
                 tryal_count += 1
 
         self._go_func = go_func
+
+    @property
+    def context(self):
+        return self._context
+
+    @context.setter
+    def context(self, val):
+        self._context = val
 
     @property
     def state(self):
@@ -275,7 +287,7 @@ class ClientStateDiagram():
         """
 
         # ここで状態遷移します
-        edge = self._state.forward(line)
+        edge = self._state.forward(self._context, line)
 
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")

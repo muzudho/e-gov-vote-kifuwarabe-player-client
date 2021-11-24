@@ -1,4 +1,5 @@
 import re
+from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.scripts.position import Position
 
 
@@ -129,7 +130,7 @@ class LoggedInChoice():
     def on_start(self, func):
         self._on_start = func
 
-    def forward(self, line):
+    def forward(self, context, line):
         """状態遷移します
         Parameters
         ----------
@@ -223,24 +224,25 @@ class LoggedInChoice():
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.logged_in_state
 if __name__ == "__main__":
+    context = Context()
     state = LoggedInChoice()
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
-    edge = state.forward(line)
+    edge = state.forward(context, line)
     if edge == '--GameId--':
         print('.', end='')
     else:
         print('f', end='')
 
     line = 'P1-KY-KE-GI-KI-OU-KI-GI-KE-KY'
-    edge = state.forward(line)
+    edge = state.forward(context, line)
     if edge == '--BeginPosRow--':
         print('.', end='')
     else:
         print('f', end='')
 
     line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-    edge = state.forward(line)
+    edge = state.forward(context, line)
     if edge == '--Start--':
         print('.', end='')
     else:

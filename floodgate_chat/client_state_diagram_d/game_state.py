@@ -1,4 +1,5 @@
 import re
+from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.scripts.position import Position
 from floodgate_chat.scripts.client_socket import client_socket
 from floodgate_chat.scripts.log_output import log_output
@@ -94,7 +95,7 @@ class GameState():
     def on_lose(self, func):
         self._on_lose = func
 
-    def forward(self, line):
+    def forward(self, context, line):
         """状態遷移します
         Parameters
         ----------
@@ -242,11 +243,12 @@ class GameState():
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.game_state
 if __name__ == "__main__":
-    line = '+5756FU,T20'
-
+    context = Context()
     state = GameState()
-    result = state.forward(line)
-    if result == '--Move--':
+
+    line = '+5756FU,T20'
+    edge = state.forward(context, line)
+    if edge == '--Move--':
         print('.', end='')
     else:
         print('f', end='')

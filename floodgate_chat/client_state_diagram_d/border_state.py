@@ -1,4 +1,5 @@
 import re
+from floodgate_chat.client_state_diagram_d.context import Context
 
 
 class LoginChoice():
@@ -38,7 +39,7 @@ class LoginChoice():
     def on_ok(self, func):
         self._on_ok = func
 
-    def forward(self, line):
+    def forward(self, context, line):
         """状態遷移します
         Parameters
         ----------
@@ -68,10 +69,11 @@ class LoginChoice():
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.border_state
 if __name__ == "__main__":
-    line = 'LOGIN:egov-kifuwarabe OK'
-
+    context = Context()
     state = LoginChoice()
-    edge = state.forward(line)
+
+    line = 'LOGIN:egov-kifuwarabe OK'
+    edge = state.forward(context, line)
     if edge == '--Ok--':
         print('.', end='')
     else:
