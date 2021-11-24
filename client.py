@@ -4,7 +4,7 @@ from threading import Thread
 from floodgate_chat.client_state_diagram_d.client_state_diagram import ClientStateDiagram, SplitTextBlock
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
-from floodgate_chat.client_config import CLIENT_USER, CLIENT_PASS
+from config import CLIENT_USER, CLIENT_PASS
 
 
 class Client():

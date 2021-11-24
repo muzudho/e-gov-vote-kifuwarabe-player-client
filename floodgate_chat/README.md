@@ -4,12 +4,13 @@
 
 ## Set up
 
-📄`client_config.py` の内容を設定してください。  
+トップディレクトリに 📄`config.py` を作成し、内容を設定してください。  
+内容は、以下のファイルを参考にしてください  
 
 Example:  
 
-📄`client_config--floodgate.py`
-📄`client_config--local.py`
+📄`config--floodgate.py`
+📄`config--local.py`
 
 ## Run
 
