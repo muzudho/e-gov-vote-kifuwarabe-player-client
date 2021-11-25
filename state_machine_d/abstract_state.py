@@ -1,6 +1,6 @@
 class AbstractState():
     def __init__(self):
-        def on_none():
+        def on_none(context):
             pass
 
         self._on_entry = on_none

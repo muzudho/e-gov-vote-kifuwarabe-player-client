@@ -1,7 +1,7 @@
 import sys
 import signal
 from threading import Thread
-from floodgate_chat.client_state_diagram_d.client_diagram import ClientDiagramOf
+from floodgate_chat.client_state_diagram_d.diagram import Diagram
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from config import CLIENT_USER, CLIENT_PASS
@@ -33,7 +33,7 @@ class Client():
         print("# Set up")
         log_output.set_up()
 
-        self._diagram = ClientDiagramOf()
+        self._diagram = Diagram()
 
         # Implement all handlers
         def __agree_func():
@@ -101,7 +101,7 @@ class Client():
 
                 log_output.display_and_log_receive(line)
 
-                # 処理は ClientDiagramOf に委譲します
+                # 処理は Diagram に委譲します
                 next_state_name, transition_key = self._diagram.state_machine.leave(
                     line)
                 log_output.display_and_log_internal(

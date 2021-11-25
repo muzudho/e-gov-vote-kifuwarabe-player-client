@@ -8,20 +8,21 @@ from floodgate_chat.client_state_diagram_d.none_state import NoneState
 from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
 from floodgate_chat.client_state_diagram_d.agreement_state import AgreementState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
+from floodgate_chat.client_state_diagram_d.game_over_state import GameOverState
 from my_dynamodb.e_gov_bestmove import get_bestmove
 from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 
-class ClientDiagramOf():
+class Diagram():
     def __init__(self):
 
         state_creators_dict = {
             "": self.create_none_state,  # 初期値
-            "[Login].<Login>": self.create_none_state,
             "[GameSummary]": self.create_game_summary_state,
             "[Agreement]": self.create_agreement_state,
-            "[Game]": self.create_game_state
+            "[Game]": self.create_game_state,
+            "[GameOver]": self.create_game_over_state
         }
 
         self._state_machine = StateMachine(
@@ -232,5 +233,11 @@ class ClientDiagramOf():
             log_output.display_and_log_internal(s)
 
         state.on_lose = on_lose
+
+        return state
+
+    def create_game_over_state(self):
+        """ステート生成"""
+        state = GameOverState()
 
         return state
