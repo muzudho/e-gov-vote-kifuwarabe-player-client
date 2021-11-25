@@ -161,22 +161,23 @@ class Diagram():
 
         state.on_entry = on_entry
 
-        return state
-
-    def create_game_state(self):
-        """ステート生成"""
-        state = GameState()
-
-        def on_entry(context):
+        def on_exit(context):
             if context.my_turn == context.current_turn:
                 # 初手を考えます
-                log_output.display_and_log_internal(f"(175) 初手を考えます")
+                log_output.display_and_log_internal(
+                    f"(175) exit/[Agree] で初手を考えます")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
                 log_output.display_and_log_internal(
                     f"(178) 初手を指します m=[{m}]")
 
-        state.on_entry = on_entry
+        state.on_exit = on_exit
+
+        return state
+
+    def create_game_state(self):
+        """ステート生成"""
+        state = GameState()
 
         def on_move(context):
             """指し手"""
