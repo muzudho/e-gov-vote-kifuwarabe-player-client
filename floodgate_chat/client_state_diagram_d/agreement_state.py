@@ -67,6 +67,7 @@ class AgreementState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.agreement_state
 if __name__ == "__main__":
+    log_output.set_up()
     context = Context()
     context.game_id = 'wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
     state = AgreementState()

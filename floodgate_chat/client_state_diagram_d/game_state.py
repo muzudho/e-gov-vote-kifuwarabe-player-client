@@ -1,5 +1,6 @@
 import re
 from state_machine_d.abstract_state import AbstractState
+from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.client_state_diagram_d.context import Context
 
 
@@ -21,13 +22,13 @@ class GameState(AbstractState):
         def none_func(context):
             return '----Unimplemented---->'
 
-        # --Move-- 時のコールバック関数
+        # ----Move----> 時のコールバック関数
         self._on_move = none_func
 
-        # --Win-- 時のコールバック関数
+        # ----Win----> 時のコールバック関数
         self._on_win = none_func
 
-        # --Lose-- 時のコールバック関数
+        # ----Lose----> 時のコールバック関数
         self._on_lose = none_func
 
     @property
@@ -36,7 +37,7 @@ class GameState(AbstractState):
 
     @property
     def on_move(self):
-        """--Move--時のコールバック関数"""
+        """----Move---->時のコールバック関数"""
         return self._on_move
 
     @on_move.setter
@@ -45,7 +46,7 @@ class GameState(AbstractState):
 
     @property
     def on_win(self):
-        """--Win--時のコールバック関数"""
+        """----Win---->時のコールバック関数"""
         return self._on_win
 
     @on_win.setter
@@ -54,7 +55,7 @@ class GameState(AbstractState):
 
     @property
     def on_lose(self):
-        """--Lose--時のコールバック関数"""
+        """----Lose---->時のコールバック関数"""
         return self._on_lose
 
     @on_lose.setter
@@ -184,21 +185,21 @@ class GameState(AbstractState):
                 context.position._expend_times[2] += expendTime
 
             self.on_move(context)
-            return '--Move--'
+            return '----Move---->'
 
         # ----[#WIN]---->
         #      ----
         #      勝ち
         if line == '#WIN':
             self.on_win(context)
-            return '--Win--'
+            return '----Win---->'
 
         # ----[#LOSE]---->
         #      -----
         #      負け
         if line == '#LOSE':
             self.on_lose(context)
-            return '--Lose--'
+            return '----Lose---->'
 
         # ----[??????]---->
         #      ------
@@ -209,12 +210,13 @@ class GameState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.game_state
 if __name__ == "__main__":
+    log_output.set_up()
     context = Context()
     state = GameState()
 
     line = '+5756FU,T20'
     edge_name = state.leave(context, line)
-    if edge_name == '--Move--':
+    if edge_name == '----Move---->':
         print('.', end='')
     else:
         print('f', end='')

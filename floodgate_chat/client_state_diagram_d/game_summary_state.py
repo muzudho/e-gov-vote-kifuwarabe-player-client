@@ -1,7 +1,7 @@
 import re
 from state_machine_d.abstract_state import AbstractState
-from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.scripts.log_output import log_output
+from floodgate_chat.client_state_diagram_d.context import Context
 
 
 class GameSummaryState(AbstractState):
@@ -170,6 +170,7 @@ class GameSummaryState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.game_summary_state
 if __name__ == "__main__":
+    log_output.set_up()
     context = Context()
     state = GameSummaryState()
 
