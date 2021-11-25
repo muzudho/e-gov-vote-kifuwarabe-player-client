@@ -25,7 +25,6 @@ class ClientSocket():
 
     def send_line(self, line):
         """末尾に \n を付けてください"""
-
         global client_socket
         global logger
 
@@ -45,6 +44,7 @@ class ClientSocket():
         # Send to server
         # テストのときは _sock が None になっているので無視します
         if not(self._sock is None):
+            # ConnectionAbortedError といった例外を投げる
             self._sock.send(line.encode())
 
         s = LogOutput.format_send(line)

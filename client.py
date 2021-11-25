@@ -1,7 +1,7 @@
 import sys
 import signal
 from threading import Thread
-from config import CLIENT_USER, CLIENT_PASS
+from config import CLIENT_USER, CLIENT_PASS, IS_RECONNECT_WHEN_CONNECTION_ABORT
 from scripts.logger import logger
 from floodgate_chat.client_state_diagram_d.diagram import Diagram
 from floodgate_chat.scripts.client_socket import client_socket
@@ -86,28 +86,43 @@ class Client():
         """コンピューターの動き"""
         global client_socket
 
-        while True:
-            text_block = client_socket.receive_text_block()
+        is_reconnect = True
 
-            # 1. 空行は無限に送られてくるので無視
-            if text_block == '':
-                continue
+        while is_reconnect:
+            is_reconnect = False
 
-            logger.write_by_receive(text_block)
+            try:
+                while True:
+                    text_block = client_socket.receive_text_block()
 
-            # 受信したテキストブロックを行の配列にして返します
-            lines = SplitTextBlock(text_block)
-            for line in lines:
+                    # 1. 空行は無限に送られてくるので無視
+                    if text_block == '':
+                        continue
 
-                logger.write_by_receive(line)
+                    logger.write_by_receive(text_block)
 
-                # 処理は Diagram に委譲します
-                next_state_name, transition_key = self._diagram.state_machine.leave(
-                    line)
+                    # 受信したテキストブロックを行の配列にして返します
+                    lines = SplitTextBlock(text_block)
+                    for line in lines:
+
+                        logger.write_by_receive(line)
+
+                        # 処理は Diagram に委譲します
+                        next_state_name, transition_key = self._diagram.state_machine.leave(
+                            line)
+                        logger.write_by_internal(
+                            f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
+
+                        self._diagram.state_machine.arrive(next_state_name)
+
+            except ConnectionAbortedError as e:
+                # floodgate に切断されたときとか
                 logger.write_by_internal(
-                    f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
+                    f"(Err.51) 接続が破棄された [{e}]")
 
-                self._diagram.state_machine.arrive(next_state_name)
+                # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
+                if IS_RECONNECT_WHEN_CONNECTION_ABORT:
+                    is_reconnect = True
 
 
 def main():

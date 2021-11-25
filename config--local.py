@@ -9,3 +9,7 @@ SERVER_PORT = 5002
 CLIENT_USER = 'e-gov-vote-kifuwarabe'
 # [0-9A-za-z_-]32文字まで
 CLIENT_PASS = 'floodgate-300-10F,egov-kif'
+
+# 接続が破棄されたら再接続
+# （フラッドゲートは対局終了時に接続を切るので）
+IS_RECONNECT_WHEN_CONNECTION_ABORT = True

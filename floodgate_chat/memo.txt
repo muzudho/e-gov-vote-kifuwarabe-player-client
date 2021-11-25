@@ -116,3 +116,6 @@ by the Server (timed out)
 
 
 
+# 2021-11-25 23:40
+
+TIMEUP を受信してない（＾～＾）？  

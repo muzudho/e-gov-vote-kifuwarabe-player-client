@@ -1,0 +1,547 @@
+[2021-11-25 23:28:12] < LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif
+
+[2021-11-25 23:28:13] > LOGIN:e-gov-vote-kifuwarabe OK
+
+[2021-11-25 23:28:13] > LOGIN:e-gov-vote-kifuwarabe OK
+[2021-11-25 23:28:13] : [DEBUG] Transition [None]----Ok----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > BEGIN Game_Summary
+Protocol_Version:1.2
+Protocol_Mode:Server
+Format:Shogi 1.0
+Declaration:Jishogi 1.1
+Game_ID:wdoor+floodgate-300-10F+Shin_LesserKai_1_0_0+e-gov-vote-kifuwarabe+20211125233006
+Name+:Shin_LesserKai_1_0_0
+Name-:e-gov-vote-kifuwarabe
+Your_Turn:-
+Rematch_On_Draw:NO
+To_Move:+
+Max_Moves:256
+BEGIN Time
+Time_Unit:1sec
+Total_Time:300
+Byoyomi:0
+Increment:10
+Least_Time_Per_Move:0
+END Time
+BEGIN Position
+P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+P2 * -HI *  *  *  *  * -KA * 
+P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+P4 *  *  *  *  *  *  *  *  * 
+P5 *  *  *  *  *  *  *  *  * 
+P6 *  *  *  *  *  *  *  *  * 
+P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+P8 * +KA *  *  *  *  * +HI * 
+P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
++
+END Position
+END Game_Summary
+
+[2021-11-25 23:29:38] > BEGIN Game_Summary
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[BEGIN Game_Summary]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Protocol_Version:1.2
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Protocol_Version:1.2]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Protocol_Mode:Server
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Protocol_Mode:Server]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Format:Shogi 1.0
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Format:Shogi 1.0]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Declaration:Jishogi 1.1
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Declaration:Jishogi 1.1]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Game_ID:wdoor+floodgate-300-10F+Shin_LesserKai_1_0_0+e-gov-vote-kifuwarabe+20211125233006
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Name+:Shin_LesserKai_1_0_0
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Name-:e-gov-vote-kifuwarabe
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Your_Turn:-
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Rematch_On_Draw:NO
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Rematch_On_Draw:NO]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > To_Move:+
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Max_Moves:256
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Max_Moves:256]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > BEGIN Time
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[BEGIN Time]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Time_Unit:1sec
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Time_Unit:1sec]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Total_Time:300
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Total_Time:300]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Byoyomi:0
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Byoyomi:0]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Increment:10
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Increment:10]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > Least_Time_Per_Move:0
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[Least_Time_Per_Move:0]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > END Time
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[END Time]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > BEGIN Position
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[BEGIN Position]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P2 * -HI *  *  *  *  * -KA * 
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P4 *  *  *  *  *  *  *  *  * 
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P5 *  *  *  *  *  *  *  *  * 
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P6 *  *  *  *  *  *  *  *  * 
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P8 * +KA *  *  *  *  * +HI * 
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > +
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[+]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > END Position
+[2021-11-25 23:29:38] : [DEBUG] Unknown line=[END Position]
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----Loopback----> [GameSummary] (client.py 108)
+[2021-11-25 23:29:38] > END Game_Summary
+[2021-11-25 23:29:38] : [DEBUG] Transition [GameSummary]----EndGameSummary----> [Agreement] (client.py 108)
+[2021-11-25 23:29:38] : [DEBUG] entry/[Agreement] (diagram.py 160)
+[2021-11-25 23:29:38] < AGREE wdoor+floodgate-300-10F+Shin_LesserKai_1_0_0+e-gov-vote-kifuwarabe+20211125233006
+
+[2021-11-25 23:29:38] > START:wdoor+floodgate-300-10F+Shin_LesserKai_1_0_0+e-gov-vote-kifuwarabe+20211125233006
+
+[2021-11-25 23:29:38] > START:wdoor+floodgate-300-10F+Shin_LesserKai_1_0_0+e-gov-vote-kifuwarabe+20211125233006
+[2021-11-25 23:29:38] : [DEBUG] exit/[Agreement] (diagram.py 168) context.my_turn=- context.current_turn=+
+[2021-11-25 23:29:38] : [DEBUG] Transition [Agreement]----Start----> [Game] (client.py 108)
+[2021-11-25 23:29:38] > +2726FU,T0
+
+[2021-11-25 23:29:38] > +2726FU,T0
+[2021-11-25 23:30:52] : 投票が溜まってたので指します [-3334FU]
+[2021-11-25 23:30:52] < -3334FU
+
+[2021-11-25 23:30:52] : (191) 自分の手番で指した m=[-3334FU]
+[2021-11-25 23:31:04] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+      0 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|-KI|-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |   |-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|-FU|-FU|-FU|-FU|-FU|-FU|-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |+FU|   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|+FU|+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:31:04] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:31:04] > -3334FU,T74
++7776FU,T0
+
+[2021-11-25 23:31:04] > -3334FU,T74
+[2021-11-25 23:31:24] : 投票が溜まってたので指します [-8384FU]
+[2021-11-25 23:31:24] < -8384FU
+
+[2021-11-25 23:31:24] : (191) 自分の手番で指した m=[-8384FU]
+[2021-11-25 23:31:36] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+     74 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|-KI|-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |   |-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|-FU|-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |+FU|   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|+FU|+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:31:36] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:31:36] > +7776FU,T0
+[2021-11-25 23:32:18] : 投票が溜まってたので指します [-4132KI]
+[2021-11-25 23:32:18] < -4132KI
+
+[2021-11-25 23:32:18] : (191) 自分の手番で指した m=[-4132KI]
+[2021-11-25 23:32:29] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+     74 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|-KI|-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |   |-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|-FU|-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |+FU|   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:32:29] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:32:29] > -8384FU,T32
++2625FU,T0
+-4132KI,T53
++6978KI,T0
+
+[2021-11-25 23:32:29] > -8384FU,T32
+[2021-11-25 23:32:50] : 投票が溜まってたので指します [-8485FU]
+[2021-11-25 23:32:50] < -8485FU
+
+[2021-11-25 23:32:50] : (191) 自分の手番で指した m=[-8485FU]
+[2021-11-25 23:33:02] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    106 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|-KI|-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |   |-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |+FU|   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:33:02] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:33:02] > +2625FU,T0
+[2021-11-25 23:33:22] : 投票が溜まってたので指します [-2324FU]
+[2021-11-25 23:33:22] < -2324FU
+
+[2021-11-25 23:33:22] : (191) 自分の手番で指した m=[-2324FU]
+[2021-11-25 23:33:34] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    106 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|-KI|-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |   |-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |+FU|   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:33:34] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:33:34] > -4132KI,T53
+[2021-11-25 23:34:16] : 投票が溜まってたので指します [-1314FU]
+[2021-11-25 23:34:16] < -1314FU
+
+[2021-11-25 23:34:16] : (191) 自分の手番で指した m=[-1314FU]
+[2021-11-25 23:34:27] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    159 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|   |-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |-KI|-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |+FU|   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|   |   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|+KI|+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:34:27] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:34:27] > +6978KI,T0
+[2021-11-25 23:34:48] : 投票が溜まってたので指します [-2233KA]
+[2021-11-25 23:34:48] < -2233KA
+
+[2021-11-25 23:34:48] : (191) 自分の手番で指した m=[-2233KA]
+[2021-11-25 23:34:59] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    159 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|   |-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |-KI|-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |   |+FU|   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|+KI|   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|   |+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:34:59] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:34:59] > -8485FU,T32
++2524FU,T0
+-2324FU,T32
++2824HI,T0
+-1314FU,T53
++2434HI,T15
+-2233KA,T16
+
+[2021-11-25 23:34:59] > -8485FU,T32
+[2021-11-25 23:35:42] : 投票が溜まってたので指します [-7162GI]
+[2021-11-25 23:35:42] < -7162GI
+
+[2021-11-25 23:35:42] : (191) 自分の手番で指した m=[-7162GI]
+[2021-11-25 23:35:53] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    191 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|   |-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |-KI|-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |-FU|   |   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |   |+FU|   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|+KI|   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|   |+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:35:53] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:35:53] > +2524FU,T0
+[2021-11-25 23:37:07] : 投票が溜まってたので指します [-4344FU]
+[2021-11-25 23:37:07] < -4344FU
+
+[2021-11-25 23:37:07] : (191) 自分の手番で指した m=[-4344FU]
+[2021-11-25 23:37:19] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    191 |                           |
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|   |-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |-KI|-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |-FU|-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |-FU|+FU|   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|+KI|   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|   |+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:37:19] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:37:19] > -2324FU,T32
+[2021-11-25 23:38:11] : 投票が溜まってたので指します [-4344FU]
+[2021-11-25 23:38:11] < -4344FU
+
+[2021-11-25 23:38:11] : (191) 自分の手番で指した m=[-4344FU]
+[2021-11-25 23:38:23] : 
+Turn
+   +
+
+   TIME   HI  KA  KI  GI  KE  KY  FU
+    223 |                          1|
+ 
+   9   8   7   6   5   4   3   2   1    
++---+---+---+---+---+---+---+---+---+  
+|-KY|-KE|-GI|-KI|-OU|   |-GI|-KE|-KY| 1
++---+---+---+---+---+---+---+---+---+  
+|   |-HI|   |   |   |   |-KI|-KA|   | 2
++---+---+---+---+---+---+---+---+---+  
+|-FU|   |-FU|-FU|-FU|-FU|   |   |-FU| 3
++---+---+---+---+---+---+---+---+---+  
+|   |   |   |   |   |   |-FU|-FU|   | 4
++---+---+---+---+---+---+---+---+---+  
+|   |-FU|   |   |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+---+  
+|   |   |+FU|   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+---+  
+|+FU|+FU|   |+FU|+FU|+FU|+FU|   |+FU| 7
++---+---+---+---+---+---+---+---+---+  
+|   |+KA|+KI|   |   |   |   |+HI|   | 8
++---+---+---+---+---+---+---+---+---+  
+|+KY|+KE|+GI|   |+OU|+KI|+GI|+KE|+KY| 9
++---+---+---+---+---+---+---+---+---+  
+
+   Time   HI  KA  KI  GI  KE  KY  FU  
+      0 |                           |
+
+. . . . . . . . . . . . . . . . . . . .
+
+
+[2021-11-25 23:38:23] : [DEBUG] Transition [Game]----Move----> [Game] (client.py 108)
+[2021-11-25 23:38:23] > +2824HI,T0
