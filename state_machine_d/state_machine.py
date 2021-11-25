@@ -54,11 +54,12 @@ class StateMachine():
         key = f"{self._state.name}{edge_name}"
 
         if key in self._transition_dict:
-            return self._transition_dict[key], key
+            next_state_name = self._transition_dict[key]
+        else:
+            next_state_name = None
 
         self._state.on_exit(self._context)
-
-        return None, key
+        return next_state_name, key
 
     def arrive(self, next_state_name):
         """次の節の名前を返します

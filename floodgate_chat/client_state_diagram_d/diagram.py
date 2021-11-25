@@ -156,16 +156,20 @@ class Diagram():
         state = AgreementState()
 
         def on_entry(context):
+            log_output.display_and_log_internal(
+                f"[DEBUG] entry/[Agreement] (diagram.py 160)")
             # 常に AGREE を返します
             self._agree_func()
 
         state.on_entry = on_entry
 
         def on_exit(context):
+            log_output.display_and_log_internal(
+                f"[DEBUG] exit/[Agreement] (diagram.py 168) context.my_turn={context.my_turn} context.current_turn={context.current_turn}")
             if context.my_turn == context.current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(
-                    f"(175) exit/[Agree] で初手を考えます")
+                    f"(175) exit/[Agreement] で初手を考えます")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
                 log_output.display_and_log_internal(

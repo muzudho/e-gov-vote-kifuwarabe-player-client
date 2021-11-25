@@ -24,6 +24,15 @@ class Position():
     def hands(self):
         return self._hands
 
+    @property
+    def expend_times(self):
+        """経過時間 [未使用, 先手, 後手]"""
+        return self._expend_times
+
+    @expend_times.setter
+    def expend_times(self, val):
+        self._expend_times = val
+
     def formatBoard(self):
         """将棋盤の文字列"""
 

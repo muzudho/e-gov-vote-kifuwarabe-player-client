@@ -1,4 +1,4 @@
-from floodgate_chat.scripts.position import Position
+from shogi_d.position import Position
 
 
 class Context():
