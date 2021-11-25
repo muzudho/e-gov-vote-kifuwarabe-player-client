@@ -1,19 +1,20 @@
 import time
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
-from floodgate_chat.client_state_diagram_d.diagram import Diagram
+from floodgate_chat.client_state_diagram_d.state_machine import StateMachine
 from floodgate_chat.client_state_diagram_d.none_state import NoneState
 from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
+from dynamodb.e_gov_delete_bestmove_table import get_bestmove
 from dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 
-class ClientStateMachine():
+class ClientDiagramOf():
     def __init__(self):
-        self._diagram = Diagram()
+        self._state_machine = StateMachine()
 
-        dict = self._diagram._state_creators
+        dict = self._state_machine._state_creators
         dict[""] = self.create_none_state,  # 初期値
         dict["[Login].<Login>"] = self.create_none_state
         dict["[GameSummary]"] = self.create_game_summary_state
@@ -65,9 +66,9 @@ class ClientStateMachine():
         self._go_func = go_func
 
     @property
-    def diagram(self):
+    def state_machine(self):
         """ダイアグラム"""
-        return self._diagram
+        return self._state_machine
 
     @property
     def agree_func(self):

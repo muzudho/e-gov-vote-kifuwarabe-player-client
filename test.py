@@ -19,11 +19,11 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            next_state_name = self._client.state_machine.diagram.leave(
+            next_state_name = self._client.client_diagram_of.state_machine.leave(
                 received)
-            self._client._state_machine.arrive(next_state_name)
+            self._client._client_diagram_of.arrive(next_state_name)
 
-        self._client.state_machine.diagram.agree_func = __agree_func
+        self._client.client_diagram_of.state_machine.agree_func = __agree_func
 
     def clean_up(self):
         self._client.clean_up()
@@ -36,9 +36,10 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        next_state_name = self._client.state_machine.diagram.leave(received)
-        self._client._state_machine.arrive(next_state_name)
-        if self._client.state_machine.state.name != '[GameSummary]':
+        next_state_name = self._client.client_diagram_of.state_machine.leave(
+            received)
+        self._client._client_diagram_of.arrive(next_state_name)
+        if self._client.client_diagram_of.state.name != '[GameSummary]':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -79,40 +80,43 @@ END Game_Summary
 
         for line in lines:
             print(
-                f"[DEBUG] state=[{self._client.state_machine.state.name}] line=[{line}]")
-            next_state_name = self._client.state_machine.diagram.leave(line)
-            self._client._state_machine.arrive(next_state_name)
+                f"[DEBUG] state=[{self._client.client_diagram_of.state.name}] line=[{line}]")
+            next_state_name = self._client.client_diagram_of.state_machine.leave(
+                line)
+            self._client._client_diagram_of.arrive(next_state_name)
 
-        if self._client.state_machine.state.name != '[Game]':
+        if self._client.client_diagram_of.state.name != '[Game]':
             print(
-                f'Unimplemented begin board. client.state_machine.state.name=[{self._client.state_machine.state.name}]')
+                f'Unimplemented begin board. client.client_diagram_of.state.name=[{self._client.client_diagram_of.state.name}]')
 
-        text = self._client.state_machine.diagram.context.position.formatBoard()
+        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
         # 自分が先手か後手か
         print(
-            f"[DEBUG] my_turn=[{self._client.state_machine.diagram.context.my_turn}]")
+            f"[DEBUG] my_turn=[{self._client.client_diagram_of.state_machine.context.my_turn}]")
         print(
-            f"[DEBUG] current_turn=[{self._client.state_machine.diagram.context.current_turn}]")
+            f"[DEBUG] current_turn=[{self._client.client_diagram_of.state_machine.context.current_turn}]")
 
-        if self._client.state_machine.diagram.context.my_turn != self._client.state_machine.diagram.context.current_turn:
+        if self._client.client_diagram_of.state_machine.context.my_turn != self._client.client_diagram_of.state_machine.context.current_turn:
             print(f"[ERROR] 手番が違う")
             return
 
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        next_state_name = self._client.state_machine.diagram.leave(received)
-        self._client._state_machine.arrive(next_state_name)
-        text = self._client.state_machine.diagram.context.position.formatBoard()
+        next_state_name = self._client.client_diagram_of.state_machine.leave(
+            received)
+        self._client._client_diagram_of.arrive(next_state_name)
+        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        next_state_name = self._client.state_machine.diagram.leave(received)
-        self._client._state_machine.arrive(next_state_name)
-        text = self._client.state_machine.diagram.context.position.formatBoard()
+        next_state_name = self._client.client_diagram_of.state_machine.leave(
+            received)
+        self._client._client_diagram_of.arrive(next_state_name)
+        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
 

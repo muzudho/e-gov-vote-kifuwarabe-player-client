@@ -4,7 +4,7 @@ from floodgate_chat.client_state_diagram_d.mapping import connection_dict
 from floodgate_chat.scripts.log_output import log_output
 
 
-class Diagram():
+class StateMachine():
     def __init__(self):
         # グローバル変数みたいなもん
         self._context = Context()
