@@ -1,10 +1,10 @@
 import sys
 import signal
 from threading import Thread
-from floodgate_chat.client_state_diagram_d.diagram import Diagram
-from floodgate_chat.scripts.log_output import log_output
-from floodgate_chat.scripts.client_socket import client_socket
 from config import CLIENT_USER, CLIENT_PASS
+from scripts.logger import logger
+from floodgate_chat.client_state_diagram_d.diagram import Diagram
+from floodgate_chat.scripts.client_socket import client_socket
 
 
 def SplitTextBlock(text_block):
@@ -28,10 +28,10 @@ class Client():
         return self._diagram
 
     def set_up(self):
-        global log_output
+        global logger
 
         print("# Set up")
-        log_output.set_up()
+        logger.set_up()
 
         self._diagram = Diagram()
 
@@ -46,8 +46,8 @@ class Client():
         print("# Clean up")
 
         # Close log file
-        if not(log_output is None):
-            log_output.clean_up()
+        if not(logger is None):
+            logger.clean_up()
 
     def run(self):
         """自動対話"""
@@ -93,18 +93,18 @@ class Client():
             if text_block == '':
                 continue
 
-            log_output.display_and_log_receive(text_block)
+            logger.write_by_receive(text_block)
 
             # 受信したテキストブロックを行の配列にして返します
             lines = SplitTextBlock(text_block)
             for line in lines:
 
-                log_output.display_and_log_receive(line)
+                logger.write_by_receive(line)
 
                 # 処理は Diagram に委譲します
                 next_state_name, transition_key = self._diagram.state_machine.leave(
                     line)
-                log_output.display_and_log_internal(
+                logger.write_by_internal(
                     f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
 
                 self._diagram.state_machine.arrive(next_state_name)

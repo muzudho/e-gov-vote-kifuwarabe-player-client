@@ -38,25 +38,27 @@ class LogOutput():
     def flush(self):
         self._file.flush()
 
-    def display_and_log_receive(self, text):
+    def write_by_receive(self, text):
+        """標準出力への印字と、ログへの書き込みを行います"""
         s = LogOutput.format_receive(text)
 
         # Display
         print(s, end='')
 
         # Log
-        log_output.write(s)
-        log_output.flush()
+        logger.write(s)
+        logger.flush()
 
-    def display_and_log_internal(self, text):
+    def write_by_internal(self, text):
+        """標準出力への印字と、ログへの書き込みを行います"""
         s = LogOutput.format_internal(text)
 
         # Display
         print(s)
 
         # Log
-        log_output.write(s)
-        log_output.flush()
+        logger.write(s)
+        logger.flush()
 
 
-log_output = LogOutput()
+logger = LogOutput()

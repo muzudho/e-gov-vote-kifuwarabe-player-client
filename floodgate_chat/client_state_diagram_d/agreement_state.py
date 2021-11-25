@@ -1,6 +1,6 @@
 import re
+from scripts.logger import logger
 from state_machine_d.abstract_state import AbstractState
-from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.client_state_diagram_d.context import Context
 
 
@@ -59,7 +59,7 @@ class AgreementState(AbstractState):
                 raise ValueError(
                     f'GameIdが一致しませんでした context.game_id:{context.game_id} Start:{start_game_id}')
 
-        log_output.display_and_log_internal(
+        logger.write_by_internal(
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
@@ -67,7 +67,7 @@ class AgreementState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.agreement_state
 if __name__ == "__main__":
-    log_output.set_up()
+    logger.set_up()
     context = Context()
     context.game_id = 'wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
     state = AgreementState()

@@ -1,6 +1,3 @@
-from floodgate_chat.scripts.log_output import log_output
-
-
 class StateMachine():
     """状態遷移マシーン（State diagram machine）"""
 

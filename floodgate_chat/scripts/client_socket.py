@@ -1,6 +1,6 @@
 import socket
 from config import SERVER_HOST, SERVER_PORT, MESSAGE_SIZE
-from floodgate_chat.scripts.log_output import LogOutput, log_output
+from scripts.logger import LogOutput, logger
 
 
 class ClientSocket():
@@ -27,7 +27,7 @@ class ClientSocket():
         """末尾に \n を付けてください"""
 
         global client_socket
-        global log_output
+        global logger
 
         # 1. Change Newline (Windows to CSA Protocol)
         if line.endswith('\r\n'):
@@ -53,8 +53,8 @@ class ClientSocket():
         print(s)
 
         # Log
-        log_output.write(s)
-        log_output.flush()
+        logger.write(s)
+        logger.flush()
 
 
 client_socket = ClientSocket()
