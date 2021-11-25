@@ -2,7 +2,7 @@ import time
 from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.client_state_diagram_d.mapping import connection_dict
 from floodgate_chat.client_state_diagram_d.none_state import NoneState
-from floodgate_chat.client_state_diagram_d.login_judge_state import LoginJudgeState
+from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
@@ -23,15 +23,15 @@ def SplitTextBlock(text_block):
     return lines
 
 
-class ClientStateDiagram():
+class Diagram():
     def __init__(self):
         # グローバル変数みたいなもん
         self._context = Context()
 
         self._state_creators = {
-            "": self.create_login_choice,  # 初期値
-            "[Login].<Login>": self.create_login_choice,
-            "[LoginJudge]": self.create_logged_in_choice,
+            "": self.create_none_state,  # 初期値
+            "[Login].<Login>": self.create_none_state,
+            "[GameSummary]": self.create_game_summary_state,
             "[Game]": self.create_game_state
         }
 
@@ -113,7 +113,7 @@ class ClientStateDiagram():
     def go_func(self, func):
         self._go_func = func
 
-    def create_login_choice(self):
+    def create_none_state(self):
         """ステート生成"""
         state = NoneState()
 
@@ -123,9 +123,9 @@ class ClientStateDiagram():
         state.on_ok = on_ok
         return state
 
-    def create_logged_in_choice(self):
+    def create_game_summary_state(self):
         """ステート生成"""
-        state = LoginJudgeState()
+        state = GameSummaryState()
 
         def on_game_id(context):
             """Game ID を取得した"""
@@ -254,8 +254,8 @@ class ClientStateDiagram():
 
         edge_name = self._state.leave(self._context, line)
 
-        # さっき去ったステートの名前 . 今辿っているエッジの名前
-        key = f"{self._state.name}.{edge_name}"
+        # さっき去ったステートの名前と、今辿っているエッジの名前
+        key = f"{self._state.name}{edge_name}"
 
         if key in connection_dict:
             return connection_dict[key]
@@ -278,9 +278,9 @@ class ClientStateDiagram():
             節の名前
         """
 
-        if next_state_name == "[LoginJudge]":
+        if next_state_name == "[GameSummary]":
             # 次のステートへ引継ぎ
-            self._state = self._state_creators["[LoginJudge]"]()
+            self._state = self._state_creators["[GameSummary]"]()
         else:
             # Error
             raise ValueError(f"Next sate [{next_state_name}] is None")

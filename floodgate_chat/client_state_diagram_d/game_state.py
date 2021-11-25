@@ -19,7 +19,7 @@ class GameState():
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
         def none_func(context):
-            return '--Unimplemented--'
+            return '----Unimplemented---->'
 
         # --Move-- 時のコールバック関数
         self._on_move = none_func

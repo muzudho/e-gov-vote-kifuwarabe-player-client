@@ -1,7 +1,7 @@
 import sys
 import signal
 from client import Client
-from floodgate_chat.client_state_diagram_d.client_state_diagram import SplitTextBlock
+from floodgate_chat.client_state_diagram_d.diagram import SplitTextBlock
 
 
 class Test():
@@ -38,7 +38,7 @@ class Test():
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
         next_state_name = self._client.state_diagram.leave(received)
         self._client._state_diagram.arrive(next_state_name)
-        if self._client.state_diagram.state.name != '[LoginJudge]':
+        if self._client.state_diagram.state.name != '[GameSummary]':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary

@@ -1,9 +1,8 @@
 import re
 from floodgate_chat.client_state_diagram_d.context import Context
-from floodgate_chat.scripts.position import Position
 
 
-class LoginJudgeState():
+class GameSummaryState():
 
     def __init__(self):
         # [Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]
@@ -52,7 +51,7 @@ class LoginJudgeState():
             r"^P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
         def none_func(context):
-            return '--Unimplemented--'
+            return '----Unimplemented---->'
 
         # ----GameId----> 時のコールバック関数
         self._on_game_id = none_func
@@ -65,7 +64,7 @@ class LoginJudgeState():
 
     @property
     def name(self):
-        return "[LoginJudge]"
+        return "[GameSummary]"
 
     @property
     def on_game_id(self):
@@ -87,7 +86,7 @@ class LoginJudgeState():
 
     @property
     def on_start(self):
-        """----Start---->時のコールバック関数"""
+        """[GameSummary].----Start----> 時のコールバック関数"""
         return self._on_start
 
     @on_start.setter
@@ -193,10 +192,10 @@ class LoginJudgeState():
 
 
 # Test
-# python.exe -m floodgate_chat.client_state_diagram_d.login_judge_state
+# python.exe -m floodgate_chat.client_state_diagram_d.game_summary_state
 if __name__ == "__main__":
     context = Context()
-    state = LoginJudgeState()
+    state = GameSummaryState()
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
     edge_name = state.leave(context, line)
