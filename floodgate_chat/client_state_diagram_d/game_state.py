@@ -203,7 +203,7 @@ class GameState():
         # ----[??????]---->
         #      ------
         #      その他
-        return '--Unknown--'
+        return '----Unknown---->'
 
 
 # Test
@@ -213,8 +213,8 @@ if __name__ == "__main__":
     state = GameState()
 
     line = '+5756FU,T20'
-    edge = state.leave(context, line)
-    if edge == '--Move--':
+    edge_name = state.leave(context, line)
+    if edge_name == '--Move--':
         print('.', end='')
     else:
         print('f', end='')

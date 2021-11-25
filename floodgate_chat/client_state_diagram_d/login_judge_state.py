@@ -54,13 +54,13 @@ class LoginJudgeState():
         def none_func(context):
             return '--Unimplemented--'
 
-        # --GameId-- 時のコールバック関数
+        # ----GameId----> 時のコールバック関数
         self._on_game_id = none_func
 
-        # --EndGameSummary-- 時のコールバック関数
+        # ----EndGameSummary----> 時のコールバック関数
         self._on_end_game_summary = none_func
 
-        # --Start-- 時のコールバック関数
+        # ----Start----> 時のコールバック関数
         self._on_start = none_func
 
     @property
@@ -69,7 +69,7 @@ class LoginJudgeState():
 
     @property
     def on_game_id(self):
-        """--GameId--時のコールバック関数"""
+        """----GameId---->時のコールバック関数"""
         return self._on_game_id
 
     @on_game_id.setter
@@ -78,7 +78,7 @@ class LoginJudgeState():
 
     @property
     def on_end_game_summary(self):
-        """--EndGameSummary--時のコールバック関数"""
+        """----EndGameSummary---->時のコールバック関数"""
         return self._on_end_game_summary
 
     @on_end_game_summary.setter
@@ -87,7 +87,7 @@ class LoginJudgeState():
 
     @property
     def on_start(self):
-        """--Start--時のコールバック関数"""
+        """----Start---->時のコールバック関数"""
         return self._on_start
 
     @on_start.setter
@@ -112,7 +112,7 @@ class LoginJudgeState():
         #      初期局面終了
         if line == 'END Game_Summary':
             self.on_end_game_summary(context)
-            return '--EndGameSummary--'
+            return '----EndGameSummary---->'
 
         # ----[Name+:John]---->
         #     [Name-:John]
@@ -131,7 +131,7 @@ class LoginJudgeState():
                 # Error
                 raise ValueError(f'ここにはこないはず')
 
-            return '--Turn--'
+            return '----Turn---->'
 
         # ----[Your_Turn:+]---->
         #                -
@@ -139,7 +139,7 @@ class LoginJudgeState():
         matched = self._my_turn_pattern.match(line)
         if matched:
             context.my_turn = matched.group(1)
-            return '--MyTurn--'
+            return '----MyTurn---->'
 
         # ----[To_Move:+]---->
         #              -
@@ -147,7 +147,7 @@ class LoginJudgeState():
         matched = self._startpos_turn_pattern.match(line)
         if matched:
             context.current_turn = matched.group(1)
-            return '--StartPosTurn--'
+            return '----StartPosTurn---->'
 
         # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
         #              ---------------------------------------------------------------------
@@ -158,7 +158,7 @@ class LoginJudgeState():
 
             self.on_game_id(context)
 
-            return '--GameId--'
+            return '----GameId---->'
 
         # ----[開始局面の各行]---->
         matched = self._begin_pos_row_pattern.match(line)
@@ -174,7 +174,7 @@ class LoginJudgeState():
             context.position.board[20 + rank] = matched.group(9)
             context.position.board[10 + rank] = matched.group(10)
 
-            return '--BeginPosRow--'
+            return '----BeginPosRow---->'
 
         # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
         #            ------------------------------------------------------------------------------------------
@@ -184,12 +184,12 @@ class LoginJudgeState():
             start_game_id = matched.group(1)
             if context.game_id == start_game_id:
                 self.on_start(context)
-                return '--Start--'
+                return '----Start---->'
             else:
                 raise ValueError(
                     f'GameIdが一致しませんでした GameId:{context.game_id} Start:{start_game_id}')
 
-        return '--Unknown--'
+        return '----Unknown---->'
 
 
 # Test
@@ -199,22 +199,22 @@ if __name__ == "__main__":
     state = LoginJudgeState()
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
-    edge = state.leave(context, line)
-    if edge == '--GameId--':
+    edge_name = state.leave(context, line)
+    if edge_name == '----GameId---->':
         print('.', end='')
     else:
         print('f', end='')
 
     line = 'P1-KY-KE-GI-KI-OU-KI-GI-KE-KY'
-    edge = state.leave(context, line)
-    if edge == '--BeginPosRow--':
+    edge_name = state.leave(context, line)
+    if edge_name == '----BeginPosRow---->':
         print('.', end='')
     else:
         print('f', end='')
 
     line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-    edge = state.leave(context, line)
-    if edge == '--Start--':
+    edge_name = state.leave(context, line)
+    if edge_name == '----Start---->':
         print('.', end='')
     else:
         print('f', end='')

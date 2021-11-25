@@ -249,31 +249,28 @@ class ClientStateDiagram():
         Returns
         -------
         str
-            辺の名前
+            次の状態の名前
         """
 
-        edge = self._state.leave(self._context, line)
+        edge_name = self._state.leave(self._context, line)
 
         # さっき去ったステートの名前 . 今辿っているエッジの名前
-        key = f"{self._state.name}.{edge}"
+        key = f"{self._state.name}.{edge_name}"
 
         if key in connection_dict:
-            next_state = connection_dict[key]
-            if next_state == "[LoginJudge]":
-                # 次のステートへ引継ぎ
-                self._state = self._state_creators["[LoginJudge]"]()
+            return connection_dict[key]
 
         log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")
+            f"[DEBUG] state=[{self._state.name}] edge=[{edge_name}]")
 
-        return edge
+        return None
 
-    def arrive(self, edge_name):
+    def arrive(self, next_state_name):
         """次の節の名前を返します
         Parameters
         ----------
-        str : edge_name
-            今辿っているエッジの名前
+        str : next_state_name
+            次の状態の名前
 
         Returns
         -------
@@ -281,10 +278,9 @@ class ClientStateDiagram():
             節の名前
         """
 
-        # さっき去ったステートの名前 . 今辿っているエッジの名前
-        key = f"{self.state.name}.{edge_name}"
-
-        if key in connection_dict:
-            return connection_dict[key]
-
-        return ""
+        if next_state_name == "[LoginJudge]":
+            # 次のステートへ引継ぎ
+            self._state = self._state_creators["[LoginJudge]"]()
+        else:
+            # Error
+            raise ValueError(f"Next sate [{next_state_name}] is None")

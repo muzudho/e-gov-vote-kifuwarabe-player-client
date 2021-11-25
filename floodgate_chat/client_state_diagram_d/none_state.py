@@ -68,8 +68,8 @@ if __name__ == "__main__":
     state = NoneState()
 
     line = 'LOGIN:egov-kifuwarabe OK'
-    edge = state.leave(context, line)
-    if edge == '----Ok---->':
+    edge_name = state.leave(context, line)
+    if edge_name == '----Ok---->':
         print('.', end='')
     else:
         print('f', end='')

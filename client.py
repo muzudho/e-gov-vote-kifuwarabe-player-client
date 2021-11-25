@@ -90,8 +90,8 @@ class Client():
                 log_output.display_and_log_receive(line)
 
                 # 処理は ClientStateDiagram に委譲します
-                edge = self._state_diagram.leave(line)
-                _node = self._state_diagram.arrive(edge)
+                next_state_name = self._state_diagram.leave(line)
+                self._state_diagram.arrive(next_state_name)
 
 
 def main():
