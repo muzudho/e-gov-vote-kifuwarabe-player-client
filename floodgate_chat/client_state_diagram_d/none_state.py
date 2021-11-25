@@ -1,9 +1,12 @@
 import re
+from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.client_state_diagram_d.context import Context
 
 
-class NoneState():
+class NoneState(AbstractState):
     def __init__(self):
+        super().__init__()
+
         self._ok_pattern = None
 
         def none_func(context):

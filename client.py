@@ -1,7 +1,7 @@
 import sys
 import signal
 from threading import Thread
-from floodgate_chat.client_state_diagram_d.client_diagram_of import ClientDiagramOf
+from floodgate_chat.client_state_diagram_d.client_diagram import ClientDiagramOf
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from config import CLIENT_USER, CLIENT_PASS
@@ -21,11 +21,11 @@ def SplitTextBlock(text_block):
 
 class Client():
     def __init__(self):
-        self._diagram_of = None
+        self._diagram = None
 
     @property
-    def diagram_of(self):
-        return self._diagram_of
+    def diagram(self):
+        return self._diagram
 
     def set_up(self):
         global log_output
@@ -33,14 +33,14 @@ class Client():
         print("# Set up")
         log_output.set_up()
 
-        self._diagram_of = ClientDiagramOf()
+        self._diagram = ClientDiagramOf()
 
         # Implement all handlers
         def __agree_func():
             client_socket.send_line(
-                f"AGREE {self.diagram_of.state_machine.context.game_id}\n")
+                f"AGREE {self.diagram.state_machine.context.game_id}\n")
 
-        self.diagram_of.state_machine.agree_func = __agree_func
+        self.diagram.agree_func = __agree_func
 
     def clean_up(self):
         print("# Clean up")
@@ -102,11 +102,11 @@ class Client():
                 log_output.display_and_log_receive(line)
 
                 # 処理は ClientDiagramOf に委譲します
-                next_state_name, transition_key = self._diagram_of.leave(line)
+                next_state_name, transition_key = self._diagram.leave(line)
                 log_output.display_and_log_internal(
                     f"[DEBUG] leave-key1 {transition_key} {next_state_name}")
 
-                self._diagram_of.state_machine.arrive(next_state_name)
+                self._diagram.state_machine.arrive(next_state_name)
 
 
 def main():

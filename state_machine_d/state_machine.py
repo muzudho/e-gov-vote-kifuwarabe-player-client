@@ -56,6 +56,8 @@ class StateMachine():
         if key in self._transition_dict:
             return self._transition_dict[key], key
 
+        self._state.on_exit()
+
         return None, key
 
     def arrive(self, next_state_name):
@@ -71,9 +73,12 @@ class StateMachine():
             節の名前
         """
 
-        if next_state_name == "[GameSummary]":
+        if next_state_name in self._state_creators:
             # 次のステートへ引継ぎ
-            self._state = self._state_creators["[GameSummary]"]()
+            self._state = self._state_creators[next_state_name]()
+
+            self._state.on_entry()
+
         else:
             # Error
             raise ValueError(f"Next state [{next_state_name}] is None")

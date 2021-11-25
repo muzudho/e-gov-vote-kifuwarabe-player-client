@@ -117,8 +117,7 @@ class ClientDiagramOf():
 
         def on_end_game_summary(context):
             """初期局面情報取得した"""
-            # 常に AGREE を返します
-            self._agree_func()
+            pass
 
         state.on_end_game_summary = on_end_game_summary
 
@@ -162,6 +161,13 @@ class ClientDiagramOf():
     def create_agreement_state(self):
         """ステート生成"""
         state = AgreementState()
+
+        def on_entry():
+            # 常に AGREE を返します
+            self._agree_func()
+
+        state.on_entry = on_entry
+
         return state
 
     def create_game_state(self):
@@ -171,9 +177,9 @@ class ClientDiagramOf():
         def on_move(context):
             """指し手"""
             # 相手の指し手だったら、自分の指し手を入力する番になります
-            if self.context.current_turn != self.context.my_turn:
+            if context.current_turn != context.my_turn:
                 print(
-                    f"自分の手番が回ってきました。考えます: current_turn=[{self.context.current_turn}] my_turn=[{self.context.my_turn}]")
+                    f"自分の手番が回ってきました。考えます: current_turn=[{context.current_turn}] my_turn=[{context.my_turn}]")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
                 log_output.display_and_log_internal(
@@ -199,7 +205,7 @@ class ClientDiagramOf():
                     f"(Err.183) テーブル作成できなかった [{e}]")
 
             # 盤表示
-            text = self.context.position.formatBoard()
+            text = context.position.formatBoard()
             log_output.display_and_log_internal(text)
 
         state.on_move = on_move

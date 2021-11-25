@@ -1,11 +1,14 @@
 import re
+from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.scripts.log_output import log_output
 
 
-class GameSummaryState():
+class GameSummaryState(AbstractState):
 
     def __init__(self):
+        super().__init__()
+
         # [Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]
         #          ---------------------------------------------------------------------
         #          1. game_id

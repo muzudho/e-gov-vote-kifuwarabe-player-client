@@ -1,10 +1,12 @@
 import re
+from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.client_state_diagram_d.context import Context
 
 
-class AgreementState():
+class AgreementState(AbstractState):
     def __init__(self):
+        super().__init__()
 
         # [START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]
         #        ------------------------------------------------------------------------------------------

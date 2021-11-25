@@ -1,11 +1,13 @@
 import re
+from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.client_state_diagram_d.context import Context
 
 
-class GameState():
+class GameState(AbstractState):
     """`START:` してからの状態"""
 
     def __init__(self):
+        super().__init__()
 
         # [+5756FU,T20]
         #  -            先後(+)(-)
