@@ -20,10 +20,10 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            next_state_name = self._client.diagram_of.state_machine.leave(
+            next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
                 received)
             log_output.display_and_log_internal(
-                f"[DEBUG] leave-key2 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+                f"[DEBUG] leave-key2 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
             self._client.diagram_of.state_machine.arrive(next_state_name)
 
@@ -40,10 +40,10 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        next_state_name = self._client.diagram_of.state_machine.leave(
+        next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key3 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key3 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
         self._client.diagram_of.state_machine.arrive(next_state_name)
         if self._client.diagram_of.state_machine.state.name != '[GameSummary]':
@@ -88,10 +88,10 @@ END Game_Summary
         for line in lines:
             print(
                 f"[DEBUG] state=[{self._client.diagram_of.state_machine.state.name}] line=[{line}]")
-            next_state_name = self._client.diagram_of.state_machine.leave(
+            next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
                 line)
             log_output.display_and_log_internal(
-                f"[DEBUG] leave-key4 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+                f"[DEBUG] leave-key4 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
             self._client.diagram_of.state_machine.arrive(next_state_name)
 
@@ -115,21 +115,21 @@ END Game_Summary
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        next_state_name = self._client.diagram_of.state_machine.leave(
+        next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key5 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key5 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-        self._client.diagram_of.arrive(next_state_name)
+        self._client.diagram_of.state_machine.arrive(next_state_name)
         text = self._client.diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        next_state_name = self._client.diagram_of.state_machine.leave(
+        next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key6 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key6 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
         self._client.diagram_of.state_machine.arrive(next_state_name)
         text = self._client.diagram_of.state_machine.context.position.formatBoard()

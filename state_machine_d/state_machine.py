@@ -36,7 +36,7 @@ class StateMachine():
         return self._state
 
     def leave(self, line):
-        """次の辺の名前を返します
+        """次の状態の名前と、遷移に使ったキーを返します
         Parameters
         ----------
         str : line
@@ -44,8 +44,8 @@ class StateMachine():
 
         Returns
         -------
-        str
-            次の状態の名前
+        str, str
+            次の状態の名前、遷移に使ったキー
         """
 
         edge_name = self._state.leave(self._context, line)
@@ -54,9 +54,9 @@ class StateMachine():
         key = f"{self._state.name}{edge_name}"
 
         if key in self._transition_dict:
-            return self._transition_dict[key]
+            return self._transition_dict[key], key
 
-        return None
+        return None, key
 
     def arrive(self, next_state_name):
         """次の節の名前を返します

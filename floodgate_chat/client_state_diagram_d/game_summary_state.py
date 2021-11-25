@@ -1,5 +1,6 @@
 import re
 from floodgate_chat.client_state_diagram_d.context import Context
+from floodgate_chat.scripts.log_output import log_output
 
 
 class GameSummaryState():
@@ -111,7 +112,7 @@ class GameSummaryState():
         #      初期局面終了
         if line == 'END Game_Summary':
             self.on_end_game_summary(context)
-            return '----EndGameSummary---->'
+            return '----Loopback---->'
 
         # ----[Name+:John]---->
         #     [Name-:John]
@@ -130,7 +131,7 @@ class GameSummaryState():
                 # Error
                 raise ValueError(f'ここにはこないはず')
 
-            return '----Turn---->'
+            return '----Loopback---->'
 
         # ----[Your_Turn:+]---->
         #                -
@@ -138,7 +139,7 @@ class GameSummaryState():
         matched = self._my_turn_pattern.match(line)
         if matched:
             context.my_turn = matched.group(1)
-            return '----MyTurn---->'
+            return '----Loopback---->'
 
         # ----[To_Move:+]---->
         #              -
@@ -146,7 +147,7 @@ class GameSummaryState():
         matched = self._startpos_turn_pattern.match(line)
         if matched:
             context.current_turn = matched.group(1)
-            return '----StartPosTurn---->'
+            return '----Loopback---->'
 
         # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
         #              ---------------------------------------------------------------------
@@ -157,7 +158,7 @@ class GameSummaryState():
 
             self.on_game_id(context)
 
-            return '----GameId---->'
+            return '----Loopback---->'
 
         # ----[開始局面の各行]---->
         matched = self._begin_pos_row_pattern.match(line)
@@ -173,7 +174,7 @@ class GameSummaryState():
             context.position.board[20 + rank] = matched.group(9)
             context.position.board[10 + rank] = matched.group(10)
 
-            return '----BeginPosRow---->'
+            return '----Loopback---->'
 
         # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
         #            ------------------------------------------------------------------------------------------
@@ -188,7 +189,9 @@ class GameSummaryState():
                 raise ValueError(
                     f'GameIdが一致しませんでした GameId:{context.game_id} Start:{start_game_id}')
 
-        return '----Unknown---->'
+        log_output.display_and_log_internal(
+            f"[DEBUG] Unknown line=[{line}]")
+        return '----Loopback---->'
 
 
 # Test

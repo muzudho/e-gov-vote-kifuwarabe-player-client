@@ -1,7 +1,5 @@
 import re
 from floodgate_chat.client_state_diagram_d.context import Context
-from floodgate_chat.scripts.client_socket import client_socket
-from floodgate_chat.scripts.log_output import log_output
 
 
 class GameState():
@@ -203,7 +201,7 @@ class GameState():
         # ----[??????]---->
         #      ------
         #      その他
-        return '----Unknown---->'
+        return '----Unknown1---->'
 
 
 # Test
