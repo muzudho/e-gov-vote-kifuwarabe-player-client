@@ -32,11 +32,6 @@ class GameSummaryState():
         self._startpos_turn_pattern = re.compile(
             r'^To_Move:([+-])$')
 
-        # [START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]
-        #        ------------------------------------------------------------------------------------------
-        #        1. game_id
-        self._start_pattern = re.compile(r'^START:([0-9A-Za-z_+-]+)$')
-
         # [P1-KY-KE-GI-KI-OU-KI-GI-KE-KY
         #  P2 * -HI *  *  *  *  * -KA *
         #  P3-FU-FU-FU-FU-FU-FU-FU-FU-FU
@@ -60,9 +55,6 @@ class GameSummaryState():
         # ----EndGameSummary----> 時のコールバック関数
         self._on_end_game_summary = none_func
 
-        # ----Start----> 時のコールバック関数
-        self._on_start = none_func
-
     @property
     def name(self):
         return "[GameSummary]"
@@ -85,15 +77,6 @@ class GameSummaryState():
     def on_end_game_summary(self, func):
         self._on_end_game_summary = func
 
-    @property
-    def on_start(self):
-        """[GameSummary].----Start----> 時のコールバック関数"""
-        return self._on_start
-
-    @on_start.setter
-    def on_start(self, func):
-        self._on_start = func
-
     def leave(self, context, line):
         """次の辺の名前を返します
         Parameters
@@ -112,7 +95,7 @@ class GameSummaryState():
         #      初期局面終了
         if line == 'END Game_Summary':
             self.on_end_game_summary(context)
-            return '----Loopback---->'
+            return '----EndGameSummary---->'
 
         # ----[Name+:John]---->
         #     [Name-:John]
@@ -175,19 +158,6 @@ class GameSummaryState():
             context.position.board[10 + rank] = matched.group(10)
 
             return '----Loopback---->'
-
-        # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
-        #            ------------------------------------------------------------------------------------------
-        #            1. game_id
-        matched = self._start_pattern.match(line)
-        if matched:
-            start_game_id = matched.group(1)
-            if context.game_id == start_game_id:
-                self.on_start(context)
-                return '----Start---->'
-            else:
-                raise ValueError(
-                    f'GameIdが一致しませんでした GameId:{context.game_id} Start:{start_game_id}')
 
         log_output.display_and_log_internal(
             f"[DEBUG] Unknown line=[{line}]")

@@ -6,6 +6,7 @@ from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from floodgate_chat.client_state_diagram_d.none_state import NoneState
 from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
+from floodgate_chat.client_state_diagram_d.agreement_state import AgreementState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
 from my_dynamodb.e_gov_bestmove import get_bestmove
 from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
@@ -19,6 +20,7 @@ class ClientDiagramOf():
             "": self.create_none_state,  # 初期値
             "[Login].<Login>": self.create_none_state,
             "[GameSummary]": self.create_game_summary_state,
+            "[Agreement]": self.create_agreement_state,
             "[Game]": self.create_game_state
         }
 
@@ -155,6 +157,11 @@ class ClientDiagramOf():
 
         state.on_start = on_start
 
+        return state
+
+    def create_agreement_state(self):
+        """ステート生成"""
+        state = AgreementState()
         return state
 
     def create_game_state(self):

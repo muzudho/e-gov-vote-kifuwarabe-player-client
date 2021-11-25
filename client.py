@@ -104,7 +104,7 @@ class Client():
                 # 処理は ClientDiagramOf に委譲します
                 next_state_name, transition_key = self._diagram_of.leave(line)
                 log_output.display_and_log_internal(
-                    f"[DEBUG] leave-key1 {transition_key} {self._diagram_of.state_machine.state.name}{next_state_name}")
+                    f"[DEBUG] leave-key1 {transition_key} {next_state_name}")
 
                 self._diagram_of.state_machine.arrive(next_state_name)
 

@@ -23,7 +23,7 @@ class Test():
             next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
                 received)
             log_output.display_and_log_internal(
-                f"[DEBUG] leave-key2 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+                f"[DEBUG] leave-key2 {transition_key} {next_state_name}")
 
             self._client.diagram_of.state_machine.arrive(next_state_name)
 
@@ -43,7 +43,7 @@ class Test():
         next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key3 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key3 {transition_key} {next_state_name}")
 
         self._client.diagram_of.state_machine.arrive(next_state_name)
         if self._client.diagram_of.state_machine.state.name != '[GameSummary]':
@@ -91,7 +91,7 @@ END Game_Summary
             next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
                 line)
             log_output.display_and_log_internal(
-                f"[DEBUG] leave-key4 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+                f"[DEBUG] leave-key4 {transition_key} {next_state_name}")
 
             self._client.diagram_of.state_machine.arrive(next_state_name)
 
@@ -112,13 +112,12 @@ END Game_Summary
             print(f"[ERROR] 手番が違う")
             return
 
-        print(f"[DEBUG] わたしのターン")
-        # `+5756FU` を送信したとして
+        print(f"[DEBUG] わたしのターン。`+5756FU` を送信したとして")
         received = '+5756FU,T20'
         next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key5 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key5 {transition_key} {next_state_name}")
 
         self._client.diagram_of.state_machine.arrive(next_state_name)
         text = self._client.diagram_of.state_machine.context.position.formatBoard()
@@ -129,7 +128,7 @@ END Game_Summary
         next_state_name, transition_key = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] leave-key6 {transition_key} {self._client.diagram_of.state_machine.state.name}{next_state_name}")
+            f"[DEBUG] leave-key6 {transition_key} {next_state_name}")
 
         self._client.diagram_of.state_machine.arrive(next_state_name)
         text = self._client.diagram_of.state_machine.context.position.formatBoard()
