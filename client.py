@@ -1,10 +1,22 @@
 import sys
 import signal
 from threading import Thread
-from floodgate_chat.client_state_diagram_d.client_state_machine import ClientStateMachine, SplitTextBlock
+from floodgate_chat.client_state_diagram_d.client_state_machine import ClientStateMachine
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
 from config import CLIENT_USER, CLIENT_PASS
+
+
+def SplitTextBlock(text_block):
+    """受信したテキストブロックを行の配列にして返します"""
+    lines = text_block.split('\n')
+
+    # 例えば 'abc\n' を '\n' でスプリットすると 'abc' と '' になって、
+    # 最後に空文字列ができます。これは無視します
+    if lines[len(lines)-1] == '':
+        lines = lines[:-1]
+
+    return lines
 
 
 class Client():

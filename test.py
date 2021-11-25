@@ -1,7 +1,6 @@
 import sys
 import signal
-from client import Client
-from floodgate_chat.client_state_diagram_d.diagram import SplitTextBlock
+from client import Client, SplitTextBlock
 
 
 class Test():
