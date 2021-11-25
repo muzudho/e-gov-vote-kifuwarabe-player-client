@@ -143,14 +143,6 @@ class ClientDiagramOf():
                 log_output.display_and_log_internal(
                     f"(Err.163) テーブル作成できなかった [{e}]")
 
-            if context.my_turn == context.current_turn:
-                # 初手を考えます
-                log_output.display_and_log_internal(f"(175) 初手を考えます")
-                m = self.go_func()
-                client_socket.send_line(f'{m}\n')
-                log_output.display_and_log_internal(
-                    f"(178) 初手を指します m=[{m}]")
-
             # 次のステートへ引継ぎ
             self._state = self._state_creators["[Game]"]()
 
@@ -175,7 +167,13 @@ class ClientDiagramOf():
         state = GameState()
 
         def on_entry(context):
-            pass
+            if context.my_turn == context.current_turn:
+                # 初手を考えます
+                log_output.display_and_log_internal(f"(175) 初手を考えます")
+                m = self.go_func()
+                client_socket.send_line(f'{m}\n')
+                log_output.display_and_log_internal(
+                    f"(178) 初手を指します m=[{m}]")
 
         state.on_entry = on_entry
 
