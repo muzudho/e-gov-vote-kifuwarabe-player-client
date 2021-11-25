@@ -17,17 +17,24 @@ class Test():
         self._client.set_up()
 
         # Implement test handlers
-        def __agree_func():
+        def test_agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
             next_state_name, transition_key = self._client.diagram.state_machine.leave(
                 received)
             log_output.display_and_log_internal(
-                f"[DEBUG] Transition {transition_key} {next_state_name} (test.py agree_func)")
+                f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 26 test_agree_func)")
 
             self._client.diagram.state_machine.arrive(next_state_name)
 
-        self._client.diagram.agree_func = __agree_func
+        self._client.diagram.agree_func = test_agree_func
+
+        def test_go_func():
+            log_output.display_and_log_internal(
+                f"[IN-TEST] go_func 投票を集めると料金かかるのでパス (test.py 34 test_go_func)")
+            pass
+
+        self._client.diagram.go_func = test_go_func
 
     def clean_up(self):
         self._client.clean_up()
