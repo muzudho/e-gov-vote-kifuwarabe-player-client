@@ -43,7 +43,9 @@ class ClientSocket():
             line = f"{line}\n"
 
         # Send to server
-        self._sock.send(line.encode())
+        # テストのときは _sock が None になっているので無視します
+        if not(self._sock is None):
+            self._sock.send(line.encode())
 
         s = LogOutput.format_send(line)
 

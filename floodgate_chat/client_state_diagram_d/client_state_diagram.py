@@ -1,8 +1,8 @@
 import time
 from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.client_state_diagram_d.mapping import connection_dict
-from floodgate_chat.client_state_diagram_d.border_state import LoginChoice
-from floodgate_chat.client_state_diagram_d.logged_in_state import LoggedInChoice
+from floodgate_chat.client_state_diagram_d.none_state import NoneState
+from floodgate_chat.client_state_diagram_d.login_judge_state import LoginJudgeState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
@@ -31,7 +31,7 @@ class ClientStateDiagram():
         self._state_creators = {
             "": self.create_login_choice,  # 初期値
             "[Login].<Login>": self.create_login_choice,
-            "[LoggedIn].<LoggedIn>": self.create_logged_in_choice,
+            "[LoginJudge]": self.create_logged_in_choice,
             "[Game]": self.create_game_state
         }
 
@@ -115,31 +115,30 @@ class ClientStateDiagram():
 
     def create_login_choice(self):
         """ステート生成"""
-        stat = LoginChoice()
+        state = NoneState()
 
         def on_ok(_context):
-            # 次のステートへ引継ぎ
-            self._state = self._state_creators["[LoggedIn].<LoggedIn>"]()
+            pass
 
-        stat.on_ok = on_ok
-        return stat
+        state.on_ok = on_ok
+        return state
 
     def create_logged_in_choice(self):
         """ステート生成"""
-        stat = LoggedInChoice()
+        state = LoginJudgeState()
 
         def on_game_id(context):
             """Game ID を取得した"""
             pass
 
-        stat.on_game_id = on_game_id
+        state.on_game_id = on_game_id
 
         def on_end_game_summary(context):
             """初期局面情報取得した"""
             # 常に AGREE を返します
             self._agree_func()
 
-        stat.on_end_game_summary = on_end_game_summary
+        state.on_end_game_summary = on_end_game_summary
 
         def on_start(context):
             """対局成立した"""
@@ -174,13 +173,13 @@ class ClientStateDiagram():
             # 次のステートへ引継ぎ
             self._state = self._state_creators["[Game]"]()
 
-        stat.on_start = on_start
+        state.on_start = on_start
 
-        return stat
+        return state
 
     def create_game_state(self):
         """ステート生成"""
-        stat = GameState()
+        state = GameState()
 
         def on_move(context):
             """指し手"""
@@ -216,7 +215,7 @@ class ClientStateDiagram():
             text = self.context.position.formatBoard()
             log_output.display_and_log_internal(text)
 
-        stat.on_move = on_move
+        state.on_move = on_move
 
         def on_win(context):
             """勝ち"""
@@ -226,7 +225,7 @@ class ClientStateDiagram():
 """
             log_output.display_and_log_internal(s)
 
-        stat.on_win = on_win
+        state.on_win = on_win
 
         def on_lose(context):
             """負け"""
@@ -236,9 +235,9 @@ class ClientStateDiagram():
 """
             log_output.display_and_log_internal(s)
 
-        stat.on_lose = on_lose
+        state.on_lose = on_lose
 
-        return stat
+        return state
 
     def leave(self, line):
         """次の辺の名前を返します
@@ -254,6 +253,15 @@ class ClientStateDiagram():
         """
 
         edge = self._state.leave(self._context, line)
+
+        # さっき去ったステートの名前 . 今辿っているエッジの名前
+        key = f"{self._state.name}.{edge}"
+
+        if key in connection_dict:
+            next_state = connection_dict[key]
+            if next_state == "[LoginJudge]":
+                # 次のステートへ引継ぎ
+                self._state = self._state_creators["[LoginJudge]"]()
 
         log_output.display_and_log_internal(
             f"[DEBUG] state=[{self._state.name}] edge=[{edge}]")

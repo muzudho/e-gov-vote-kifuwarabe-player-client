@@ -38,7 +38,7 @@ class Test():
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
         edge = self._client.state_diagram.leave(received)
         _node = self._client._state_diagram.arrive(edge)
-        if self._client.state_diagram.state.name != '[LoggedIn]<LoggedIn>':
+        if self._client.state_diagram.state.name != '[LoginJudge]':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary

@@ -3,7 +3,7 @@ from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.scripts.position import Position
 
 
-class LoggedInChoice():
+class LoginJudgeState():
 
     def __init__(self):
         # [Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]
@@ -65,7 +65,7 @@ class LoggedInChoice():
 
     @property
     def name(self):
-        return "[LoggedIn]<LoggedIn>"
+        return "[LoginJudge]"
 
     @property
     def on_game_id(self):
@@ -193,10 +193,10 @@ class LoggedInChoice():
 
 
 # Test
-# python.exe -m floodgate_chat.client_state_diagram_d.logged_in_state
+# python.exe -m floodgate_chat.client_state_diagram_d.login_judge_state
 if __name__ == "__main__":
     context = Context()
-    state = LoggedInChoice()
+    state = LoginJudgeState()
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
     edge = state.leave(context, line)
