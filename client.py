@@ -49,9 +49,12 @@ class Client():
         if not(logger is None):
             logger.clean_up()
 
-    def run(self):
-        """自動対話"""
+    def connect(self):
+        """初回の接続、または再接続"""
         global client_socket
+
+        logger.write_by_internal(
+            f"初回の接続、または再接続 (client.py 57)")
 
         client_socket.set_up()
         client_socket.connect()
@@ -66,6 +69,12 @@ class Client():
         thr.daemon = True
         # start the thread
         thr.start()
+
+    def run(self):
+        """自動対話"""
+        global client_socket
+
+        self.connect()
 
         # このループは人間が入力するためのものです
         while True:
@@ -86,43 +95,39 @@ class Client():
         """コンピューターの動き"""
         global client_socket
 
-        is_reconnect = True
+        try:
+            while True:
+                text_block = client_socket.receive_text_block()
 
-        while is_reconnect:
-            is_reconnect = False
+                # 1. 空行は無限に送られてくるので無視
+                if text_block == '':
+                    continue
 
-            try:
-                while True:
-                    text_block = client_socket.receive_text_block()
+                logger.write_by_receive(text_block)
 
-                    # 1. 空行は無限に送られてくるので無視
-                    if text_block == '':
-                        continue
+                # 受信したテキストブロックを行の配列にして返します
+                lines = SplitTextBlock(text_block)
+                for line in lines:
 
-                    logger.write_by_receive(text_block)
+                    logger.write_by_receive(line)
 
-                    # 受信したテキストブロックを行の配列にして返します
-                    lines = SplitTextBlock(text_block)
-                    for line in lines:
+                    # 処理は Diagram に委譲します
+                    next_state_name, transition_key = self._diagram.state_machine.leave(
+                        line)
+                    logger.write_by_internal(
+                        f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
 
-                        logger.write_by_receive(line)
+                    self._diagram.state_machine.arrive(next_state_name)
 
-                        # 処理は Diagram に委譲します
-                        next_state_name, transition_key = self._diagram.state_machine.leave(
-                            line)
-                        logger.write_by_internal(
-                            f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
+        except ConnectionAbortedError as e:
+            # floodgate に切断されたときとか
+            logger.write_by_internal(
+                f"(Err.51) 接続が破棄された [{e}]")
 
-                        self._diagram.state_machine.arrive(next_state_name)
-
-            except ConnectionAbortedError as e:
-                # floodgate に切断されたときとか
-                logger.write_by_internal(
-                    f"(Err.51) 接続が破棄された [{e}]")
-
-                # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
-                if IS_RECONNECT_WHEN_CONNECTION_ABORT:
-                    is_reconnect = True
+            # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
+            if IS_RECONNECT_WHEN_CONNECTION_ABORT:
+                # ログイン、スレッド生成からやり直すので、このスレッドは終了してください
+                self.connect()
 
 
 def main():

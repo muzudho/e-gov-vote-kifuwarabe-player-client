@@ -3,7 +3,7 @@ from datetime import datetime
 LOG_FILE_NAME = 'client-chat.log'
 
 
-class LogOutput():
+class Logger():
 
     @classmethod
     def date_now(clazz):
@@ -11,15 +11,15 @@ class LogOutput():
 
     @classmethod
     def format_send(clazz, text):
-        return f"[{LogOutput.date_now()}] < {text}\n"
+        return f"[{Logger.date_now()}] < {text}\n"
 
     @classmethod
     def format_receive(clazz, text):
-        return f"[{LogOutput.date_now()}] > {text}\n"
+        return f"[{Logger.date_now()}] > {text}\n"
 
     @classmethod
     def format_internal(clazz, text):
-        return f"[{LogOutput.date_now()}] : {text}\n"
+        return f"[{Logger.date_now()}] : {text}\n"
 
     def __init__(self):
         self._file = None
@@ -40,7 +40,7 @@ class LogOutput():
 
     def write_by_receive(self, text):
         """標準出力への印字と、ログへの書き込みを行います"""
-        s = LogOutput.format_receive(text)
+        s = Logger.format_receive(text)
 
         # Display
         print(s, end='')
@@ -51,7 +51,7 @@ class LogOutput():
 
     def write_by_internal(self, text):
         """標準出力への印字と、ログへの書き込みを行います"""
-        s = LogOutput.format_internal(text)
+        s = Logger.format_internal(text)
 
         # Display
         print(s)
@@ -61,4 +61,4 @@ class LogOutput():
         logger.flush()
 
 
-logger = LogOutput()
+logger = Logger()
