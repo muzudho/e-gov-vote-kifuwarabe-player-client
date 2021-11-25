@@ -1,4 +1,4 @@
 connection_dict = {
     "[None]----Ok---->": "[GameSummary]",
-    "[GameSummary]----Start---->": "",
+    "[GameSummary]----Start---->": "[Game]",
 }
