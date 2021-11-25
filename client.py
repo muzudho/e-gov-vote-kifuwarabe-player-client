@@ -105,7 +105,7 @@ class Client():
                 next_state_name, transition_key = self._diagram.state_machine.leave(
                     line)
                 log_output.display_and_log_internal(
-                    f"[DEBUG] leave-key1 {transition_key} {next_state_name}")
+                    f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
 
                 self._diagram.state_machine.arrive(next_state_name)
 

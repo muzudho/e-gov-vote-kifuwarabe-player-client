@@ -56,7 +56,7 @@ class StateMachine():
         if key in self._transition_dict:
             return self._transition_dict[key], key
 
-        self._state.on_exit()
+        self._state.on_exit(self._context)
 
         return None, key
 
@@ -77,7 +77,7 @@ class StateMachine():
             # 次のステートへ引継ぎ
             self._state = self._state_creators[next_state_name]()
 
-            self._state.on_entry()
+            self._state.on_entry(self._context)
 
         else:
             # Error

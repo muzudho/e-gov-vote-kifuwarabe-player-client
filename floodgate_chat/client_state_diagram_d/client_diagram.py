@@ -143,7 +143,7 @@ class ClientDiagramOf():
                 log_output.display_and_log_internal(
                     f"(Err.163) テーブル作成できなかった [{e}]")
 
-            if self.context.my_turn == self.context.current_turn:
+            if context.my_turn == context.current_turn:
                 # 初手を考えます
                 log_output.display_and_log_internal(f"(175) 初手を考えます")
                 m = self.go_func()
@@ -162,7 +162,7 @@ class ClientDiagramOf():
         """ステート生成"""
         state = AgreementState()
 
-        def on_entry():
+        def on_entry(context):
             # 常に AGREE を返します
             self._agree_func()
 
@@ -173,6 +173,11 @@ class ClientDiagramOf():
     def create_game_state(self):
         """ステート生成"""
         state = GameState()
+
+        def on_entry(context):
+            pass
+
+        state.on_entry = on_entry
 
         def on_move(context):
             """指し手"""
