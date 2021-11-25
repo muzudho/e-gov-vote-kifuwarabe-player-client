@@ -102,7 +102,8 @@ class Client():
                 log_output.display_and_log_receive(line)
 
                 # 処理は ClientDiagramOf に委譲します
-                next_state_name, transition_key = self._diagram.leave(line)
+                next_state_name, transition_key = self._diagram.state_machine.leave(
+                    line)
                 log_output.display_and_log_internal(
                     f"[DEBUG] leave-key1 {transition_key} {next_state_name}")
 
