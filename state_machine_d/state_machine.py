@@ -1,18 +1,28 @@
-import time
-from floodgate_chat.client_state_diagram_d.context import Context
-from floodgate_chat.client_state_diagram_d.mapping import connection_dict
 from floodgate_chat.scripts.log_output import log_output
 
 
 class StateMachine():
-    def __init__(self):
-        # グローバル変数みたいなもん
-        self._context = Context()
+    """状態遷移マシーン（State diagram machine）"""
 
-        self._state_creators = {}
+    def __init__(self, context=None, state_creators={}, transition_dict={}):
+        """初期化
+
+        Parameters
+        ----------
+        context : Context
+            Defaults to None.
+        state_creators : dict
+            状態を作成する関数のディクショナリーです。 Defaults to {}.
+        transition_dict : dict
+            Defaults to {}.
+        """
+        self._context = context
+        self._state_creators = state_creators
+        self._transition_dict = transition_dict
 
     @property
     def context(self):
+        """グローバル変数みたいなもん。StateMachineは内容を知りません"""
         return self._context
 
     @context.setter
@@ -21,17 +31,11 @@ class StateMachine():
 
     @property
     def state(self):
-
         if self._state is None:
             # 初期状態
             self._state = self._state_creators[""]()
 
         return self._state
-
-    @property
-    def state_creators(self):
-        """状態を作成する関数のディクショナリーです"""
-        return self._state_creators
 
     def leave(self, line):
         """次の辺の名前を返します
@@ -51,11 +55,8 @@ class StateMachine():
         # さっき去ったステートの名前と、今辿っているエッジの名前
         key = f"{self._state.name}{edge_name}"
 
-        if key in connection_dict:
-            return connection_dict[key]
-
-        log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._state.name}] edge=[{edge_name}]")
+        if key in self._transition_dict:
+            return self._transition_dict[key]
 
         return None
 

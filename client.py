@@ -103,6 +103,9 @@ class Client():
 
                 # 処理は ClientDiagramOf に委譲します
                 next_state_name = self._client_diagram_of.leave(line)
+                log_output.display_and_log_internal(
+                    f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
                 self._client_diagram_of.arrive(next_state_name)
 
 

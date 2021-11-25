@@ -1,7 +1,9 @@
 import time
+from state_machine_d.state_machine import StateMachine
+from floodgate_chat.client_state_diagram_d.context import Context
+from floodgate_chat.client_state_diagram_d.transition_dict_d import transition_dict
 from floodgate_chat.scripts.log_output import log_output
 from floodgate_chat.scripts.client_socket import client_socket
-from floodgate_chat.client_state_diagram_d.state_machine import StateMachine
 from floodgate_chat.client_state_diagram_d.none_state import NoneState
 from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
@@ -12,13 +14,15 @@ from dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 class ClientDiagramOf():
     def __init__(self):
-        self._state_machine = StateMachine()
 
-        dict = self._state_machine._state_creators
+        dict = {}
         dict[""] = self.create_none_state,  # 初期値
         dict["[Login].<Login>"] = self.create_none_state
         dict["[GameSummary]"] = self.create_game_summary_state
         dict["[Game]"] = self.create_game_state
+
+        self._state_machine = StateMachine(
+            context=Context(), state_creators=dict, transition_dict=transition_dict)
 
         def none_func():
             pass

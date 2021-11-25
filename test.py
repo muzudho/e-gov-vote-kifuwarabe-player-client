@@ -1,6 +1,7 @@
 import sys
 import signal
 from client import Client, SplitTextBlock
+from floodgate_chat.scripts.log_output import log_output
 
 
 class Test():
@@ -21,6 +22,9 @@ class Test():
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
             next_state_name = self._client.client_diagram_of.state_machine.leave(
                 received)
+            log_output.display_and_log_internal(
+                f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
             self._client._client_diagram_of.arrive(next_state_name)
 
         self._client.client_diagram_of.state_machine.agree_func = __agree_func
@@ -38,6 +42,9 @@ class Test():
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
         next_state_name = self._client.client_diagram_of.state_machine.leave(
             received)
+        log_output.display_and_log_internal(
+            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
         self._client._client_diagram_of.arrive(next_state_name)
         if self._client.client_diagram_of.state.name != '[GameSummary]':
             print('Unimplemented login')
@@ -83,6 +90,9 @@ END Game_Summary
                 f"[DEBUG] state=[{self._client.client_diagram_of.state.name}] line=[{line}]")
             next_state_name = self._client.client_diagram_of.state_machine.leave(
                 line)
+            log_output.display_and_log_internal(
+                f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
             self._client._client_diagram_of.arrive(next_state_name)
 
         if self._client.client_diagram_of.state.name != '[Game]':
@@ -107,6 +117,9 @@ END Game_Summary
         received = '+5756FU,T20'
         next_state_name = self._client.client_diagram_of.state_machine.leave(
             received)
+        log_output.display_and_log_internal(
+            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
         self._client._client_diagram_of.arrive(next_state_name)
         text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
         print(text)
@@ -115,6 +128,9 @@ END Game_Summary
         received = '-3334FU,T35'
         next_state_name = self._client.client_diagram_of.state_machine.leave(
             received)
+        log_output.display_and_log_internal(
+            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+
         self._client._client_diagram_of.arrive(next_state_name)
         text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
         print(text)
