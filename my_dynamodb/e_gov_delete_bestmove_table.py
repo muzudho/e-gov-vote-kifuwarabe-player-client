@@ -16,7 +16,7 @@ def delete_bestmove_table(dynamodb=None):
     table.delete()
 
 
-# cd dynamodb
+# cd my_dynamodb
 # python.exe e_gov_delete_bestmove_table.py
 if __name__ == '__main__':
     # テーブルを削除します

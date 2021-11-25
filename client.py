@@ -21,11 +21,11 @@ def SplitTextBlock(text_block):
 
 class Client():
     def __init__(self):
-        self._client_diagram_of = None
+        self._diagram_of = None
 
     @property
-    def client_diagram_of(self):
-        return self._client_diagram_of
+    def diagram_of(self):
+        return self._diagram_of
 
     def set_up(self):
         global log_output
@@ -33,14 +33,14 @@ class Client():
         print("# Set up")
         log_output.set_up()
 
-        self._client_diagram_of = ClientDiagramOf()
+        self._diagram_of = ClientDiagramOf()
 
         # Implement all handlers
         def __agree_func():
             client_socket.send_line(
-                f"AGREE {self.client_diagram_of.state_machine.context.game_id}\n")
+                f"AGREE {self.diagram_of.state_machine.context.game_id}\n")
 
-        self.client_diagram_of.state_machine.agree_func = __agree_func
+        self.diagram_of.state_machine.agree_func = __agree_func
 
     def clean_up(self):
         print("# Clean up")
@@ -102,11 +102,11 @@ class Client():
                 log_output.display_and_log_receive(line)
 
                 # 処理は ClientDiagramOf に委譲します
-                next_state_name = self._client_diagram_of.leave(line)
+                next_state_name = self._diagram_of.leave(line)
                 log_output.display_and_log_internal(
-                    f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+                    f"[DEBUG] leave-key1 {self._diagram_of.state_machine.state.name}{next_state_name}")
 
-                self._client_diagram_of.arrive(next_state_name)
+                self._diagram_of.state_machine.arrive(next_state_name)
 
 
 def main():

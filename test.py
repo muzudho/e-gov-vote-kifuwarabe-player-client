@@ -20,14 +20,14 @@ class Test():
         def __agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            next_state_name = self._client.client_diagram_of.state_machine.leave(
+            next_state_name = self._client.diagram_of.state_machine.leave(
                 received)
             log_output.display_and_log_internal(
-                f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+                f"[DEBUG] leave-key2 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-            self._client._client_diagram_of.arrive(next_state_name)
+            self._client.diagram_of.state_machine.arrive(next_state_name)
 
-        self._client.client_diagram_of.state_machine.agree_func = __agree_func
+        self._client.diagram_of.state_machine.agree_func = __agree_func
 
     def clean_up(self):
         self._client.clean_up()
@@ -40,13 +40,13 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        next_state_name = self._client.client_diagram_of.state_machine.leave(
+        next_state_name = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+            f"[DEBUG] leave-key3 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-        self._client._client_diagram_of.arrive(next_state_name)
-        if self._client.client_diagram_of.state.name != '[GameSummary]':
+        self._client.diagram_of.state_machine.arrive(next_state_name)
+        if self._client.diagram_of.state_machine.state.name != '[GameSummary]':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -87,52 +87,52 @@ END Game_Summary
 
         for line in lines:
             print(
-                f"[DEBUG] state=[{self._client.client_diagram_of.state.name}] line=[{line}]")
-            next_state_name = self._client.client_diagram_of.state_machine.leave(
+                f"[DEBUG] state=[{self._client.diagram_of.state_machine.state.name}] line=[{line}]")
+            next_state_name = self._client.diagram_of.state_machine.leave(
                 line)
             log_output.display_and_log_internal(
-                f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+                f"[DEBUG] leave-key4 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-            self._client._client_diagram_of.arrive(next_state_name)
+            self._client.diagram_of.state_machine.arrive(next_state_name)
 
-        if self._client.client_diagram_of.state.name != '[Game]':
+        if self._client.diagram_of.state_machine.state.name != '[Game]':
             print(
-                f'Unimplemented begin board. client.client_diagram_of.state.name=[{self._client.client_diagram_of.state.name}]')
+                f'Unimplemented begin board. state_name=[{self._client.diagram_of.state_machine.state.name}]')
 
-        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
+        text = self._client.diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
         # 自分が先手か後手か
         print(
-            f"[DEBUG] my_turn=[{self._client.client_diagram_of.state_machine.context.my_turn}]")
+            f"[DEBUG] my_turn=[{self._client.diagram_of.state_machine.context.my_turn}]")
         print(
-            f"[DEBUG] current_turn=[{self._client.client_diagram_of.state_machine.context.current_turn}]")
+            f"[DEBUG] current_turn=[{self._client.diagram_of.state_machine.context.current_turn}]")
 
-        if self._client.client_diagram_of.state_machine.context.my_turn != self._client.client_diagram_of.state_machine.context.current_turn:
+        if self._client.diagram_of.state_machine.context.my_turn != self._client.diagram_of.state_machine.context.current_turn:
             print(f"[ERROR] 手番が違う")
             return
 
         print(f"[DEBUG] わたしのターン")
         # `+5756FU` を送信したとして
         received = '+5756FU,T20'
-        next_state_name = self._client.client_diagram_of.state_machine.leave(
+        next_state_name = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+            f"[DEBUG] leave-key5 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-        self._client._client_diagram_of.arrive(next_state_name)
-        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
+        self._client.diagram_of.arrive(next_state_name)
+        text = self._client.diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        next_state_name = self._client.client_diagram_of.state_machine.leave(
+        next_state_name = self._client.diagram_of.state_machine.leave(
             received)
         log_output.display_and_log_internal(
-            f"[DEBUG] state=[{self._client_diagram_of.state_machine.state.name}] next=[{next_state_name}]")
+            f"[DEBUG] leave-key6 {self._client.diagram_of.state_machine.state.name}{next_state_name}")
 
-        self._client._client_diagram_of.arrive(next_state_name)
-        text = self._client.client_diagram_of.state_machine.context.position.formatBoard()
+        self._client.diagram_of.state_machine.arrive(next_state_name)
+        text = self._client.diagram_of.state_machine.context.position.formatBoard()
         print(text)
 
 

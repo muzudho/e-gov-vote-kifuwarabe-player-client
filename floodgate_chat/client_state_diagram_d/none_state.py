@@ -4,6 +4,8 @@ from floodgate_chat.client_state_diagram_d.context import Context
 
 class NoneState():
     def __init__(self):
+        self._ok_pattern = None
+
         def none_func(context):
             return '----Unimplemented---->'
 

@@ -7,22 +7,23 @@ from floodgate_chat.scripts.client_socket import client_socket
 from floodgate_chat.client_state_diagram_d.none_state import NoneState
 from floodgate_chat.client_state_diagram_d.game_summary_state import GameSummaryState
 from floodgate_chat.client_state_diagram_d.game_state import GameState
-from dynamodb.e_gov_delete_bestmove_table import get_bestmove
-from dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
-from dynamodb.e_gov_create_bestmove_table import create_bestmove_table
+from my_dynamodb.e_gov_bestmove import get_bestmove
+from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
+from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 
 class ClientDiagramOf():
     def __init__(self):
 
-        dict = {}
-        dict[""] = self.create_none_state,  # 初期値
-        dict["[Login].<Login>"] = self.create_none_state
-        dict["[GameSummary]"] = self.create_game_summary_state
-        dict["[Game]"] = self.create_game_state
+        state_creators_dict = {
+            "": self.create_none_state,  # 初期値
+            "[Login].<Login>": self.create_none_state,
+            "[GameSummary]": self.create_game_summary_state,
+            "[Game]": self.create_game_state
+        }
 
         self._state_machine = StateMachine(
-            context=Context(), state_creators=dict, transition_dict=transition_dict)
+            context=Context(), state_creators=state_creators_dict, transition_dict=transition_dict)
 
         def none_func():
             pass

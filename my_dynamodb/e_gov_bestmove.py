@@ -5,7 +5,7 @@ python.exe e_gov_bestmove.py
 
 import random
 from pprint import pprint
-from dynamodb.e_gov_scan_bestmove_table import scan_bestmove_table
+from my_dynamodb.e_gov_scan_bestmove_table import scan_bestmove_table
 
 
 def get_bestmove():
@@ -51,6 +51,8 @@ def get_bestmove():
     return random.choice(max_key_list)
 
 
+# cd my_dynamodb
+# python.exe e_gov_bestmove.py
 if __name__ == '__main__':
     # move
     m = get_bestmove()

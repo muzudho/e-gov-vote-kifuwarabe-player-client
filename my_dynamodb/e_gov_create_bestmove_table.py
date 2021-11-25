@@ -45,7 +45,7 @@ def create_bestmove_table(dynamodb=None):
     return table
 
 
-# cd dynamodb
+# cd my_dynamodb
 # python.exe e_gov_create_bestmove_table.py
 if __name__ == '__main__':
     # テーブルを作成します

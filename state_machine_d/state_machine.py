@@ -19,6 +19,8 @@ class StateMachine():
         self._context = context
         self._state_creators = state_creators
         self._transition_dict = transition_dict
+        # 初期状態
+        self._state = self._state_creators[""]()
 
     @property
     def context(self):
@@ -31,10 +33,6 @@ class StateMachine():
 
     @property
     def state(self):
-        if self._state is None:
-            # 初期状態
-            self._state = self._state_creators[""]()
-
         return self._state
 
     def leave(self, line):
@@ -78,4 +76,4 @@ class StateMachine():
             self._state = self._state_creators["[GameSummary]"]()
         else:
             # Error
-            raise ValueError(f"Next sate [{next_state_name}] is None")
+            raise ValueError(f"Next state [{next_state_name}] is None")
