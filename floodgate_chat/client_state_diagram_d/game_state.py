@@ -36,7 +36,7 @@ class GameState(AbstractState):
         self._on_illegal_move = none_func
 
         # ----TimeUp----> 時のコールバック関数
-        self._on_time_up_move = none_func
+        self._on_time_up = none_func
 
     @property
     def name(self):
