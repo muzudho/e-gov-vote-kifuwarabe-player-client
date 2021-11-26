@@ -53,7 +53,8 @@ class StateMachine():
         if key in self._transition_dict:
             next_state_name = self._transition_dict[key]
         else:
-            next_state_name = None
+            # Error
+            raise ValueError(f"Leave-key [{key}] is not found")
 
         self._state.on_exit(self._context)
         return next_state_name, key
