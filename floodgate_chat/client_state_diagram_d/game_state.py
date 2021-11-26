@@ -23,9 +23,6 @@ class GameState(AbstractState):
         def none_func(context):
             pass
 
-        # ----IllegalMove----> 時のコールバック関数
-        self._on_illegal_move = none_func
-
         # ----Move----> 時のコールバック関数
         self._on_move = none_func
 
@@ -35,18 +32,15 @@ class GameState(AbstractState):
         # ----Lose----> 時のコールバック関数
         self._on_lose = none_func
 
+        # ----IllegalMove----> 時のコールバック関数
+        self._on_illegal_move = none_func
+
+        # ----TimeUp----> 時のコールバック関数
+        self._on_time_up_move = none_func
+
     @property
     def name(self):
         return "[Game]"
-
-    @property
-    def on_illegal_move(self):
-        """----IllegalMove---->時のコールバック関数"""
-        return self._on_illegal_move
-
-    @on_illegal_move.setter
-    def on_illegal_move(self, func):
-        self._on_illegal_move = func
 
     @property
     def on_move(self):
@@ -74,6 +68,24 @@ class GameState(AbstractState):
     @on_lose.setter
     def on_lose(self, func):
         self._on_lose = func
+
+    @property
+    def on_illegal_move(self):
+        """----IllegalMove---->時のコールバック関数"""
+        return self._on_illegal_move
+
+    @on_illegal_move.setter
+    def on_illegal_move(self, func):
+        self._on_illegal_move = func
+
+    @property
+    def on_time_up(self):
+        """----TimeUp---->時のコールバック関数"""
+        return self._on_time_up
+
+    @on_time_up.setter
+    def on_time_up(self, func):
+        self._on_time_up = func
 
     def leave(self, context, line):
         """次の辺の名前を返します
@@ -108,13 +120,6 @@ class GameState(AbstractState):
             self.on_move(context)
             return '----Move---->'
 
-        # ----[#ILLEGAL_MOVE]---->
-        #      -------------
-        #      非合法手
-        if line == '#ILLEGAL_MOVE':
-            self.on_illegal_move(context)
-            return '----Loopback---->'
-
         # ----[#WIN]---->
         #      ----
         #      勝ち
@@ -128,6 +133,20 @@ class GameState(AbstractState):
         if line == '#LOSE':
             self.on_lose(context)
             return '----Lose---->'
+
+        # ----[#ILLEGAL_MOVE]---->
+        #      -------------
+        #      非合法手
+        if line == '#ILLEGAL_MOVE':
+            self.on_illegal_move(context)
+            return '----Loopback---->'
+
+        # ----[#TIME_UP]---->
+        #      -------------
+        #      時間切れ
+        if line == '#TIME_UP':
+            self.on_time_up(context)
+            return '----Loopback---->'
 
         # ----[??????]---->
         #      ------
