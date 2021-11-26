@@ -51,6 +51,7 @@ class Client():
         """初回の接続、または再接続"""
         global client_socket
 
+        app.log.init()
         app.log.write_by_internal(
             f"初回の接続、または再接続 (client.py 57)")
 
