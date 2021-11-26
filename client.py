@@ -56,6 +56,8 @@ class Client():
         logger.write_by_internal(
             f"初回の接続、または再接続 (client.py 57)")
 
+        self.diagram.state_machine.init()
+
         client_socket.set_up()
         client_socket.connect()
 
