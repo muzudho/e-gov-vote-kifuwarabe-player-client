@@ -2,7 +2,7 @@ import sys
 import signal
 from threading import Thread
 from config import CLIENT_USER, CLIENT_PASS, IS_RECONNECT_WHEN_CONNECTION_ABORT
-from scripts.logger import logger
+from app import app
 from floodgate_chat.client_state_diagram_d.diagram import Diagram
 from floodgate_chat.scripts.client_socket import client_socket
 
@@ -28,10 +28,8 @@ class Client():
         return self._diagram
 
     def set_up(self):
-        global logger
-
         print("# Set up")
-        logger.set_up()
+        app.log.set_up()
 
         self._diagram = Diagram()
 
@@ -46,14 +44,14 @@ class Client():
         print("# Clean up")
 
         # Close log file
-        if not(logger is None):
-            logger.clean_up()
+        if not(app.log is None):
+            app.log.clean_up()
 
     def connect(self):
         """初回の接続、または再接続"""
         global client_socket
 
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"初回の接続、または再接続 (client.py 57)")
 
         self.diagram.state_machine.init()
@@ -105,25 +103,25 @@ class Client():
                 if text_block == '':
                     continue
 
-                logger.write_by_receive(text_block)
+                app.log.write_by_receive(text_block)
 
                 # 受信したテキストブロックを行の配列にして返します
                 lines = SplitTextBlock(text_block)
                 for line in lines:
 
-                    logger.write_by_receive(line)
+                    app.log.write_by_receive(line)
 
                     # 処理は Diagram に委譲します
                     next_state_name, transition_key = self._diagram.state_machine.leave(
                         line)
-                    logger.write_by_internal(
+                    app.log.write_by_internal(
                         f"[DEBUG] Transition {transition_key} {next_state_name} (client.py 108)")
 
                     self._diagram.state_machine.arrive(next_state_name)
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"(Err.51) 接続が破棄された [{e}]")
 
             # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）

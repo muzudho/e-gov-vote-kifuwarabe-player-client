@@ -1,7 +1,7 @@
 import sys
 import signal
 from client import Client, SplitTextBlock
-from scripts.logger import logger
+from app import app
 
 
 class Test():
@@ -22,7 +22,7 @@ class Test():
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
             next_state_name, transition_key = self._client.diagram.state_machine.leave(
                 received)
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 26 test_agree_func)")
 
             self._client.diagram.state_machine.arrive(next_state_name)
@@ -30,7 +30,7 @@ class Test():
         self._client.diagram.agree_func = test_agree_func
 
         def test_go_func():
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"[IN-TEST] go_func 投票を集めると料金かかるのでパス (test.py 34 test_go_func)")
             pass
 
@@ -49,7 +49,7 @@ class Test():
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
         next_state_name, transition_key = self._client.diagram.state_machine.leave(
             received)
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 46)")
 
         self._client.diagram.state_machine.arrive(next_state_name)
@@ -97,7 +97,7 @@ END Game_Summary
                 f"[DEBUG] state=[{self._client.diagram.state_machine.state.name}] line=[{line}]")
             next_state_name, transition_key = self._client.diagram.state_machine.leave(
                 line)
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 94)")
 
             self._client.diagram.state_machine.arrive(next_state_name)
@@ -123,7 +123,7 @@ END Game_Summary
         received = '+5756FU,T20'
         next_state_name, transition_key = self._client.diagram.state_machine.leave(
             received)
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 120)")
 
         self._client.diagram.state_machine.arrive(next_state_name)
@@ -134,7 +134,7 @@ END Game_Summary
         received = '-3334FU,T35'
         next_state_name, transition_key = self._client.diagram.state_machine.leave(
             received)
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 131)")
 
         self._client.diagram.state_machine.arrive(next_state_name)

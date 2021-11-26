@@ -1,5 +1,5 @@
 import re
-from scripts.logger import logger
+from app import app
 from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.client_state_diagram_d.context import Context
 
@@ -162,7 +162,7 @@ class GameSummaryState(AbstractState):
 
             return '----Loopback---->'
 
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
@@ -170,7 +170,7 @@ class GameSummaryState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.game_summary_state
 if __name__ == "__main__":
-    logger.set_up()
+    app.log.set_up()
     context = Context()
     state = GameSummaryState()
 

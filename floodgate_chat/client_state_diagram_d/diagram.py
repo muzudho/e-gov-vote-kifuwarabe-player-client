@@ -1,5 +1,5 @@
 import time
-from scripts.logger import logger
+from app import app
 from state_machine_d.state_machine import StateMachine
 from floodgate_chat.client_state_diagram_d.context import Context
 from floodgate_chat.client_state_diagram_d.transition_dict_d import transition_dict
@@ -57,13 +57,13 @@ class Diagram():
 
                 if not(m is None):
                     # 投票が溜まってたので指します
-                    logger.write_by_internal(
+                    app.log.write_by_internal(
                         f"投票が溜まってたので指します [{m}]")
                     return m
 
                 if tryal_max < tryal_count:
                     # 投了しよ
-                    logger.write_by_internal(
+                    app.log.write_by_internal(
                         f"投票が無いので投了しよ tryal_count = [{m}]")
                     return '%TORYO'
 
@@ -131,7 +131,7 @@ class Diagram():
                 # 時間間隔を開けてみる
                 time.sleep(5)
             except Exception as e:
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(Err.158) テーブル削除できなかった [{e}]")
 
             # テーブルを作成します
@@ -141,7 +141,7 @@ class Diagram():
                 # 時間間隔を開けてみる
                 time.sleep(5)
             except Exception as e:
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(Err.163) テーブル作成できなかった [{e}]")
 
             # 次のステートへ引継ぎ
@@ -156,7 +156,7 @@ class Diagram():
         state = AgreementState()
 
         def on_entry(context):
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"[DEBUG] entry/[Agreement] (diagram.py 160)")
             # 常に AGREE を返します
             self._agree_func()
@@ -164,15 +164,15 @@ class Diagram():
         state.on_entry = on_entry
 
         def on_exit(context):
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 f"[DEBUG] exit/[Agreement] (diagram.py 168) context.my_turn={context.my_turn} context.current_turn={context.current_turn}")
             if context.my_turn == context.current_turn:
                 # 初手を考えます
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(175) exit/[Agreement] で初手を考えます")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(178) 初手を指します m=[{m}]")
 
         state.on_exit = on_exit
@@ -191,7 +191,7 @@ class Diagram():
                     f"自分の手番が回ってきました。考えます: current_turn=[{context.current_turn}] my_turn=[{context.my_turn}]")
                 m = self.go_func()
                 client_socket.send_line(f'{m}\n')
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(191) 自分の手番で指した m=[{m}]")
 
             # テーブルを削除します
@@ -201,7 +201,7 @@ class Diagram():
                 # 時間間隔を開けてみる
                 time.sleep(5)
             except Exception as e:
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(Err.178) テーブル削除できなかった [{e}]")
             # テーブルを作成します
             try:
@@ -210,12 +210,12 @@ class Diagram():
                 # 時間間隔を開けてみる
                 time.sleep(5)
             except Exception as e:
-                logger.write_by_internal(
+                app.log.write_by_internal(
                     f"(Err.183) テーブル作成できなかった [{e}]")
 
             # 盤表示
             text = context.position.formatBoard()
-            logger.write_by_internal(text)
+            app.log.write_by_internal(text)
 
         state.on_move = on_move
 
@@ -225,7 +225,7 @@ class Diagram():
 |    WIN   |
 +----------+
 """
-            logger.write_by_internal(s)
+            app.log.write_by_internal(s)
 
         state.on_win = on_win
 
@@ -235,7 +235,7 @@ class Diagram():
 |   LOSE   |
 +----------+
 """
-            logger.write_by_internal(s)
+            app.log.write_by_internal(s)
 
         state.on_lose = on_lose
 

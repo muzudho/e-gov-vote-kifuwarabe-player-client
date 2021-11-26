@@ -1,5 +1,5 @@
 import re
-from scripts.logger import logger
+from app import app
 from shogi_d.csa_helper import do_move
 from state_machine_d.abstract_state import AbstractState
 from floodgate_chat.client_state_diagram_d.context import Context
@@ -157,7 +157,7 @@ class GameState(AbstractState):
 # Test
 # python.exe -m floodgate_chat.client_state_diagram_d.game_state
 if __name__ == "__main__":
-    logger.set_up()
+    app.log.set_up()
     context = Context()
     state = GameState()
 

@@ -1,6 +1,6 @@
 import socket
 from config import SERVER_HOST, SERVER_PORT, MESSAGE_SIZE
-from scripts.logger import Logger, logger
+from app import Logger, app
 
 
 class ClientSocket():
@@ -13,12 +13,11 @@ class ClientSocket():
         self._sock = socket.socket()
 
     def connect(self):
-        global logger
         # connect to the server
-        logger.write_by_internal(
+        app.log.write_by_internal(
             f"[*] Connecting to {SERVER_HOST}:{SERVER_PORT}...")
         self._sock.connect((SERVER_HOST, SERVER_PORT))
-        logger.write_by_internal("[+] Connected.")
+        app.log.write_by_internal("[+] Connected.")
 
     def receive_text_block(self):
         """一行ずつではなく複数行を一気に受け取ることもある"""
@@ -27,7 +26,6 @@ class ClientSocket():
     def send_line(self, line):
         """末尾に \n を付けてください"""
         global client_socket
-        global logger
 
         if line.endswith('\n'):
             # ここを通るように目指してください
@@ -36,13 +34,13 @@ class ClientSocket():
         # Change Newline (Windows to CSA Protocol)
         elif line.endswith('\r\n'):
             # ここは通らないと思う
-            logger.write_by_internal(
+            app.log.write_by_internal(
                 '[WARNING] Change Newline (Windows to CSA Protocol)')
             line = line.rstrip('\r\n')
             line = f"{line}\n"
         else:
             # コマンドラインから打鍵したときは、改行が付いていません
-            logger.write_by_internal('[WARNING] Line without newline')
+            app.log.write_by_internal('[WARNING] Line without newline')
             line = f"{line}\n"
 
         # Send to server
@@ -57,8 +55,8 @@ class ClientSocket():
         print(s)
 
         # Log
-        logger.write(s)
-        logger.flush()
+        app.log.write(s)
+        app.log.flush()
 
 
 client_socket = ClientSocket()
