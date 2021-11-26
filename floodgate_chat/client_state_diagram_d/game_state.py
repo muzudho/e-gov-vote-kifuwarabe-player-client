@@ -21,7 +21,10 @@ class GameState(AbstractState):
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
         def none_func(context):
-            return '----Unimplemented---->'
+            pass
+
+        # ----IllegalMove----> 時のコールバック関数
+        self._on_illegal_move = none_func
 
         # ----Move----> 時のコールバック関数
         self._on_move = none_func
@@ -35,6 +38,15 @@ class GameState(AbstractState):
     @property
     def name(self):
         return "[Game]"
+
+    @property
+    def on_illegal_move(self):
+        """----IllegalMove---->時のコールバック関数"""
+        return self._on_illegal_move
+
+    @on_illegal_move.setter
+    def on_illegal_move(self, func):
+        self._on_illegal_move = func
 
     @property
     def on_move(self):
@@ -95,6 +107,13 @@ class GameState(AbstractState):
 
             self.on_move(context)
             return '----Move---->'
+
+        # ----[#ILLEGAL_MOVE]---->
+        #      -------------
+        #      非合法手
+        if line == '#ILLEGAL_MOVE':
+            self.on_illegal_move(context)
+            return '----Loopback---->'
 
         # ----[#WIN]---->
         #      ----
