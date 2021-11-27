@@ -25,7 +25,6 @@ class ClientSocket():
 
     def send_line(self, line):
         """末尾に \n を付けてください"""
-        global client_socket
 
         if line.endswith('\n'):
             # ここを通るように目指してください
@@ -57,6 +56,3 @@ class ClientSocket():
         # Log
         app.log.write(s)
         app.log.flush()
-
-
-client_socket = ClientSocket()

@@ -1,7 +1,7 @@
+import time
 from shogi_d.position import Position
 from app import app
-import time
-from app import app
+from context_d.client_socket import ClientSocket
 from my_dynamodb.e_gov_bestmove import get_bestmove
 
 
@@ -14,6 +14,8 @@ class Context():
         self._player_names = ['', '', '']
         # 局面
         self._position = Position()
+
+        self._client_socket = ClientSocket()
 
         def none_func():
             pass
@@ -59,6 +61,15 @@ class Context():
                 tryal_count += 1
 
         self._go_func = __go_func
+
+    @property
+    def client_socket(self):
+        """通信ソケット"""
+        return self._client_socket
+
+    @client_socket.setter
+    def client_socket(self, val):
+        self._client_socket = val
 
     @property
     def user_name(self):

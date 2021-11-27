@@ -3,10 +3,8 @@ import signal
 from threading import Thread
 from config import CLIENT_USER, CLIENT_PASS, IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
-from floodgate_client.scripts.client_socket import client_socket
-from app import app
 from state_machine_d.state_machine import StateMachine
-from floodgate_client.context import Context
+from context import Context
 from floodgate_client.transition_dict import transition_dict
 from floodgate_client.state_creator_dict import state_creator_dict
 
@@ -50,7 +48,7 @@ class Diagram():
             # 指し手を人力で入力するとき
 
             # Send the message
-            client_socket.send_line(to_send)
+            self._state_machine.context.client_socket.send_line(to_send)
 
     def init(self):
         """ダイアグラムを初期状態に戻します"""
@@ -64,11 +62,12 @@ class Diagram():
         self.state_machine.init()
 
         # 通信ソケットを初期状態に戻し、接続を行います
-        client_socket.set_up()
-        client_socket.connect()
+        self._state_machine.context.client_socket.set_up()
+        self._state_machine.context.client_socket.connect()
 
         # ログインコマンドを送信します
-        client_socket.send_line(f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
+        self._state_machine.context.client_socket.send_line(
+            f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
@@ -80,7 +79,7 @@ class Diagram():
 
         try:
             while True:
-                text_block = client_socket.receive_text_block()
+                text_block = self._state_machine.context.client_socket.receive_text_block()
 
                 # 1. 空行は無限に送られてくるので無視
                 if text_block == '':
@@ -133,7 +132,7 @@ def main():
 
     # Implement all handlers
     def __agree_func():
-        client_socket.send_line(
+        context.client_socket.send_line(
             f"AGREE {diagram.state_machine.context.game_id}\n")
 
     # 後付け

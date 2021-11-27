@@ -2,7 +2,7 @@ import sys
 import signal
 from app import app
 from diagram import Diagram, SplitTextBlock
-from floodgate_client.context import Context
+from context import Context
 
 
 class Test():

@@ -1,6 +1,5 @@
 import time
 from app import app
-from floodgate_client.scripts.client_socket import client_socket
 from floodgate_client.transition_map_d.game import GameState
 from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
@@ -17,7 +16,7 @@ def create_game_state():
             print(
                 f"自分の手番が回ってきました。考えます: current_turn=[{context.current_turn}] my_turn=[{context.my_turn}]")
             m = context.go_func()
-            client_socket.send_line(f'{m}\n')
+            context.client_socket.send_line(f'{m}\n')
             app.log.write_by_internal(
                 f"(191) 自分の手番で指した m=[{m}]")
 

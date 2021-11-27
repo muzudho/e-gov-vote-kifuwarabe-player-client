@@ -1,5 +1,4 @@
 from app import app
-from floodgate_client.scripts.client_socket import client_socket
 from floodgate_client.transition_map_d.agreement import AgreementState
 
 
@@ -23,7 +22,7 @@ def create_agreement_state():
             app.log.write_by_internal(
                 f"(175) exit/[Agreement] で初手を考えます")
             m = context.go_func()
-            client_socket.send_line(f'{m}\n')
+            context.client_socket.send_line(f'{m}\n')
             app.log.write_by_internal(
                 f"(178) 初手を指します m=[{m}]")
 
