@@ -1,7 +1,7 @@
 import re
 from app import app
 from state_machine_d.abstract_state import AbstractState
-from floodgate_chat.client_state_diagram_d.context import Context
+from floodgate_client.context import Context
 
 
 class NoneState(AbstractState):
@@ -68,7 +68,7 @@ class NoneState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_chat.client_state_diagram_d.none_state
+# python.exe -m floodgate_client.state_d.none_state
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

@@ -1,10 +1,11 @@
 import re
 from app import app
 from state_machine_d.abstract_state import AbstractState
-from floodgate_chat.client_state_diagram_d.context import Context
+from floodgate_client.context import Context
 
 
 class GameOverState(AbstractState):
+    """自分に無限にループバックしているだけの状態です"""
 
     def __init__(self):
         super().__init__()
@@ -33,7 +34,7 @@ class GameOverState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_chat.client_state_diagram_d.game_over_state
+# python.exe -m floodgate_client.state_d.game_over_state
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
