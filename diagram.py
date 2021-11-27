@@ -53,8 +53,8 @@ class Diagram():
     def init(self):
         """ダイアグラムを初期状態に戻します"""
 
-        # ステートマシンを初期状態に戻します
-        self.state_machine.init()
+        # （強制的に）ステートマシンを初期状態に戻します。 leave は行いません
+        self.state_machine.arrive("[Init]")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)

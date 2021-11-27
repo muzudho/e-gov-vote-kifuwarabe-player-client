@@ -6,15 +6,15 @@ def create_agreement_state():
     """ステート生成"""
     state = AgreementState()
 
-    def on_entry(context):
+    def __on_entry(context):
         app.log.write_by_internal(
             f"[DEBUG] entry/[Agreement] (diagram.py 160)")
         # 常に AGREE を返します
         context.agree_func()
 
-    state.on_entry = on_entry
+    state.on_entry = __on_entry
 
-    def on_exit(context):
+    def __on_exit(context):
         app.log.write_by_internal(
             f"[DEBUG] exit/[Agreement] (diagram.py 168) context.my_turn={context.my_turn} context.current_turn={context.current_turn}")
         if context.my_turn == context.current_turn:
@@ -26,6 +26,6 @@ def create_agreement_state():
             app.log.write_by_internal(
                 f"(178) 初手を指します m=[{m}]")
 
-    state.on_exit = on_exit
+    state.on_exit = __on_exit
 
     return state

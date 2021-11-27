@@ -17,8 +17,7 @@ class StateMachine():
         self._state_creator_dict = state_creator_dict
         self._transition_dict = transition_dict
 
-        # 初期状態
-        self.init()
+        # あとで arrive("[Init]") を呼び出してください
 
     @property
     def context(self):
@@ -32,11 +31,6 @@ class StateMachine():
     @property
     def state(self):
         return self._state
-
-    def init(self):
-        """ステートマシンを初期状態に戻します"""
-        self._state = self._state_creator_dict["[Init]"]()
-        self._state.on_entry(self._context)
 
     def leave(self, line):
         """次の状態の名前と、遷移に使ったキーを返します
