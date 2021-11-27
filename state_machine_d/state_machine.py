@@ -1,20 +1,20 @@
 class StateMachine():
     """状態遷移マシーン（State diagram machine）"""
 
-    def __init__(self, context=None, state_creators={}, transition_dict={}):
+    def __init__(self, context=None, state_creator_dict={}, transition_dict={}):
         """初期化
 
         Parameters
         ----------
         context : Context
             Defaults to None.
-        state_creators : dict
+        state_creator_dict : dict
             状態を作成する関数のディクショナリーです。 Defaults to {}.
         transition_dict : dict
             Defaults to {}.
         """
         self._context = context
-        self._state_creators = state_creators
+        self._state_creator_dict = state_creator_dict
         self._transition_dict = transition_dict
 
         # 初期状態
@@ -35,7 +35,7 @@ class StateMachine():
 
     def init(self):
         """ステートマシンを初期状態に戻します"""
-        self._state = self._state_creators[""]()
+        self._state = self._state_creator_dict[""]()
 
     def leave(self, line):
         """次の状態の名前と、遷移に使ったキーを返します
@@ -77,9 +77,9 @@ class StateMachine():
             節の名前
         """
 
-        if next_state_name in self._state_creators:
+        if next_state_name in self._state_creator_dict:
             # 次のステートへ引継ぎ
-            self._state = self._state_creators[next_state_name]()
+            self._state = self._state_creator_dict[next_state_name]()
 
             self._state.on_entry(self._context)
 

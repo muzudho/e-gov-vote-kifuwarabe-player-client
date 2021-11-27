@@ -3,7 +3,7 @@ import signal
 from threading import Thread
 from config import CLIENT_USER, CLIENT_PASS, IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
-from floodgate_client.diagram import Diagram
+from diagram import Diagram
 from floodgate_client.scripts.client_socket import client_socket
 
 
