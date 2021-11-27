@@ -2,7 +2,7 @@ import re
 from app import app
 from shogi_d.csa_helper import do_move
 from state_machine_d.abstract_state import AbstractState
-from floodgate_client.context import Context
+from context import Context
 
 
 class GameState(AbstractState):

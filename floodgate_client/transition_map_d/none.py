@@ -1,7 +1,7 @@
 import re
 from app import app
 from state_machine_d.abstract_state import AbstractState
-from floodgate_client.context import Context
+from context import Context
 
 
 class NoneState(AbstractState):
