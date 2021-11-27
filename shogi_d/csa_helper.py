@@ -3,7 +3,7 @@ def do_move(position, phase, source, destination, piece, expend_time):
     src_pc = position.board[source]  # sourcePiece
     dst_pc = position.board[destination]  # destinationPiece
 
-    # print(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece} src_pc[{src_pc}] dst_pc[{dst_pc}]")
+    # app.log.write_by_internal(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece} src_pc[{src_pc}] dst_pc[{dst_pc}]")
     if source != 0 and src_pc == ' * ':
         raise Exception("空マスから駒を動かそうとしました")
 

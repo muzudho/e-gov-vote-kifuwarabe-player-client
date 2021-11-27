@@ -75,6 +75,6 @@ if __name__ == "__main__":
     line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
     edge_name = state.leave(context, line)
     if edge_name == '----Start---->':
-        print('.', end='')
+        app.log.write_by_internal('.', end='')
     else:
-        print('f', end='')
+        app.log.write_by_internal('f', end='')

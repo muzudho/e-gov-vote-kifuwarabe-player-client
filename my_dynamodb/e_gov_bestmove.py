@@ -5,6 +5,7 @@ python.exe e_gov_bestmove.py
 
 import random
 from pprint import pprint
+from app import app
 from my_dynamodb.e_gov_scan_bestmove_table import scan_bestmove_table
 
 
@@ -21,7 +22,7 @@ def get_bestmove():
 
     item_list = scan_bestmove_table()
     if item_list:
-        print("Scan bestmove table succeeded:")
+        app.log.write_by_internal("Scan bestmove table succeeded:")
         pprint(item_list, sort_dicts=False)
 
         for item in item_list:
@@ -43,7 +44,8 @@ def get_bestmove():
         elif max_value == vote_count:
             max_key_list.append(csa_move)
 
-    print(f"max_value=[{max_value}] max_key_list=[{max_key_list}]")
+    app.log.write_by_internal(
+        f"max_value=[{max_value}] max_key_list=[{max_key_list}]")
 
     if len(max_key_list) < 1:
         return None
@@ -56,4 +58,4 @@ def get_bestmove():
 if __name__ == '__main__':
     # move
     m = get_bestmove()
-    print(f"bestmove=[{m}]")
+    app.log.write_by_internal(f"bestmove=[{m}]")

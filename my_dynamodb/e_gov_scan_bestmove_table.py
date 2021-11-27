@@ -5,6 +5,7 @@ python.exe e_gov_scan_bestmove_table.py
 from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
+from app import app
 
 
 def scan_bestmove_table(dynamodb=None):
@@ -19,7 +20,7 @@ def scan_bestmove_table(dynamodb=None):
     try:
         response = table.scan()
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        app.log.write_by_internal(e.response['Error']['Message'])
     else:
         return response['Items']
 
@@ -27,5 +28,5 @@ def scan_bestmove_table(dynamodb=None):
 if __name__ == '__main__':
     items = scan_bestmove_table()
     if items:
-        print("Scan bestmove table succeeded:")
+        app.log.write_by_internal("Scan bestmove table succeeded:")
         pprint(items, sort_dicts=False)

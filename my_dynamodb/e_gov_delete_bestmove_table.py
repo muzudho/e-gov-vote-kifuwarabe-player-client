@@ -3,6 +3,7 @@ python.exe e_gov_delete_bestmove_table.py
 """
 
 import boto3
+from app import app
 
 
 def delete_bestmove_table(dynamodb=None):
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     # テーブルを削除します
     try:
         delete_bestmove_table()
-        print("Bestmove table deleted.")
+        app.log.write_by_internal("Bestmove table deleted.")
 
     except Exception as e:
-        print(f"(Err.158) テーブル削除できなかった [{e}]")
+        app.log.write_by_internal(f"(Err.158) テーブル削除できなかった [{e}]")

@@ -76,6 +76,6 @@ if __name__ == "__main__":
     line = 'LOGIN:egov-kifuwarabe OK'
     edge_name = state.leave(context, line)
     if edge_name == '----Ok---->':
-        print('.', end='')
+        app.log.write_by_internal('.', end='')
     else:
-        print('f', end='')
+        app.log.write_by_internal('f', end='')

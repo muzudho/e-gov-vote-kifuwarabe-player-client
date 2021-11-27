@@ -99,7 +99,7 @@ class Diagram():
                 self.init()
 
     def clean_up(self):
-        print("# Clean up")
+        app.log.write_by_internal("# Clean up")
 
         # Close log file
         if not(app.log is None):

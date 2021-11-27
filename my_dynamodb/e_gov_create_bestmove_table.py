@@ -3,6 +3,7 @@ python.exe e_gov_create_bestmove_table.py
 """
 
 import boto3
+from app import app
 
 
 def create_bestmove_table(dynamodb=None):
@@ -51,7 +52,8 @@ if __name__ == '__main__':
     # テーブルを作成します
     try:
         bestmove_table = create_bestmove_table()
-        print(f"Table status:{bestmove_table.table_status}")
+        app.log.write_by_internal(
+            f"Table status:{bestmove_table.table_status}")
 
     except Exception as e:
-        print(f"(Err.163) テーブル作成できなかった [{e}]")
+        app.log.write_by_internal(f"(Err.163) テーブル作成できなかった [{e}]")

@@ -4,6 +4,7 @@ python.exe e_gov_put_bestmove_item.py
 
 from pprint import pprint
 import boto3
+from app import app
 
 
 def put_bestmove(your_name, secret, bestmove, dynamodb=None):
@@ -33,5 +34,5 @@ if __name__ == '__main__':
     movie_resp = put_bestmove("Kifuwarube", "wwwwwwwwwwwwWWWWWWW", "+2726FU")
     movie_resp = put_bestmove("Kifuwaragyoku", "oOoOoOoOoOoOoO", "+5948OU")
     movie_resp = put_bestmove("Kifuwarakei", "oOoOoOoOoOoOoO", "+2726FU")
-    print("Put bestmove succeeded:")
+    app.log.write_by_internal("Put bestmove succeeded:")
     pprint(movie_resp, sort_dicts=False)

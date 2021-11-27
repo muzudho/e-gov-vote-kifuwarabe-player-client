@@ -57,7 +57,7 @@ class Test():
 
         self._diagram.state_machine.arrive(next_state_name)
         if self._diagram.state_machine.state.name != '[GameSummary]':
-            print('Unimplemented login')
+            app.log.write_by_internal('Unimplemented login')
 
         received = """BEGIN Game_Summary
 Protocol_Version:1.2
@@ -96,7 +96,7 @@ END Game_Summary
         lines = SplitTextBlock(received)
 
         for line in lines:
-            print(
+            app.log.write_by_internal(
                 f"[DEBUG] state=[{self._diagram.state_machine.state.name}] line=[{line}]")
             next_state_name, transition_key = self._diagram.state_machine.leave(
                 line)
@@ -106,23 +106,23 @@ END Game_Summary
             self._diagram.state_machine.arrive(next_state_name)
 
         if self._diagram.state_machine.state.name != '[Agreement]':
-            print(
+            app.log.write_by_internal(
                 f'(Err.100) Unexpected state_name=[{self._diagram.state_machine.state.name}]')
 
         text = self._diagram.state_machine.context.position.formatBoard()
-        print(text)
+        app.log.write_by_internal(text)
 
         # 自分が先手か後手か
-        print(
+        app.log.write_by_internal(
             f"[DEBUG] my_turn=[{self._diagram.state_machine.context.my_turn}]")
-        print(
+        app.log.write_by_internal(
             f"[DEBUG] current_turn=[{self._diagram.state_machine.context.current_turn}]")
 
         if self._diagram.state_machine.context.my_turn != self._diagram.state_machine.context.current_turn:
-            print(f"[ERROR] 手番が違う")
+            app.log.write_by_internal(f"[ERROR] 手番が違う")
             return
 
-        print(f"[DEBUG] わたしのターン。`+5756FU` を送信したとして")
+        app.log.write_by_internal(f"[DEBUG] わたしのターン。`+5756FU` を送信したとして")
         received = '+5756FU,T20'
         next_state_name, transition_key = self._diagram.state_machine.leave(
             received)
@@ -131,7 +131,7 @@ END Game_Summary
 
         self._diagram.state_machine.arrive(next_state_name)
         text = self._diagram.state_machine.context.position.formatBoard()
-        print(text)
+        app.log.write_by_internal(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
@@ -142,7 +142,7 @@ END Game_Summary
 
         self._diagram.state_machine.arrive(next_state_name)
         text = self._diagram.state_machine.context.position.formatBoard()
-        print(text)
+        app.log.write_by_internal(text)
 
 
 def test():

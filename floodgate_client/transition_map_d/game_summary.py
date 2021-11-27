@@ -177,20 +177,20 @@ if __name__ == "__main__":
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
     edge_name = state.leave(context, line)
     if edge_name == '----GameId---->':
-        print('.', end='')
+        app.log.write_by_internal('.', end='')
     else:
-        print('f', end='')
+        app.log.write_by_internal('f', end='')
 
     line = 'P1-KY-KE-GI-KI-OU-KI-GI-KE-KY'
     edge_name = state.leave(context, line)
     if edge_name == '----BeginPosRow---->':
-        print('.', end='')
+        app.log.write_by_internal('.', end='')
     else:
-        print('f', end='')
+        app.log.write_by_internal('f', end='')
 
     line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
     edge_name = state.leave(context, line)
     if edge_name == '----Start---->':
-        print('.', end='')
+        app.log.write_by_internal('.', end='')
     else:
-        print('f', end='')
+        app.log.write_by_internal('f', end='')

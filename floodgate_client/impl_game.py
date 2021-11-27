@@ -9,11 +9,11 @@ def create_game_state():
     """ステート生成"""
     state = GameState()
 
-    def on_move(context):
+    def __on_move(context):
         """指し手"""
         # 相手の指し手だったら、自分の指し手を入力する番になります
         if context.current_turn != context.my_turn:
-            print(
+            app.log.write_by_internal(
                 f"自分の手番が回ってきました。考えます: current_turn=[{context.current_turn}] my_turn=[{context.my_turn}]")
             m = context.go_func()
             context.client_socket.send_line(f'{m}\n')
@@ -43,7 +43,7 @@ def create_game_state():
         text = context.position.formatBoard()
         app.log.write_by_internal(text)
 
-    state.on_move = on_move
+    state.on_move = __on_move
 
     def on_win(context):
         """勝ち"""

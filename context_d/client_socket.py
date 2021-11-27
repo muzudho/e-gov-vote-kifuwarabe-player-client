@@ -28,7 +28,6 @@ class ClientSocket():
 
         if line.endswith('\n'):
             # ここを通るように目指してください
-            # print('1. Newline Ok')
             pass
         # Change Newline (Windows to CSA Protocol)
         elif line.endswith('\r\n'):
