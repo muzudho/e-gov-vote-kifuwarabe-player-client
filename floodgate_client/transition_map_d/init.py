@@ -18,7 +18,7 @@ class InitState(AbstractState):
 
     @property
     def name(self):
-        return "[None]"
+        return "[Init]"
 
     @property
     def on_ok(self):
@@ -54,7 +54,7 @@ class InitState(AbstractState):
             辺の名前
         """
 
-        # [None]----Ok---->
+        # ----Ok---->
         matched = self.ok_pattern.match(line)
         if matched:
             context.user_name = matched.group(1)
@@ -63,8 +63,7 @@ class InitState(AbstractState):
 
             return '----Ok---->'
 
-        # [None]----Fail---->
-        return '--Fail--'
+        return '----Fail---->'
 
 
 # Test

@@ -1,10 +1,10 @@
 transition_dict = {
-    "[None]----Ok---->": "[GameSummary]",
+    "[Init]----Ok---->": "[GameSummary]",
     "[GameSummary]----Loopback---->": "[GameSummary]",
     "[GameSummary]----EndGameSummary---->": "[Agreement]",
     "[Agreement]----Start---->": "[Game]",
     "[Game]----Loopback---->": "[Game]",
     "[Game]----Move---->": "[Game]",
-    "[Game]----Win---->": "[GameOver]",
-    "[Game]----Lose---->": "[GameOver]",
+    "[Game]----Win---->": "[Init]",
+    "[Game]----Lose---->": "[Init]",
 }
