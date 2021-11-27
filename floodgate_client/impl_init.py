@@ -1,9 +1,9 @@
-from floodgate_client.transition_map_d.none import NoneState
+from floodgate_client.transition_map_d.init import InitState
 
 
-def create_none_state():
+def create_init_state():
     """ステート生成"""
-    state = NoneState()
+    state = InitState()
 
     def on_ok(_context):
         pass

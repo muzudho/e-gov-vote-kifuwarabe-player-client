@@ -4,7 +4,7 @@ from state_machine_d.abstract_state import AbstractState
 from context import Context
 
 
-class NoneState(AbstractState):
+class InitState(AbstractState):
     def __init__(self):
         super().__init__()
 
@@ -68,11 +68,11 @@ class NoneState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.none
+# python.exe -m floodgate_client.state_d.init
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
-    state = NoneState()
+    state = InitState()
 
     line = 'LOGIN:egov-kifuwarabe OK'
     edge_name = state.leave(context, line)
