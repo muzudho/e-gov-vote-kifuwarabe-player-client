@@ -1,7 +1,7 @@
 import sys
 import signal
 from threading import Thread
-from config import CLIENT_USER, CLIENT_PASS, IS_RECONNECT_WHEN_CONNECTION_ABORT
+from config import IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
 from state_machine_d.state_machine import StateMachine
 from context import Context
@@ -53,21 +53,8 @@ class Diagram():
     def init(self):
         """ダイアグラムを初期状態に戻します"""
 
-        # ログを初期状態に戻します
-        app.log.init()
-        app.log.write_by_internal(
-            f"初期状態に戻します (diagram.py 66)")
-
         # ステートマシンを初期状態に戻します
         self.state_machine.init()
-
-        # 通信ソケットを初期状態に戻し、接続を行います
-        self._state_machine.context.client_socket.set_up()
-        self._state_machine.context.client_socket.connect()
-
-        # ログインコマンドを送信します
-        self._state_machine.context.client_socket.send_line(
-            f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)

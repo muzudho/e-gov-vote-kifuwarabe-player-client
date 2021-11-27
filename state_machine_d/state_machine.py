@@ -36,6 +36,7 @@ class StateMachine():
     def init(self):
         """ステートマシンを初期状態に戻します"""
         self._state = self._state_creator_dict["[Init]"]()
+        self._state.on_entry(self._context)
 
     def leave(self, line):
         """次の状態の名前と、遷移に使ったキーを返します
