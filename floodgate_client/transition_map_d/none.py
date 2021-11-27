@@ -68,7 +68,7 @@ class NoneState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.none_state
+# python.exe -m floodgate_client.state_d.none
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

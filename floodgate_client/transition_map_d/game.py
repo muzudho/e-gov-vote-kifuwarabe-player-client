@@ -155,7 +155,7 @@ class GameState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.game_state
+# python.exe -m floodgate_client.state_d.game
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

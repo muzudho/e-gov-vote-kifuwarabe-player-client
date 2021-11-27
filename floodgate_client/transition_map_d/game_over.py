@@ -34,7 +34,7 @@ class GameOverState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.game_over_state
+# python.exe -m floodgate_client.state_d.game_over
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

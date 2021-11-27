@@ -65,7 +65,7 @@ class AgreementState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.agreement_state
+# python.exe -m floodgate_client.state_d.agreement
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

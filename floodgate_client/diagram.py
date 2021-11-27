@@ -4,11 +4,11 @@ from state_machine_d.state_machine import StateMachine
 from floodgate_client.context import Context
 from floodgate_client.transition_dict_d import transition_dict
 from floodgate_client.scripts.client_socket import client_socket
-from floodgate_client.state_d.none_state import NoneState
-from floodgate_client.state_d.game_summary_state import GameSummaryState
-from floodgate_client.state_d.agreement_state import AgreementState
-from floodgate_client.state_d.game_state import GameState
-from floodgate_client.state_d.game_over_state import GameOverState
+from floodgate_client.transition_map_d.none import NoneState
+from floodgate_client.transition_map_d.game_summary import GameSummaryState
+from floodgate_client.transition_map_d.agreement import AgreementState
+from floodgate_client.transition_map_d.game import GameState
+from floodgate_client.transition_map_d.game_over import GameOverState
 from my_dynamodb.e_gov_bestmove import get_bestmove
 from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
