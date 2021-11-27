@@ -12,13 +12,6 @@ Example:
 📄`config--floodgate.py`
 📄`config--local.py`
 
-## Run
-
-```shell
-# cd floodgate_client
-client.py
-```
-
 ## Other documents
 
 📖 [floodgateのログ](http://wdoor.c.u-tokyo.ac.jp/shogi/x/shogi-server.log)  

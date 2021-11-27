@@ -14,5 +14,5 @@ python.exe test.py
 ## Run
 
 ```shell
-python.exe client.py
+python.exe diagram.py
 ```

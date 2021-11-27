@@ -1,43 +1,47 @@
 import sys
 import signal
-from client import Client, SplitTextBlock
 from app import app
+from diagram import Diagram, SplitTextBlock
+from floodgate_client.context import Context
 
 
 class Test():
     def __init__(self):
-        self._client = None
+        self._diagram = None
 
     @property
-    def client(self):
-        return self._client
+    def diagram(self):
+        return self._diagram
 
     def set_up(self):
-        self._client = Client()
-        self._client.set_up()
+        context = Context()
+
+        self._diagram = Diagram(context)
+        self._diagram.set_up()
 
         # Implement test handlers
         def test_agree_func():
             """AGREE を送ると、 START: が返ってくるというシナリオ"""
             received = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-            next_state_name, transition_key = self._client.diagram.state_machine.leave(
+            next_state_name, transition_key = self._diagram.state_machine.leave(
                 received)
             app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 26 test_agree_func)")
 
-            self._client.diagram.state_machine.arrive(next_state_name)
+            self._diagram.state_machine.arrive(next_state_name)
 
-        self._client.diagram.agree_func = test_agree_func
+        # 後付け
+        context.agree_func = test_agree_func
 
         def test_go_func():
             app.log.write_by_internal(
                 f"[IN-TEST] go_func 投票を集めると料金かかるのでパス (test.py 34 test_go_func)")
             pass
 
-        self._client.diagram.go_func = test_go_func
+        context.go_func = test_go_func
 
     def clean_up(self):
-        self._client.clean_up()
+        self._diagram.clean_up()
 
     def run(self):
         """
@@ -47,13 +51,13 @@ class Test():
         # Send `LOGIN e-gov-vote-kifuwarabe floodgate-300-10F,egov-kif`
 
         received = 'LOGIN:e-gov-vote-kifuwarabe OK'
-        next_state_name, transition_key = self._client.diagram.state_machine.leave(
+        next_state_name, transition_key = self._diagram.state_machine.leave(
             received)
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 46)")
 
-        self._client.diagram.state_machine.arrive(next_state_name)
-        if self._client.diagram.state_machine.state.name != '[GameSummary]':
+        self._diagram.state_machine.arrive(next_state_name)
+        if self._diagram.state_machine.state.name != '[GameSummary]':
             print('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -94,51 +98,51 @@ END Game_Summary
 
         for line in lines:
             print(
-                f"[DEBUG] state=[{self._client.diagram.state_machine.state.name}] line=[{line}]")
-            next_state_name, transition_key = self._client.diagram.state_machine.leave(
+                f"[DEBUG] state=[{self._diagram.state_machine.state.name}] line=[{line}]")
+            next_state_name, transition_key = self._diagram.state_machine.leave(
                 line)
             app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 94)")
 
-            self._client.diagram.state_machine.arrive(next_state_name)
+            self._diagram.state_machine.arrive(next_state_name)
 
-        if self._client.diagram.state_machine.state.name != '[Agreement]':
+        if self._diagram.state_machine.state.name != '[Agreement]':
             print(
-                f'(Err.100) Unexpected state_name=[{self._client.diagram.state_machine.state.name}]')
+                f'(Err.100) Unexpected state_name=[{self._diagram.state_machine.state.name}]')
 
-        text = self._client.diagram.state_machine.context.position.formatBoard()
+        text = self._diagram.state_machine.context.position.formatBoard()
         print(text)
 
         # 自分が先手か後手か
         print(
-            f"[DEBUG] my_turn=[{self._client.diagram.state_machine.context.my_turn}]")
+            f"[DEBUG] my_turn=[{self._diagram.state_machine.context.my_turn}]")
         print(
-            f"[DEBUG] current_turn=[{self._client.diagram.state_machine.context.current_turn}]")
+            f"[DEBUG] current_turn=[{self._diagram.state_machine.context.current_turn}]")
 
-        if self._client.diagram.state_machine.context.my_turn != self._client.diagram.state_machine.context.current_turn:
+        if self._diagram.state_machine.context.my_turn != self._diagram.state_machine.context.current_turn:
             print(f"[ERROR] 手番が違う")
             return
 
         print(f"[DEBUG] わたしのターン。`+5756FU` を送信したとして")
         received = '+5756FU,T20'
-        next_state_name, transition_key = self._client.diagram.state_machine.leave(
+        next_state_name, transition_key = self._diagram.state_machine.leave(
             received)
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 120)")
 
-        self._client.diagram.state_machine.arrive(next_state_name)
-        text = self._client.diagram.state_machine.context.position.formatBoard()
+        self._diagram.state_machine.arrive(next_state_name)
+        text = self._diagram.state_machine.context.position.formatBoard()
         print(text)
 
         # 相手が指したとして
         received = '-3334FU,T35'
-        next_state_name, transition_key = self._client.diagram.state_machine.leave(
+        next_state_name, transition_key = self._diagram.state_machine.leave(
             received)
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 131)")
 
-        self._client.diagram.state_machine.arrive(next_state_name)
-        text = self._client.diagram.state_machine.context.position.formatBoard()
+        self._diagram.state_machine.arrive(next_state_name)
+        text = self._diagram.state_machine.context.position.formatBoard()
         print(text)
 
 

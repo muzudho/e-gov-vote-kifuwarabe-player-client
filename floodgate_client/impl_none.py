@@ -1,7 +1,7 @@
 from floodgate_client.transition_map_d.none import NoneState
 
 
-def create_none_state(self):
+def create_none_state():
     """ステート生成"""
     state = NoneState()
 
