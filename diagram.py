@@ -25,7 +25,6 @@ def SplitTextBlock(text_block):
 
 class Diagram():
     def __init__(self, context):
-
         self._state_machine = StateMachine(
             context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
 
@@ -34,15 +33,9 @@ class Diagram():
         """ダイアグラム"""
         return self._state_machine
 
-    def set_up(self):
-        print("# Set up")
-        app.log.set_up()
-
     def run(self):
         """自動対話"""
-        global client_socket
-
-        self.connect()
+        self.init()
 
         # このループは人間が入力するためのものです
         while True:
@@ -59,33 +52,31 @@ class Diagram():
             # Send the message
             client_socket.send_line(to_send)
 
-    def connect(self):
-        """初回の接続、または再接続"""
-        global client_socket
+    def init(self):
+        """ダイアグラムを初期状態に戻します"""
 
+        # ログを初期状態に戻します
         app.log.init()
         app.log.write_by_internal(
-            f"初回の接続、または再接続 (diagram.py 57)")
+            f"初期状態に戻します (diagram.py 66)")
 
-        self.diagram.state_machine.init()
+        # ステートマシンを初期状態に戻します
+        self.state_machine.init()
 
+        # 通信ソケットを初期状態に戻し、接続を行います
         client_socket.set_up()
         client_socket.connect()
 
-        # Login
+        # ログインコマンドを送信します
         client_socket.send_line(f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
 
-        # このスレッドはコンピューターが自動入力するためのものです
-        # make a thread that listens for messages to this client & print them
+        # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
-        # make the thread daemon so it ends whenever the main thread ends
         thr.daemon = True
-        # start the thread
         thr.start()
 
     def listen_for_messages(self):
         """コンピューターの動き"""
-        global client_socket
 
         try:
             while True:
@@ -119,7 +110,7 @@ class Diagram():
             # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
             if IS_RECONNECT_WHEN_CONNECTION_ABORT:
                 # ログイン、スレッド生成からやり直すので、このスレッドは終了してください
-                self.connect()
+                self.init()
 
     def clean_up(self):
         print("# Clean up")
@@ -139,7 +130,6 @@ def main():
     context = Context()
 
     diagram = Diagram(context)
-    diagram.set_up()
 
     # Implement all handlers
     def __agree_func():

@@ -45,9 +45,6 @@ class Logger():
     def on_file_close(self, func):
         self._on_file_close = func
 
-    def set_up(self):
-        self.init()
-
     def clean_up(self):
         # Close log file
         if not(self._file is None):

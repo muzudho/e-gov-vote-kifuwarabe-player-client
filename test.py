@@ -17,7 +17,6 @@ class Test():
         context = Context()
 
         self._diagram = Diagram(context)
-        self._diagram.set_up()
 
         # Implement test handlers
         def test_agree_func():
