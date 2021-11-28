@@ -3,11 +3,16 @@ from app import app
 from floodgate_client.transition_map_d.init import InitState
 
 
-def create_init_state():
+def create():
     """ステート生成"""
-    state = InitState()
+    return DecoratedInitState()
 
-    def __on_entry(context):
+
+class DecoratedInitState(InitState):
+    def __init__(self):
+        super().__init__()
+
+    def on_entry(self, context):
         # ログを初期状態に戻します
         app.log.init()
         app.log.write_by_internal(
@@ -21,10 +26,5 @@ def create_init_state():
         context.client_socket.send_line(
             f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n")
 
-    state.on_entry = __on_entry
-
-    def __on_ok(_context):
+    def on_ok(self, context):
         pass
-
-    state.on_ok = __on_ok
-    return state

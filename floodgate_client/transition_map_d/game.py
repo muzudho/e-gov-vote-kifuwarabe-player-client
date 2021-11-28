@@ -20,72 +20,29 @@ class GameState(AbstractState):
         self._move_pattern = re.compile(
             r"^([+-])(\d{2})(\d{2})(\w{2}),T(\d+)$")
 
-        def none_func(context):
-            pass
-
-        # ----Move----> 時のコールバック関数
-        self._on_move = none_func
-
-        # ----Win----> 時のコールバック関数
-        self._on_win = none_func
-
-        # ----Lose----> 時のコールバック関数
-        self._on_lose = none_func
-
-        # ----IllegalMove----> 時のコールバック関数
-        self._on_illegal_move = none_func
-
-        # ----TimeUp----> 時のコールバック関数
-        self._on_time_up = none_func
-
     @property
     def name(self):
         return "[Game]"
 
-    @property
-    def on_move(self):
-        """----Move---->時のコールバック関数"""
-        return self._on_move
+    def on_move(self, context):
+        """----Move---->時"""
+        pass
 
-    @on_move.setter
-    def on_move(self, func):
-        self._on_move = func
+    def on_win(self, context):
+        """----Win---->時"""
+        pass
 
-    @property
-    def on_win(self):
-        """----Win---->時のコールバック関数"""
-        return self._on_win
+    def on_lose(self, context):
+        """----Lose---->時"""
+        pass
 
-    @on_win.setter
-    def on_win(self, func):
-        self._on_win = func
+    def on_illegal_move(self, context):
+        """----IllegalMove---->時"""
+        pass
 
-    @property
-    def on_lose(self):
-        """----Lose---->時のコールバック関数"""
-        return self._on_lose
-
-    @on_lose.setter
-    def on_lose(self, func):
-        self._on_lose = func
-
-    @property
-    def on_illegal_move(self):
-        """----IllegalMove---->時のコールバック関数"""
-        return self._on_illegal_move
-
-    @on_illegal_move.setter
-    def on_illegal_move(self, func):
-        self._on_illegal_move = func
-
-    @property
-    def on_time_up(self):
-        """----TimeUp---->時のコールバック関数"""
-        return self._on_time_up
-
-    @on_time_up.setter
-    def on_time_up(self, func):
-        self._on_time_up = func
+    def on_time_up(self, context):
+        """----TimeUp---->時"""
+        pass
 
     def leave(self, context, line):
         """次の辺の名前を返します

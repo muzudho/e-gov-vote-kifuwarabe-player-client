@@ -13,25 +13,13 @@ class AgreementState(AbstractState):
         #        1. game_id
         self._start_pattern = re.compile(r'^START:([0-9A-Za-z_+-]+)$')
 
-        def none_func(context):
-            """何もしません"""
-            pass
-
-        # ----Start----> 時のコールバック関数
-        self._on_start = none_func
-
     @property
     def name(self):
         return "[Agreement]"
 
-    @property
-    def on_start(self):
-        """----Start----> 時のコールバック関数"""
-        return self._on_start
-
-    @on_start.setter
-    def on_start(self, func):
-        self._on_start = func
+    def on_start(self, context):
+        """----Start----> 時"""
+        pass
 
     def leave(self, context, line):
         """次の辺の名前を返します

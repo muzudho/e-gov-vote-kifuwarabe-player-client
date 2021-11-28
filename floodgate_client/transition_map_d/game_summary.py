@@ -49,36 +49,17 @@ class GameSummaryState(AbstractState):
         self._begin_pos_row_pattern = re.compile(
             r"^P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
-        def none_func(context):
-            return '----Unimplemented---->'
-
-        # ----GameId----> 時のコールバック関数
-        self._on_game_id = none_func
-
-        # ----EndGameSummary----> 時のコールバック関数
-        self._on_end_game_summary = none_func
-
     @property
     def name(self):
         return "[GameSummary]"
 
-    @property
-    def on_game_id(self):
-        """----GameId---->時のコールバック関数"""
-        return self._on_game_id
+    def on_game_id(self, context):
+        """----GameId---->時"""
+        pass
 
-    @on_game_id.setter
-    def on_game_id(self, func):
-        self._on_game_id = func
-
-    @property
-    def on_end_game_summary(self):
-        """----EndGameSummary---->時のコールバック関数"""
-        return self._on_end_game_summary
-
-    @on_end_game_summary.setter
-    def on_end_game_summary(self, func):
-        self._on_end_game_summary = func
+    def on_end_game_summary(self, context):
+        """----EndGameSummary---->"""
+        pass
 
     def leave(self, context, line):
         """次の辺の名前を返します

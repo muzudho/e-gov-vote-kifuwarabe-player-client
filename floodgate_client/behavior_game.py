@@ -5,11 +5,16 @@ from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 
 
-def create_game_state():
+def create():
     """ステート生成"""
-    state = GameState()
+    return DecoratedGameState()
 
-    def __on_move(context):
+
+class DecoratedGameState(GameState):
+    def __init__(self):
+        super().__init__()
+
+    def on_move(self, context):
         """指し手"""
         # 相手の指し手だったら、自分の指し手を入力する番になります
         if context.current_turn != context.my_turn:
@@ -43,9 +48,7 @@ def create_game_state():
         text = context.position.formatBoard()
         app.log.write_by_internal(text)
 
-    state.on_move = __on_move
-
-    def on_win(context):
+    def on_win(self, context):
         """勝ち"""
         s = f"""+----------+
 |    WIN   |
@@ -53,16 +56,10 @@ def create_game_state():
 """
         app.log.write_by_internal(s)
 
-    state.on_win = on_win
-
-    def on_lose(context):
+    def on_lose(self, context):
         """負け"""
         s = f"""+----------+
 |   LOSE   |
 +----------+
 """
         app.log.write_by_internal(s)
-
-    state.on_lose = on_lose
-
-    return state

@@ -10,25 +10,9 @@ class InitState(AbstractState):
 
         self._ok_pattern = None
 
-        def none_func(context):
-            """何もしません"""
-            pass
-
-        # ----Ok----> 時のコールバック関数
-        self._on_ok = none_func
-
     @property
     def name(self):
         return "[Init]"
-
-    @property
-    def on_ok(self):
-        """----Ok---->時のコールバック関数"""
-        return self._on_ok
-
-    @on_ok.setter
-    def on_ok(self, func):
-        self._on_ok = func
 
     @property
     def ok_pattern(self):
@@ -41,6 +25,10 @@ class InitState(AbstractState):
             self._ok_pattern = re.compile(r'^LOGIN:([0-9A-Za-z_-]{1,32}) OK$')
 
         return self._ok_pattern
+
+    def on_ok(self, context):
+        """----Ok---->時"""
+        pass
 
     def leave(self, context, line):
         """次の辺の名前を返します

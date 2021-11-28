@@ -5,23 +5,24 @@ from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 from floodgate_client.transition_map_d.game_summary import GameSummaryState
 
 
-def create_game_summary_state():
+def create():
     """ステート生成"""
-    state = GameSummaryState()
+    return DecoratedGameSummaryState()
 
-    def on_game_id(context):
+
+class DecoratedGameSummaryState(GameSummaryState):
+    def __init__(self):
+        super().__init__()
+
+    def on_game_id(self, context):
         """Game ID を取得した"""
         pass
 
-    state.on_game_id = on_game_id
-
-    def on_end_game_summary(context):
+    def on_end_game_summary(self, context):
         """初期局面情報取得した"""
         pass
 
-    state.on_end_game_summary = on_end_game_summary
-
-    def on_start(context):
+    def on_start(self, context):
         """対局成立した"""
         # テーブルを削除します
         try:
@@ -45,7 +46,3 @@ def create_game_summary_state():
 
         # 次のステートへ引継ぎ
         # self._state = self._behavior_creator_dict["[Game]"]()
-
-    state.on_start = on_start
-
-    return state
