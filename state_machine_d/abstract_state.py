@@ -1,6 +1,9 @@
 class AbstractState():
+    """状態"""
+    
     def __init__(self):
         def on_none(context):
+            """何もしません"""
             pass
 
         self._on_entry = on_none
@@ -8,7 +11,7 @@ class AbstractState():
 
     @property
     def on_entry(self):
-        """Entry時のコールバック関数"""
+        """この状態に遷移したときに呼び出されるコールバック関数"""
         return self._on_entry
 
     @on_entry.setter
@@ -17,7 +20,7 @@ class AbstractState():
 
     @property
     def on_exit(self):
-        """Exit時のコールバック関数"""
+        """この状態から抜け出たときに呼び出されるコールバック関数。ただし初期化時、アボート時は呼び出されません"""
         return self._on_exit
 
     @on_exit.setter

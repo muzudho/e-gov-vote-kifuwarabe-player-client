@@ -6,7 +6,7 @@ from app import app
 from state_machine_d.state_machine import StateMachine
 from context import Context
 from floodgate_client.transition_dict import transition_dict
-from floodgate_client.state_creator_dict import state_creator_dict
+from floodgate_client.behavior_creator_dict import behavior_creator_dict
 
 
 def SplitTextBlock(text_block):
@@ -24,11 +24,11 @@ def SplitTextBlock(text_block):
 class Diagram():
     def __init__(self, context):
         self._state_machine = StateMachine(
-            context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
+            context=context, behavior_creator_dict=behavior_creator_dict, transition_dict=transition_dict)
 
     @property
     def state_machine(self):
-        """ダイアグラム"""
+        """状態遷移マシン"""
         return self._state_machine
 
     def run(self):
@@ -80,7 +80,7 @@ class Diagram():
 
                     app.log.write_by_receive(line)
 
-                    # 処理は Diagram に委譲します
+                    # 遷移処理
                     next_state_name, transition_key = self.state_machine.leave(
                         line)
                     app.log.write_by_internal(

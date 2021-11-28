@@ -11,7 +11,7 @@ def create_init_state():
         # ログを初期状態に戻します
         app.log.init()
         app.log.write_by_internal(
-            f"初期状態に戻します (entry/[Init] impl_init.py 14)")
+            f"初期状態に戻します (entry/[Init] behavior_init.py 14)")
 
         # 通信ソケットを初期状態に戻し、接続を行います
         context.client_socket.set_up()

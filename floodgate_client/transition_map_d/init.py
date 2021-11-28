@@ -11,7 +11,8 @@ class InitState(AbstractState):
         self._ok_pattern = None
 
         def none_func(context):
-            return '----Unimplemented---->'
+            """何もしません"""
+            pass
 
         # ----Ok----> 時のコールバック関数
         self._on_ok = none_func

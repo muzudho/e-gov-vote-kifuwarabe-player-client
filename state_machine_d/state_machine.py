@@ -1,27 +1,30 @@
 class StateMachine():
-    """状態遷移マシーン（State diagram machine）"""
+    """状態遷移マシーン（State diagram machine）
 
-    def __init__(self, context=None, state_creator_dict={}, transition_dict={}):
+    arrive("[Init]") を呼び出してから使ってください
+    """
+
+    def __init__(self, context=None, behavior_creator_dict={}, transition_dict={}):
         """初期化
 
         Parameters
         ----------
         context : Context
-            Defaults to None.
-        state_creator_dict : dict
+            このステートマシンは、このContextが何なのか知りません。
+            外部から任意に与えることができる変数です。 Defaults to None.
+        behavior_creator_dict : dict
             状態を作成する関数のディクショナリーです。 Defaults to {}.
         transition_dict : dict
-            Defaults to {}.
+            遷移先の状態がまとめられたディクショナリーです。 Defaults to {}.
         """
         self._context = context
-        self._state_creator_dict = state_creator_dict
+        self._behavior_creator_dict = behavior_creator_dict
         self._transition_dict = transition_dict
-
-        # あとで arrive("[Init]") を呼び出してください
 
     @property
     def context(self):
-        """グローバル変数みたいなもん。StateMachineは内容を知りません"""
+        """このステートマシンは、このContextが何なのか知りません。
+        外部から任意に与えることができる変数です"""
         return self._context
 
     @context.setter
@@ -33,7 +36,10 @@ class StateMachine():
         return self._state
 
     def leave(self, line):
-        """次の状態の名前と、遷移に使ったキーを返します
+        """次の状態の名前と、遷移に使ったキーを返します。
+        on_exitコールバック関数を呼び出します。
+        stateの遷移はまだ行いません
+
         Parameters
         ----------
         str : line
@@ -60,24 +66,21 @@ class StateMachine():
         return next_state_name, key
 
     def arrive(self, next_state_name):
-        """次の節の名前を返します
+        """指定の状態に遷移します
+        on_entryコールバック関数を呼び出します。
+
         Parameters
         ----------
         str : next_state_name
             次の状態の名前
-
-        Returns
-        -------
-        str
-            節の名前
         """
 
-        if next_state_name in self._state_creator_dict:
+        if next_state_name in self._behavior_creator_dict:
             # 次のステートへ引継ぎ
-            self._state = self._state_creator_dict[next_state_name]()
+            self._state = self._behavior_creator_dict[next_state_name]()
 
             self._state.on_entry(self._context)
 
         else:
             # Error
-            raise ValueError(f"Next state [{next_state_name}] is None")
+            raise ValueError(f"Next state [{next_state_name}] is not found")

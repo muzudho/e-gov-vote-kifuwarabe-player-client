@@ -44,7 +44,7 @@ def create_game_summary_state():
                 f"(Err.163) テーブル作成できなかった [{e}]")
 
         # 次のステートへ引継ぎ
-        # self._state = self._state_creator_dict["[Game]"]()
+        # self._state = self._behavior_creator_dict["[Game]"]()
 
     state.on_start = on_start
 

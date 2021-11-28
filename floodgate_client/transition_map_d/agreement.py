@@ -14,7 +14,8 @@ class AgreementState(AbstractState):
         self._start_pattern = re.compile(r'^START:([0-9A-Za-z_+-]+)$')
 
         def none_func(context):
-            return '----Unimplemented---->'
+            """何もしません"""
+            pass
 
         # ----Start----> 時のコールバック関数
         self._on_start = none_func
