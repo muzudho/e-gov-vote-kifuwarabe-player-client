@@ -45,4 +45,4 @@ class DecoratedGameSummaryState(GameSummaryState):
                 f"(Err.163) テーブル作成できなかった [{e}]")
 
         # 次のステートへ引継ぎ
-        # self._state = self._behavior_creator_dict["[Game]"]()
+        # self._state = self._state_creator_dict["[Game]"]()

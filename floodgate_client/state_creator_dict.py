@@ -3,7 +3,7 @@ from floodgate_client.behavior_game_summary import create as create_game_summary
 from floodgate_client.behavior_agreement import create as create_agreement
 from floodgate_client.behavior_game import create as create_game
 
-behavior_creator_dict = {
+state_creator_dict = {
     "[Init]": create_init,  # 初期値
     "[GameSummary]": create_game_summary,
     "[Agreement]": create_agreement,

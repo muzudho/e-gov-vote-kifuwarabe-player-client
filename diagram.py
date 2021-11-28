@@ -6,7 +6,7 @@ from app import app
 from state_machine_d.state_machine import StateMachine
 from context import Context
 from floodgate_client.transition_dict import transition_dict
-from floodgate_client.behavior_creator_dict import behavior_creator_dict
+from floodgate_client.state_creator_dict import state_creator_dict
 
 
 def SplitTextBlock(text_block):
@@ -24,7 +24,7 @@ def SplitTextBlock(text_block):
 class Diagram():
     def __init__(self, context):
         self._state_machine = StateMachine(
-            context=context, behavior_creator_dict=behavior_creator_dict, transition_dict=transition_dict)
+            context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
 
     @property
     def state_machine(self):

@@ -4,7 +4,7 @@ class StateMachine():
     arrive("[Init]") を呼び出してから使ってください
     """
 
-    def __init__(self, context=None, behavior_creator_dict={}, transition_dict={}):
+    def __init__(self, context=None, state_creator_dict={}, transition_dict={}):
         """初期化
 
         Parameters
@@ -12,13 +12,13 @@ class StateMachine():
         context : Context
             このステートマシンは、このContextが何なのか知りません。
             外部から任意に与えることができる変数です。 Defaults to None.
-        behavior_creator_dict : dict
+        state_creator_dict : dict
             状態を作成する関数のディクショナリーです。 Defaults to {}.
         transition_dict : dict
             遷移先の状態がまとめられたディクショナリーです。 Defaults to {}.
         """
         self._context = context
-        self._behavior_creator_dict = behavior_creator_dict
+        self._state_creator_dict = state_creator_dict
         self._transition_dict = transition_dict
 
     @property
@@ -75,9 +75,9 @@ class StateMachine():
             次の状態の名前
         """
 
-        if next_state_name in self._behavior_creator_dict:
+        if next_state_name in self._state_creator_dict:
             # 次のステートへ引継ぎ
-            self._state = self._behavior_creator_dict[next_state_name]()
+            self._state = self._state_creator_dict[next_state_name]()
 
             self._state.on_entry(self._context)
 

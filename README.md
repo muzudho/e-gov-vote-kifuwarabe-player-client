@@ -5,6 +5,12 @@
 📖 [AWSにデータベースサーバーってどうやって置くの（＾～＾）？](https://crieit.net/drafts/61890804402ea)  
 📖 [e-gov-vote-kifuwarabe-server](https://github.com/muzudho/e-gov-vote-kifuwarabe-server)  
 
+## Set up
+
+```shell
+python.exe -m pip install state_machine_py
+```
+
 ## Smoke test
 
 ```shell
