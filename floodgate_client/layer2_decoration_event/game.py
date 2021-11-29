@@ -1,6 +1,6 @@
 import time
 from app import app
-from floodgate_client.transition_map_d.game import GameState
+from floodgate_client.layer1_transition_map.game import GameState
 from my_dynamodb.e_gov_delete_bestmove_table import delete_bestmove_table
 from my_dynamodb.e_gov_create_bestmove_table import create_bestmove_table
 

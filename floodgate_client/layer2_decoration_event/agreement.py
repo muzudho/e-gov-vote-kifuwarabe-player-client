@@ -1,5 +1,5 @@
 from app import app
-from floodgate_client.transition_map_d.agreement import AgreementState
+from floodgate_client.layer1_transition_map.agreement import AgreementState
 
 
 def create():

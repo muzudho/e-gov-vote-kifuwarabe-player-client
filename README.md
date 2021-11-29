@@ -11,6 +11,14 @@
 python.exe -m pip install state_machine_py
 ```
 
+トップディレクトリに 📄`config.py` を作成し、内容を設定してください。  
+内容は、以下のファイルを参考にしてください
+
+Example:
+
+📄`config--floodgate.py`
+📄`config--local.py`
+
 ## Smoke test
 
 ```shell
@@ -23,3 +31,6 @@ python.exe test.py
 python.exe diagram.py
 ```
 
+## Other documents
+
+📖 [floodgate のログ](http://wdoor.c.u-tokyo.ac.jp/shogi/x/shogi-server.log)
