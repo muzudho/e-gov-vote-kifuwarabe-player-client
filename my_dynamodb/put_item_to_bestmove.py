@@ -7,6 +7,8 @@ from pprint import pprint
 import boto3
 from app import app
 
+TABLE_NAME = 'Bestmove'
+
 
 def put_bestmove(your_name, secret, bestmove, dynamodb=None):
     if not dynamodb:
@@ -15,7 +17,7 @@ def put_bestmove(your_name, secret, bestmove, dynamodb=None):
         # ↓ region_name に変えて、ローカルのDynamoDBも指せます
         # endpoint_url="http://localhost:8000"
 
-    table = dynamodb.Table('Bestmove')
+    table = dynamodb.Table(TABLE_NAME)
     response = table.put_item(
         Item={
             'yourName': your_name,
