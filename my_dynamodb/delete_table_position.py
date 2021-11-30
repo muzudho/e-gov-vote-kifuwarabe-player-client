@@ -1,15 +1,15 @@
 """
 # Run
-python.exe -m my_dynamodb.delete_table_bestmove
+python.exe -m my_dynamodb.delete_table_position
 """
 
 import boto3
 from app import app
 
-TABLE_NAME = 'Bestmove'
+TABLE_NAME = 'Position'
 
 
-def delete_bestmove_table(dynamodb=None):
+def delete_position_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb',
                                   region_name="us-east-2")
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # テーブルを削除します
     try:
         app.log.init()
-        delete_bestmove_table()
+        delete_position_table()
         app.log.write_by_internal(f"{TABLE_NAME} table deleted.")
 
     except Exception as e:

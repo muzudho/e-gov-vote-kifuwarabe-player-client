@@ -1,7 +1,6 @@
 """
 # Run
-cd my-dynamodb
-python.exe e_gov_bestmove.py
+python.exe -m my_dynamodb.e_gov_bestmove
 """
 
 import random

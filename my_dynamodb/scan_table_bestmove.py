@@ -1,7 +1,6 @@
 """
 # Run
-cd my_dynamodb
-python.exe scan_table_bestmove.py
+python.exe -m my_dynamodb.scan_table_bestmove
 """
 
 from pprint import pprint

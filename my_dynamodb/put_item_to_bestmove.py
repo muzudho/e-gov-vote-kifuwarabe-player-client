@@ -1,7 +1,6 @@
 """
 # Run
-cd my_dynamodb
-python.exe put_item_to_bestmove.py
+python.exe -m my_dynamodb.put_item_to_bestmove
 """
 
 from pprint import pprint

@@ -1,11 +1,12 @@
 """
 # Run
-cd my_dynamodb
-python.exe create_table_bestmove.py
+python.exe -m my_dynamodb.create_table_bestmove
 """
 
 import boto3
 from app import app
+
+TABLE_NAME = 'Bestmove'
 
 
 def create_bestmove_table(dynamodb=None):
@@ -17,7 +18,7 @@ def create_bestmove_table(dynamodb=None):
 
     table = dynamodb.create_table(
         # テーブル名
-        TableName='Bestmove',
+        TableName=TABLE_NAME,
         # キー列の設定
         KeySchema=[
             {
@@ -52,9 +53,9 @@ if __name__ == '__main__':
     # テーブルを作成します
     try:
         app.log.init()
-        bestmove_table = create_bestmove_table()
+        table = create_bestmove_table()
         app.log.write_by_internal(
-            f"Table status:{bestmove_table.table_status}")
+            f"Table status:{table.table_status}")
 
     except Exception as e:
         app.log.write_by_internal(f"(Err.163) テーブル作成できなかった [{e}]")
