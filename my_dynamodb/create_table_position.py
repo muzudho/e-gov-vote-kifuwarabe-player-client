@@ -1,12 +1,13 @@
 """
-python.exe e_gov_create_bestmove_table.py
+# Run
+python.exe -m my_dynamodb.create_table_position
 """
 
 import boto3
 from app import app
 
 
-def create_bestmove_table(dynamodb=None):
+def create_position_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb',
                                   region_name="us-east-2")
@@ -15,7 +16,7 @@ def create_bestmove_table(dynamodb=None):
 
     table = dynamodb.create_table(
         # テーブル名
-        TableName='Bestmove',
+        TableName='Position',
         # キー列の設定
         KeySchema=[
             {
@@ -46,14 +47,13 @@ def create_bestmove_table(dynamodb=None):
     return table
 
 
-# cd my_dynamodb
-# python.exe e_gov_create_bestmove_table.py
 if __name__ == '__main__':
     # テーブルを作成します
     try:
-        bestmove_table = create_bestmove_table()
+        app.log.init()
+        position_table = create_position_table()
         app.log.write_by_internal(
-            f"Table status:{bestmove_table.table_status}")
+            f"Table status:{position_table.table_status}")
 
     except Exception as e:
         app.log.write_by_internal(f"(Err.163) テーブル作成できなかった [{e}]")

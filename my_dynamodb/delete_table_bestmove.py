@@ -1,5 +1,7 @@
 """
-python.exe e_gov_delete_bestmove_table.py
+# Run
+cd my_dynamodb
+python.exe delete_table_bestmove.py
 """
 
 import boto3
@@ -17,11 +19,10 @@ def delete_bestmove_table(dynamodb=None):
     table.delete()
 
 
-# cd my_dynamodb
-# python.exe e_gov_delete_bestmove_table.py
 if __name__ == '__main__':
     # テーブルを削除します
     try:
+        app.log.init()
         delete_bestmove_table()
         app.log.write_by_internal("Bestmove table deleted.")
 

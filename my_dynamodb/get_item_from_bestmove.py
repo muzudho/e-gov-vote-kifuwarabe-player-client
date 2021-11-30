@@ -1,5 +1,7 @@
 """
-python.exe e_gov_get_bestmove_item.py
+# Run
+cd my_dynamodb
+python.exe get_item_from_bestmove.py
 """
 
 from pprint import pprint
@@ -8,7 +10,7 @@ from botocore.exceptions import ClientError
 from app import app
 
 
-def get_bestmove(your_name, secret, dynamodb=None):
+def get_item_from_bestmove(your_name, secret, dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb',
                                   region_name="us-east-2")
@@ -27,7 +29,8 @@ def get_bestmove(your_name, secret, dynamodb=None):
 
 
 if __name__ == '__main__':
-    movie = get_bestmove("Muzudho", "abc1234")
+    app.log.init()
+    movie = get_item_from_bestmove("Muzudho", "abc1234")
     if movie:
         app.log.write_by_internal("Get bestmove table succeeded:")
         pprint(movie, sort_dicts=False)

@@ -1,12 +1,13 @@
 """
-cd meta/about-dynamodb
+# Run
+cd my-dynamodb
 python.exe e_gov_bestmove.py
 """
 
 import random
 from pprint import pprint
 from app import app
-from my_dynamodb.e_gov_scan_bestmove_table import scan_bestmove_table
+from my_dynamodb.scan_table_bestmove import scan_bestmove_table
 
 
 def get_bestmove():
@@ -53,9 +54,8 @@ def get_bestmove():
     return random.choice(max_key_list)
 
 
-# cd my_dynamodb
-# python.exe e_gov_bestmove.py
 if __name__ == '__main__':
+    app.log.init()
     # move
     m = get_bestmove()
     app.log.write_by_internal(f"bestmove=[{m}]")

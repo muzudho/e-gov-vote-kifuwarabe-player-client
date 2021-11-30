@@ -1,5 +1,7 @@
 """
-python.exe e_gov_put_bestmove_item.py
+# Run
+cd my_dynamodb
+python.exe put_item_to_bestmove.py
 """
 
 from pprint import pprint
@@ -27,6 +29,7 @@ def put_bestmove(your_name, secret, bestmove, dynamodb=None):
 
 
 if __name__ == '__main__':
+    app.log.init()
     movie_resp = put_bestmove("Muzudho", "abc1234", "+7776FU")
     movie_resp = put_bestmove("Kifuwarane", "bebebebebeYOYOYOYOYO", "+5958OU")
     movie_resp = put_bestmove("Kifuwarazusa", "bababababa00", "+5756FU")

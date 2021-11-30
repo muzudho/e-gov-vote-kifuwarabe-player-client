@@ -1,5 +1,7 @@
 """
-python.exe e_gov_scan_bestmove_table.py
+# Run
+cd my_dynamodb
+python.exe scan_table_bestmove.py
 """
 
 from pprint import pprint
@@ -26,6 +28,7 @@ def scan_bestmove_table(dynamodb=None):
 
 
 if __name__ == '__main__':
+    app.log.init()
     items = scan_bestmove_table()
     if items:
         app.log.write_by_internal("Scan bestmove table succeeded:")
