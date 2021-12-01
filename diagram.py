@@ -26,6 +26,9 @@ class Diagram():
         self._state_machine = StateMachine(
             context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
 
+        # デバッグ情報出力
+        self._state_machine.verbose = True
+
     @property
     def state_machine(self):
         """状態遷移マシン"""
@@ -53,8 +56,28 @@ class Diagram():
     def init(self):
         """ダイアグラムを初期状態に戻します"""
 
+        # ログを初期状態に戻します
+        app.log.init()
+        app.log.write_by_internal(
+            f"初期状態に戻します (init.py init 62)")
+
         # （強制的に）ステートマシンを初期状態に戻します。 leave は行いません
-        self.state_machine.arrive("[Init]")
+        interrupt_line = self.state_machine.arrive("[Init]")
+        app.log.write_by_internal(
+            f"[E-GOV] arrive [init] おわり (init.py init 67)")
+
+        while interrupt_line:
+            app.log.write_by_internal(
+                f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 71)")
+
+            next_state_name, transition_key = self.state_machine.leave(
+                interrupt_line)
+
+            interrupt_line = self.state_machine.arrive(
+                next_state_name)
+
+            app.log.write_by_internal(
+                f"[E-GOV] interrupt_line={interrupt_line} (init.py init 80)")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
@@ -81,12 +104,19 @@ class Diagram():
                     app.log.write_by_receive(line)
 
                     # 遷移処理
-                    next_state_name, transition_key = self.state_machine.leave(
-                        line)
-                    app.log.write_by_internal(
-                        f"[DEBUG] Transition {transition_key} {next_state_name} (diagram.py 108)")
+                    interrupt_line = line
+                    while interrupt_line:
+                        app.log.write_by_internal(
+                            f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 97)")
 
-                    self.state_machine.arrive(next_state_name)
+                        next_state_name, transition_key = self.state_machine.leave(
+                            line)
+
+                        interrupt_line = self.state_machine.arrive(
+                            next_state_name)
+
+                        app.log.write_by_internal(
+                            f"[E-GOV] interrupt_line={interrupt_line} (init.py init 106)")
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか

@@ -50,7 +50,8 @@ class DecoratedPlayState(PlayState):
 
     def on_win(self, context):
         """勝ち"""
-        s = f"""+----------+
+        s = f"""
++----------+
 |    WIN   |
 +----------+
 """
@@ -58,7 +59,8 @@ class DecoratedPlayState(PlayState):
 
     def on_lose(self, context):
         """負け"""
-        s = f"""+----------+
+        s = f"""
++----------+
 |   LOSE   |
 +----------+
 """

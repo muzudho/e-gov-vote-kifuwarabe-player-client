@@ -8,26 +8,17 @@ class InitState(AbstractState):
     def __init__(self):
         super().__init__()
 
-        self._ok_pattern = None
-
     @property
     def name(self):
         return "[Init]"
 
-    @property
-    def ok_pattern(self):
-        """ログイン
-        [LOGIN:e-gov-vote-kifuwarabe OK]
-               ---------------------
-               1. username
-        """
-        if self._ok_pattern is None:
-            self._ok_pattern = re.compile(r'^LOGIN:([0-9A-Za-z_-]{1,32}) OK$')
+    def pass_on(self, context):
+        # ログインコマンドを送信します
+        app.log.write_by_internal('pass_onします (init.py 17)')
+        return "pass_on"
 
-        return self._ok_pattern
-
-    def on_ok(self, context):
-        """----Ok---->時"""
+    def on_login(self, context):
+        app.log.write_by_internal('on_loginしました (init.py 21)')
         pass
 
     def leave(self, context, line):
@@ -42,15 +33,11 @@ class InitState(AbstractState):
         str
             辺の名前
         """
+        app.log.write_by_internal('leaveします (init.py 36)')
 
-        # ----Ok---->
-        matched = self.ok_pattern.match(line)
-        if matched:
-            context.user_name = matched.group(1)
-
-            self.on_ok(context)
-
-            return '----Ok---->'
+        if line == 'pass_on':
+            self.on_login(context)
+            return '----Login---->'
 
         return '----Fail---->'
 

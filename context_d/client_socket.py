@@ -15,9 +15,9 @@ class ClientSocket():
     def connect(self):
         # connect to the server
         app.log.write_by_internal(
-            f"[*] Connecting to {SERVER_HOST}:{SERVER_PORT}...")
+            f"[E-GOV] Connecting to {SERVER_HOST}:{SERVER_PORT}...")
         self._sock.connect((SERVER_HOST, SERVER_PORT))
-        app.log.write_by_internal("[+] Connected.")
+        app.log.write_by_internal("[E-GOV] Connected.")
 
     def receive_text_block(self):
         """一行ずつではなく複数行を一気に受け取ることもある"""

@@ -8,6 +8,7 @@ from my_dynamodb.e_gov_bestmove import get_bestmove
 class Context():
     def __init__(self):
         self._user_name = ''
+        self._password = ''
         self._game_id = ''
         self._my_turn = ''
         self._current_turn = ''
@@ -79,6 +80,15 @@ class Context():
     @user_name.setter
     def user_name(self, val):
         self._user_name = val
+
+    @property
+    def password(self):
+        """パスワード"""
+        return self._password
+
+    @password.setter
+    def password(self, val):
+        self._password = val
 
     @property
     def game_id(self):

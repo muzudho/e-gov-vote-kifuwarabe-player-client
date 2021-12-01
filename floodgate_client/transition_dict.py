@@ -1,5 +1,6 @@
 transition_dict = {
-    "[Init]----Ok---->": "[Lobby]",
+    "[Init]----Login---->": "[Entrance]",
+    "[Entrance]----Ok---->": "[Lobby]",
     "[Lobby]----Loopback---->": "[Lobby]",
     "[Lobby]----EndGameSummary---->": "[Reply]",
     "[Reply]----Start---->": "[Play]",
