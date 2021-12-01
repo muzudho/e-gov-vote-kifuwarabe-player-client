@@ -56,7 +56,7 @@ class Test():
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 46)")
 
         self._diagram.state_machine.arrive(next_state_name)
-        if self._diagram.state_machine.state.name != '[GameSummary]':
+        if self._diagram.state_machine.state.name != '[Lobby]':
             app.log.write_by_internal('Unimplemented login')
 
         received = """BEGIN Game_Summary
@@ -105,7 +105,7 @@ END Game_Summary
 
             self._diagram.state_machine.arrive(next_state_name)
 
-        if self._diagram.state_machine.state.name != '[Agreement]':
+        if self._diagram.state_machine.state.name != '[Reply]':
             app.log.write_by_internal(
                 f'(Err.100) Unexpected state_name=[{self._diagram.state_machine.state.name}]')
 

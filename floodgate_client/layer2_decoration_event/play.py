@@ -1,16 +1,16 @@
 import time
 from app import app
-from floodgate_client.layer1_transition_map.game import GameState
+from floodgate_client.layer1_transition_map.play import PlayState
 from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 from my_dynamodb.create_table_bestmove import create_bestmove_table
 
 
 def create():
     """ステート生成"""
-    return DecoratedGameState()
+    return DecoratedPlayState()
 
 
-class DecoratedGameState(GameState):
+class DecoratedPlayState(PlayState):
     def __init__(self):
         super().__init__()
 

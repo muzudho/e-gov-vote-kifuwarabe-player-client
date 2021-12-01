@@ -1,10 +1,10 @@
 import re
+from state_machine_py.abstract_state import AbstractState
 from app import app
-from state_machine_d.abstract_state import AbstractState
 from context import Context
 
 
-class AgreementState(AbstractState):
+class ReplyState(AbstractState):
     def __init__(self):
         super().__init__()
 
@@ -15,7 +15,7 @@ class AgreementState(AbstractState):
 
     @property
     def name(self):
-        return "[Agreement]"
+        return "[Reply]"
 
     def on_start(self, context):
         """----Start----> 時"""
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     app.log.set_up()
     context = Context()
     context.game_id = 'wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
-    state = AgreementState()
+    state = ReplyState()
 
     line = 'START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005'
     edge_name = state.leave(context, line)

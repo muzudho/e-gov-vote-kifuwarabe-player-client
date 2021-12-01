@@ -1,5 +1,6 @@
 from datetime import datetime
 
+LOG_DIRECTORY = 'logs/'
 LOG_FILE_STEM = 'client-chat-'
 LOG_FILE_EXTENSION = '.log'
 
@@ -58,7 +59,7 @@ class Logger():
             # AWS S3 にアップロードするなどの処理も入れたい
 
         # ファイル名
-        self._file_name = f"{LOG_FILE_STEM}{Logger.file_name_date_now()}{LOG_FILE_EXTENSION}"
+        self._file_name = f"{LOG_DIRECTORY}{LOG_FILE_STEM}{Logger.file_name_date_now()}{LOG_FILE_EXTENSION}"
 
         # ファイルオープン
         self._file = open(

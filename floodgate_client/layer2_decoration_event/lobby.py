@@ -2,15 +2,15 @@ import time
 from app import app
 from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 from my_dynamodb.create_table_bestmove import create_bestmove_table
-from floodgate_client.layer1_transition_map.game_summary import GameSummaryState
+from floodgate_client.layer1_transition_map.lobby import LobbyState
 
 
 def create():
     """ステート生成"""
-    return DecoratedGameSummaryState()
+    return DecoratedLobbyState()
 
 
-class DecoratedGameSummaryState(GameSummaryState):
+class DecoratedLobbyState(LobbyState):
     def __init__(self):
         super().__init__()
 
@@ -45,4 +45,4 @@ class DecoratedGameSummaryState(GameSummaryState):
                 f"(Err.163) テーブル作成できなかった [{e}]")
 
         # 次のステートへ引継ぎ
-        # self._state = self._state_creator_dict["[Game]"]()
+        # self._state = self._state_creator_dict["[Play]"]()

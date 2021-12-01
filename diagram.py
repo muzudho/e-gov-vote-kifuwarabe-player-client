@@ -3,7 +3,7 @@ import signal
 from threading import Thread
 from config import IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
-from state_machine_d.state_machine import StateMachine
+from state_machine_py.state_machine import StateMachine
 from context import Context
 from floodgate_client.transition_dict import transition_dict
 from floodgate_client.state_creator_dict import state_creator_dict

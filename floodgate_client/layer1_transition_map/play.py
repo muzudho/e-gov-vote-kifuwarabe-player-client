@@ -1,11 +1,11 @@
 import re
 from app import app
 from shogi_d.csa_helper import do_move
-from state_machine_d.abstract_state import AbstractState
+from state_machine_py.abstract_state import AbstractState
 from context import Context
 
 
-class GameState(AbstractState):
+class PlayState(AbstractState):
     """`START:` してからの状態"""
 
     def __init__(self):
@@ -22,7 +22,7 @@ class GameState(AbstractState):
 
     @property
     def name(self):
-        return "[Game]"
+        return "[Play]"
 
     def on_move(self, context):
         """----Move---->時"""
@@ -112,11 +112,11 @@ class GameState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.game
+# python.exe -m floodgate_client.state_d.play
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
-    state = GameState()
+    state = PlayState()
 
     line = '+5756FU,T20'
     edge_name = state.leave(context, line)

@@ -1,10 +1,10 @@
 import re
 from app import app
-from state_machine_d.abstract_state import AbstractState
+from state_machine_py.abstract_state import AbstractState
 from context import Context
 
 
-class GameSummaryState(AbstractState):
+class LobbyState(AbstractState):
 
     def __init__(self):
         super().__init__()
@@ -51,7 +51,7 @@ class GameSummaryState(AbstractState):
 
     @property
     def name(self):
-        return "[GameSummary]"
+        return "[Lobby]"
 
     def on_game_id(self, context):
         """----GameId---->時"""
@@ -149,11 +149,11 @@ class GameSummaryState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.game_summary
+# python.exe -m floodgate_client.state_d.lobby
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
-    state = GameSummaryState()
+    state = LobbyState()
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
     edge_name = state.leave(context, line)
