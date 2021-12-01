@@ -39,7 +39,9 @@ class InitState(AbstractState):
             self.on_login(context)
             return '----Login---->'
 
-        return '----Fail---->'
+        app.log.write_by_internal(f'処理できなかったline=[{line}]')
+
+        return '----InvalidOperation---->'
 
 
 # Test

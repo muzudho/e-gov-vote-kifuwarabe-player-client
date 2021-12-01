@@ -52,4 +52,6 @@ class EntranceState(AbstractState):
 
             return '----Ok---->'
 
-        return '----Fail---->'
+        app.log.write_by_internal(f'処理できなかったline=[{line}]')
+
+        return '----InvalidOperation---->'
