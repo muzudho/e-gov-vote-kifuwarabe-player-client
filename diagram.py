@@ -66,6 +66,7 @@ class Diagram():
         app.log.write_by_internal(
             f"[E-GOV] arrive [init] おわり (init.py init 67)")
 
+        # いきなり [pass_on割り込み] あるかもしれないのでループ
         while interrupt_line:
             app.log.write_by_internal(
                 f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 71)")
@@ -89,6 +90,9 @@ class Diagram():
 
         try:
             while True:
+                app.log.write_by_internal(
+                    f"[E-GOV] 受信ループ開始 (init.py init 93)")
+
                 text_block = self._state_machine.context.client_socket.receive_text_block()
 
                 # 1. 空行は無限に送られてくるので無視
@@ -101,13 +105,16 @@ class Diagram():
                 lines = SplitTextBlock(text_block)
                 for line in lines:
 
+                    app.log.write_by_internal(
+                        f"[E-GOV] line={line} (init.py init 105)")
+
                     app.log.write_by_receive(line)
 
                     # 遷移処理
                     interrupt_line = line
                     while interrupt_line:
                         app.log.write_by_internal(
-                            f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 97)")
+                            f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 110)")
 
                         next_state_name, transition_key = self.state_machine.leave(
                             line)
@@ -116,7 +123,13 @@ class Diagram():
                             next_state_name)
 
                         app.log.write_by_internal(
-                            f"[E-GOV] interrupt_line={interrupt_line} (init.py init 106)")
+                            f"[E-GOV] interrupt_line={interrupt_line} (init.py init 119)")
+
+                    app.log.write_by_internal(
+                        f"[E-GOV] 割り込みループ抜けた (init.py init 122)")
+
+                app.log.write_by_internal(
+                    f"[E-GOV] 入力ループ抜けた (init.py init 128)")
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか
