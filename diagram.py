@@ -62,23 +62,9 @@ class Diagram():
             f"初期状態に戻します (init.py init 62)")
 
         # （強制的に）ステートマシンを初期状態に戻します。 leave は行いません
-        interrupt_line = self.state_machine.arrive("[Init]")
+        self.state_machine.arrive_sequence("[Init]")
         app.log.write_by_internal(
-            f"[E-GOV] arrive [init] おわり (init.py init 67)")
-
-        # いきなり [pass_on割り込み] あるかもしれないのでループ
-        while interrupt_line:
-            app.log.write_by_internal(
-                f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 71)")
-
-            next_state_name, transition_key = self.state_machine.leave(
-                interrupt_line)
-
-            interrupt_line = self.state_machine.arrive(
-                next_state_name)
-
-            app.log.write_by_internal(
-                f"[E-GOV] interrupt_line={interrupt_line} (init.py init 80)")
+            f"[E-GOV] arrive_sequence [init] おわり (init.py init 67)")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
@@ -111,19 +97,9 @@ class Diagram():
                     app.log.write_by_receive(line)
 
                     # 遷移処理
-                    interrupt_line = line
-                    while interrupt_line:
-                        app.log.write_by_internal(
-                            f"[E-GOV] interrupt_line={interrupt_line} (diagram.py 110)")
-
-                        next_state_name, transition_key = self.state_machine.leave(
-                            line)
-
-                        interrupt_line = self.state_machine.arrive(
-                            next_state_name)
-
-                        app.log.write_by_internal(
-                            f"[E-GOV] interrupt_line={interrupt_line} (init.py init 119)")
+                    next_state_name, transition_key = self.state_machine.leave(
+                        line)
+                    self.state_machine.arrive_sequence(next_state_name)
 
                     app.log.write_by_internal(
                         f"[E-GOV] 割り込みループ抜けた (init.py init 122)")

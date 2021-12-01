@@ -27,7 +27,7 @@ class Test():
             app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 26 test_agree_func)")
 
-            self._diagram.state_machine.arrive(next_state_name)
+            self._diagram.state_machine.arrive_sequence(next_state_name)
 
         # 後付け
         context.agree_func = test_agree_func
@@ -55,7 +55,7 @@ class Test():
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 46)")
 
-        self._diagram.state_machine.arrive(next_state_name)
+        self._diagram.state_machine.arrive_sequence(next_state_name)
         if self._diagram.state_machine.state.name != '[Lobby]':
             app.log.write_by_internal('Unimplemented login')
 
@@ -103,7 +103,7 @@ END Game_Summary
             app.log.write_by_internal(
                 f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 94)")
 
-            self._diagram.state_machine.arrive(next_state_name)
+            self._diagram.state_machine.arrive_sequence(next_state_name)
 
         if self._diagram.state_machine.state.name != '[Reply]':
             app.log.write_by_internal(
@@ -129,7 +129,7 @@ END Game_Summary
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 120)")
 
-        self._diagram.state_machine.arrive(next_state_name)
+        self._diagram.state_machine.arrive_sequence(next_state_name)
         text = self._diagram.state_machine.context.position.formatBoard()
         app.log.write_by_internal(text)
 
@@ -140,7 +140,7 @@ END Game_Summary
         app.log.write_by_internal(
             f"[DEBUG] Transition {transition_key} {next_state_name} (test.py 131)")
 
-        self._diagram.state_machine.arrive(next_state_name)
+        self._diagram.state_machine.arrive_sequence(next_state_name)
         text = self._diagram.state_machine.context.position.formatBoard()
         app.log.write_by_internal(text)
 
