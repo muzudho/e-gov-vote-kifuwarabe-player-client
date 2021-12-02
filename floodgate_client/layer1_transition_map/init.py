@@ -12,7 +12,8 @@ class InitState(AbstractState):
     def name(self):
         return "[Init]"
 
-    def on_entry(self, context):
+    def entry(self, context):
+        super().entry(context)
         return "pass_on"
 
     def leave(self, context, line):

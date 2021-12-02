@@ -19,9 +19,6 @@ class EntranceState(AbstractState):
     def name(self):
         return "[Entrance]"
 
-    def on_entry(self, context):
-        pass
-
     def on_ok(self, context):
         """----Ok---->時"""
         pass

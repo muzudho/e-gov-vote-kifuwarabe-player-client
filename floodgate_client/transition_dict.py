@@ -12,10 +12,15 @@ transition_dict = {
     "[Listen]----Loopback---->": "[Listen]",
     "[Listen]----EndGameSummary---->": "[Reply]",
 
-    "[Reply]----Start---->": "[Play]",
+    "[Reply]----StartMe---->": "[Play]",
+    "[Reply]----StartOpponent---->": "[Judge]",
 
-    "[Play]----Loopback---->": "[Play]",
-    "[Play]----Move---->": "[Play]",
-    "[Play]----Win---->": "[Init]",
-    "[Play]----Lose---->": "[Init]",
+    "[Play]----DoneMove---->": "[Judge]",
+
+    "[Judge]----Loopback---->": "[Judge]",
+    "[Judge]----PlayMe---->": "[Play]",
+    "[Judge]----EchoSelf---->": "[Judge]",
+    "[Judge]----Move---->": "[Judge]",
+    "[Judge]----Win---->": "[Init]",
+    "[Judge]----Lose---->": "[Init]",
 }

@@ -82,14 +82,18 @@ class Diagram():
                 while True:
                     text_block = self._state_machine.context.client_socket.receive_text_block()
 
-                    # FIXME 空行は無限に送られてくるので無視。なんでだろう？
+                    # FIXME 突然、空行が無限に送られてくるので無視。なんでだろう？
                     if text_block != '':
+                        print('kara')
                         break
 
                 app.log.write_by_receive(text_block)
 
                 # 受信したテキストブロックを行の配列にして返します
                 lines = SplitTextBlock(text_block)
+
+                app.log.write_by_internal(f"[E-GOV] lines=[{lines}]")
+
                 return lines
 
             self.state_machine.leave_and_loop(__lines_getter)

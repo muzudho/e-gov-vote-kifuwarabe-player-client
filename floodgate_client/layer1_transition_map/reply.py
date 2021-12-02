@@ -17,8 +17,10 @@ class ReplyState(AbstractState):
     def name(self):
         return "[Reply]"
 
-    def on_start(self, context):
-        """----Start----> 時"""
+    def on_start_me(self, context):
+        pass
+
+    def on_start_you(self, context):
         pass
 
     def leave(self, context, line):
@@ -42,8 +44,16 @@ class ReplyState(AbstractState):
         if matched:
             start_game_id = matched.group(1)
             if context.game_id == start_game_id:
-                self.on_start(context)
-                return '----Start---->'
+
+                # TODO 自分の手番か、相手の手番かで分けたい
+                if context.my_turn == context.current_turn:
+                    # 初手を考えます
+                    self.on_start_me(context)
+                    return '----StartMe---->'
+                else:
+                    self.on_start_you(context)
+                    return '----StartOpponent---->'
+
             else:
                 raise ValueError(
                     f'GameIdが一致しませんでした context.game_id:{context.game_id} Start:{start_game_id}')
