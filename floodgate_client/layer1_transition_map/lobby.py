@@ -12,7 +12,7 @@ class LobbyState(AbstractState):
     def name(self):
         return "[Lobby]"
 
-    def on_begin_game_summary(context):
+    def on_begin_game_summary(self, context):
         pass
 
     def leave(self, context, line):
