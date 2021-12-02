@@ -28,12 +28,10 @@ class PlayState(AbstractState):
         """
 
         # 指し手を送信します
-        self.on_do_move(context)
+        self.on_my_move(context)
 
-        # ----DoneMove---->
-        #     --------
-        #     指し手を送信しました
-        return '----DoneMove---->'
+        # 指し手を送信しました
+        return '----MyMove---->'
 
-    def on_do_move(context):
+    def on_my_move(context):
         pass

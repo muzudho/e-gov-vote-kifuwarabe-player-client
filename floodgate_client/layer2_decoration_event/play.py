@@ -15,7 +15,7 @@ class DecoratedPlayState(PlayState):
     def __init__(self):
         super().__init__()
 
-    def on_do_move(context):
+    def on_my_move(context):
         """ここでサーバーへ指し手を送信してください"""
         # 相手の指し手だったら、自分の指し手を入力する番になります
         if context.current_turn != context.my_turn:

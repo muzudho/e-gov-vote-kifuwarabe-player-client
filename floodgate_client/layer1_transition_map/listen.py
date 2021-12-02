@@ -131,8 +131,8 @@ class ListenState(AbstractState):
         #      ----------------
         #      1. 対局条件通知終了
         if line == 'END Game_Summary':
-            self.on_end_game_summary(context)
-            return '----EndGameSummary---->'
+            self.on_agree(context)
+            return '----Agree---->'
 
         app.log.write_by_internal(
             f"[DEBUG] Unknown line=[{line}]")
@@ -142,8 +142,8 @@ class ListenState(AbstractState):
         """----GameId---->時"""
         pass
 
-    def on_end_game_summary(self, context):
-        """----EndGameSummary---->"""
+    def on_agree(self, context):
+        """----Agree---->"""
         pass
 
 

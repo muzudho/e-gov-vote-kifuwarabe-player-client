@@ -197,7 +197,7 @@ if __name__ == "__main__":
 
     line = '+5756FU,T20'
     edge_name = state.leave(context, line)
-    if edge_name == '----Move---->':
+    if edge_name == '----EchoSelf---->':
         app.log.write_by_internal('.', end='')
     else:
         app.log.write_by_internal('f', end='')

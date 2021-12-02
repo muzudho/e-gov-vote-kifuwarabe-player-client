@@ -10,17 +10,21 @@ transition_dict = {
     "[Lobby]----BeginGameSummary---->": "[Listen]",
 
     "[Listen]----Loopback---->": "[Listen]",
-    "[Listen]----EndGameSummary---->": "[Reply]",
+    "[Listen]----Agree---->": "[Reply]",
+    "[Listen]----Reject---->": "[Lobby]",
 
     "[Reply]----StartMe---->": "[Play]",
     "[Reply]----StartOpponent---->": "[Judge]",
 
-    "[Play]----DoneMove---->": "[Judge]",
+    "[Play]----MyMove---->": "[Judge]",
 
     "[Judge]----Loopback---->": "[Judge]",
     "[Judge]----PlayMe---->": "[Play]",
     "[Judge]----EchoSelf---->": "[Judge]",
-    "[Judge]----Move---->": "[Judge]",
+
+    # floodgateでは [Init] に戻る
     "[Judge]----Win---->": "[Init]",
+    "[Judge]----Draw---->": "[Init]",
     "[Judge]----Lose---->": "[Init]",
+    "[Judge]----Censored---->": "[Init]",
 }

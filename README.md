@@ -39,5 +39,5 @@ python.exe diagram.py
 
 📖 [floodgate のログ](http://wdoor.c.u-tokyo.ac.jp/shogi/x/shogi-server.log)
 
-![20211202shogi8a4.png](docs/img/20211202shogi8a4.png)  
-👆 むずでょの独自解釈の状態遷移図  
+![20211202shogi10.png](docs/img/20211202shogi10.png)  
+👆 （WIP 書きかけ）むずでょの独自解釈の状態遷移図  
