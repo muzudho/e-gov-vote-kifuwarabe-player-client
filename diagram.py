@@ -29,6 +29,11 @@ class Diagram():
         # デバッグ情報出力
         self._state_machine.verbose = True
 
+        def __on_line(line):
+            app.log.write_by_receive(line)
+
+        self._state_machine.on_line = __on_line
+
     @property
     def state_machine(self):
         """状態遷移マシン"""
@@ -63,8 +68,6 @@ class Diagram():
 
         # （強制的に）ステートマシンを初期状態に戻します。 leave は行いません
         self.state_machine.arrive_sequence("[Init]")
-        app.log.write_by_internal(
-            f"[E-GOV] arrive_sequence [init] おわり (init.py init 67)")
 
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
@@ -75,37 +78,21 @@ class Diagram():
         """コンピューターの動き"""
 
         try:
-            while True:
-                app.log.write_by_internal(
-                    f"[E-GOV] 受信ループ開始 (init.py init 93)")
+            def __lines_getter():
+                while True:
+                    text_block = self._state_machine.context.client_socket.receive_text_block()
 
-                text_block = self._state_machine.context.client_socket.receive_text_block()
-
-                # 1. 空行は無限に送られてくるので無視
-                if text_block == '':
-                    continue
+                    # FIXME 空行は無限に送られてくるので無視。なんでだろう？
+                    if text_block != '':
+                        break
 
                 app.log.write_by_receive(text_block)
 
                 # 受信したテキストブロックを行の配列にして返します
                 lines = SplitTextBlock(text_block)
-                for line in lines:
+                return lines
 
-                    app.log.write_by_internal(
-                        f"[E-GOV] line={line} (init.py init 105)")
-
-                    app.log.write_by_receive(line)
-
-                    # 遷移処理
-                    next_state_name, transition_key = self.state_machine.leave(
-                        line)
-                    self.state_machine.arrive_sequence(next_state_name)
-
-                    app.log.write_by_internal(
-                        f"[E-GOV] 割り込みループ抜けた (init.py init 122)")
-
-                app.log.write_by_internal(
-                    f"[E-GOV] 入力ループ抜けた (init.py init 128)")
+            self.state_machine.leave_and_loop(__lines_getter)
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか

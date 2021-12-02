@@ -12,14 +12,8 @@ class InitState(AbstractState):
     def name(self):
         return "[Init]"
 
-    def pass_on(self, context):
-        # ログインコマンドを送信します
-        app.log.write_by_internal('pass_onします (init.py 17)')
+    def on_entry(self, context):
         return "pass_on"
-
-    def on_login(self, context):
-        app.log.write_by_internal('on_loginしました (init.py 21)')
-        pass
 
     def leave(self, context, line):
         """次の辺の名前を返します
@@ -42,6 +36,10 @@ class InitState(AbstractState):
         app.log.write_by_internal(f'処理できなかったline=[{line}]')
 
         return '----InvalidOperation---->'
+
+    def on_login(self, context):
+        app.log.write_by_internal('on_loginしました (init.py 21)')
+        pass
 
 
 # Test

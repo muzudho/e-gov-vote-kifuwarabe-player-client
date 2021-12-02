@@ -1,3 +1,5 @@
+from config import CLIENT_USER, CLIENT_PASS
+from config import CLIENT_USER, CLIENT_PASS
 from app import app
 from floodgate_client.layer1_transition_map.init import InitState
 
@@ -26,4 +28,7 @@ class DecoratedInitState(InitState):
     def on_login(self, context):
         app.log.write_by_internal(
             'on_login しました (decoration/init.py 27)')
-        pass
+
+        # ログインコマンドを送信します
+        command = f"LOGIN {CLIENT_USER} {CLIENT_PASS}\n"
+        context.client_socket.send_line(command)
