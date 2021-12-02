@@ -20,12 +20,10 @@ class EntranceState(AbstractState):
         return "[Entrance]"
 
     def on_entry(self, context):
-        app.log.write_by_internal('on_entry しました (entrance.py 23)')
         pass
 
     def on_ok(self, context):
         """----Ok---->時"""
-        app.log.write_by_internal('on_ok しました (entrance.py 28)')
         pass
 
     def leave(self, context, line):
@@ -40,8 +38,6 @@ class EntranceState(AbstractState):
         str
             辺の名前
         """
-
-        app.log.write_by_internal('leave します (entrance.py 28)')
 
         # ----Ok---->
         matched = self._ok_pattern.match(line)
