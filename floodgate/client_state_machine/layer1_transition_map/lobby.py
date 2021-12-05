@@ -2,7 +2,7 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
-from floodgate.keywords import LOBBY
+from floodgate.keywords import E_COMPLETED, E_GAME_SUMMARY, E_LOGOUT, LOBBY
 
 
 class LobbyState(AbstractState):
@@ -58,6 +58,17 @@ class LobbyState(AbstractState):
         super().entry(req)
 
         edge_path = ".".join(req.edge_path)
+
+        if edge_path == "":
+            pass
+        elif edge_path == f"{E_LOGOUT}":
+            pass
+        elif edge_path == f"{E_LOGOUT}.{E_COMPLETED}":
+            pass
+        elif edge_path == f"{E_GAME_SUMMARY}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         return None
 
@@ -155,15 +166,13 @@ class LobbyState(AbstractState):
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
-    def on_begin_game_summary(self, req):
+    def on_logout(self, req):
         pass
 
-    def on_game_id(self, context):
-        """----GameId---->時"""
+    def on_completed(self, req):
         pass
 
-    def on_agree(self, context):
-        """----Agree---->"""
+    def on_game_summary(self, req):
         pass
 
 

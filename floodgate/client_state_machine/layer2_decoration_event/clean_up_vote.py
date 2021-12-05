@@ -4,7 +4,7 @@ from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 from my_dynamodb.create_table_bestmove import create_bestmove_table
 
 
-def clean_up_vote(context):
+def clean_up_vote(req):
     """対局成立した"""
     # テーブルを削除します
     try:

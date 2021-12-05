@@ -1,7 +1,7 @@
 import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
-from floodgate.keywords import RECEIPT
+from floodgate.keywords import E_INCORRECT, E_LOGIN, E_OK, RECEIPT
 
 
 class EntranceState(AbstractState):
@@ -23,6 +23,17 @@ class EntranceState(AbstractState):
         super().entry(req)
 
         edge_path = ".".join(req.edge_path)
+
+        if edge_path == "":
+            return "pass_on"
+        elif edge_path == f"{E_LOGIN}":
+            pass
+        elif edge_path == f"{E_LOGIN}.{E_OK}":
+            pass
+        elif edge_path == f"{E_LOGIN}.{E_INCORRECT}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         return None
 
@@ -53,5 +64,11 @@ class EntranceState(AbstractState):
 
         return '----InvalidOperation---->'
 
+    def on_login(self, req):
+        pass
+
     def on_ok(self, req):
+        pass
+
+    def on_incorrect(self, req):
         pass

@@ -1,12 +1,12 @@
 from app import app
-from floodgate_server_state.layer1_transition_map.receipt import EntranceState
+from floodgate.server_state_machine.layer1_transition_map.receipt import _TransitionState
 
 
 def create():
     """ステート生成"""
-    return DecoratedEntranceState()
+    return _DecoratedState()
 
 
-class DecoratedEntranceState(EntranceState):
+class _DecoratedState(_TransitionState):
     def __init__(self):
         super().__init__()

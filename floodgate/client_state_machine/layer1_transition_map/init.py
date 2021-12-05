@@ -2,7 +2,7 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
-from floodgate.keywords import E_LOGIN, INIT
+from floodgate.keywords import E_INCORRECT, E_LOGIN, E_OK, INIT
 
 
 class InitState(AbstractState):
@@ -20,6 +20,14 @@ class InitState(AbstractState):
 
         if edge_path == "":
             return "pass_on"
+        elif edge_path == f"{E_LOGIN}":
+            pass
+        elif edge_path == f"{E_LOGIN}.{E_OK}":
+            pass
+        elif edge_path == f"{E_LOGIN}.{E_INCORRECT}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         return None
 
@@ -47,8 +55,13 @@ class InitState(AbstractState):
 
         return '----InvalidOperation---->'
 
-    def on_login(self, context):
-        app.log.write_by_internal('on_loginしました (init.py 21)')
+    def on_login(self, req):
+        pass
+
+    def on_ok(self, req):
+        pass
+
+    def on_incorrect(self, req):
         pass
 
 

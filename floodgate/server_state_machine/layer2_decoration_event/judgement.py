@@ -1,18 +1,33 @@
 import time
 from app import app
-from floodgate_client_state.layer1_transition_map.judge import JudgeState
-from my_dynamodb.delete_table_bestmove import delete_bestmove_table
-from my_dynamodb.create_table_bestmove import create_bestmove_table
+from floodgate.server_state_machine.layer1_transition_map.judgement import _TransitionState
+# from my_dynamodb.delete_table_bestmove import delete_bestmove_table
+# from my_dynamodb.create_table_bestmove import create_bestmove_table
 
 
 def create():
     """ステート生成"""
-    return DecoratedJudgeState()
+    return _DecoratedState()
 
 
-class DecoratedJudgeState(JudgeState):
+class _DecoratedState(_TransitionState):
     def __init__(self):
         super().__init__()
+
+    def on_move_c(self, req):
+        pass
+
+    def on_move_s(self, req):
+        pass
+
+    def on_game_over(self, req):
+        pass
+
+    def on_floodgate(self, req):
+        pass
+
+    def on_wcsc(self, req):
+        pass
 
     def on_win(self, context):
         """勝ち"""

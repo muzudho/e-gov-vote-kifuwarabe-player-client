@@ -1,14 +1,15 @@
 from state_machine_py.abstract_state import AbstractState
-from floodgate.keywords import E_COMPLETED, E_GAME_SUMMARY, E_LOGOUT, MATCH
+from floodgate.keywords import E_AGREE, E_REJECT, E_START, TELL
 
 
-class MatchState(AbstractState):
+class TellState(AbstractState):
+
     def __init__(self):
         super().__init__()
 
     @property
     def name(self):
-        return MATCH
+        return TELL
 
     def entry(self, req):
         super().entry(req)
@@ -17,11 +18,13 @@ class MatchState(AbstractState):
 
         if edge_path == "":
             pass
-        elif edge_path == f"{E_LOGOUT}":
+        elif edge_path == f"{E_REJECT}":
             pass
-        elif edge_path == f"{E_LOGOUT}.{E_COMPLETED}":
+        elif edge_path == f"{E_REJECT}.{E_REJECT}":
             pass
-        elif edge_path == f"{E_GAME_SUMMARY}":
+        elif edge_path == f"{E_AGREE}":
+            pass
+        elif edge_path == f"{E_AGREE}.{E_START}":
             pass
         else:
             raise ValueError(f"Edge path {edge_path} is not found")

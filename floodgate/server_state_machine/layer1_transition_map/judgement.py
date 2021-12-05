@@ -1,6 +1,6 @@
 import re
 from app import app
-from floodgate.keywords import JUDGEMENT
+from floodgate.keywords import E_FLOODGATE, E_GAME_OVER, E_MOVE_C, E_MOVE_S, E_WCSC, JUDGEMENT
 from shogi_d.csa_helper import do_move
 from state_machine_py.abstract_state import AbstractState
 from context import Context
@@ -29,6 +29,21 @@ class JudgementState(AbstractState):
         super().entry(req)
 
         edge_path = ".".join(req.edge_path)
+
+        if edge_path == "":
+            pass
+        elif edge_path == f"{E_MOVE_C}":
+            pass
+        elif edge_path == f"{E_MOVE_S}":
+            pass
+        elif edge_path == f"{E_GAME_OVER}":
+            pass
+        elif edge_path == f"{E_GAME_OVER}.{E_FLOODGATE}":
+            pass
+        elif edge_path == f"{E_GAME_OVER}.{E_WCSC}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         return None
 
@@ -148,12 +163,19 @@ class JudgementState(AbstractState):
         #      その他
         return '----Unknown1---->'
 
-    def on_echo_self(self, context):
-        """自分の指し手のエコー時"""
+    def on_move_c(self, req):
         pass
 
-    def on_play_me(self, context):
-        """相手の指し手が通知された時"""
+    def on_move_s(self, req):
+        pass
+
+    def on_game_over(self, req):
+        pass
+
+    def on_floodgate(self, req):
+        pass
+
+    def on_wcsc(self, req):
         pass
 
     def on_sennichite(self, context):

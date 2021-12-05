@@ -2,7 +2,7 @@ import re
 from state_machine_py.abstract_state import AbstractState
 from app import app
 from context import Context
-from floodgate.keywords import REPLY
+from floodgate.keywords import E_AGREE, E_REJECT, E_START, REPLY
 
 
 class ReplyState(AbstractState):
@@ -23,9 +23,22 @@ class ReplyState(AbstractState):
 
         edge_path = ".".join(req.edge_path)
 
+        if edge_path == "":
+            pass
+        elif edge_path == f"{E_REJECT}":
+            pass
+        elif edge_path == f"{E_REJECT}.{E_REJECT}":
+            pass
+        elif edge_path == f"{E_AGREE}":
+            pass
+        elif edge_path == f"{E_AGREE}.{E_START}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
+
         return None
 
-    def leave(self, req):
+    def exit(self, req):
         """次の辺の名前を返します
 
         Parameters
@@ -64,10 +77,16 @@ class ReplyState(AbstractState):
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
-    def on_start_me(self, req):
+    def on_reject_c(self, req):
         pass
 
-    def on_start_you(self, req):
+    def on_reject_s(self, req):
+        pass
+
+    def on_agree(self, req):
+        pass
+
+    def on_start(self, req):
         pass
 
 

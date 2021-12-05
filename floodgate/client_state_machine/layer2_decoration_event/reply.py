@@ -1,14 +1,14 @@
 from app import app
-from floodgate_client_state.layer1_transition_map.reply import ReplyState
-from floodgate_client_state.layer2_decoration_event.clean_up_vote import clean_up_vote
+from floodgate.client_state_machine.layer1_transition_map.reply import _TransitionState
+from floodgate.client_state_machine.layer2_decoration_event.clean_up_vote import clean_up_vote
 
 
 def create():
     """ステート生成"""
-    return DecoratedReplyState()
+    return _DecoratedState()
 
 
-class DecoratedReplyState(ReplyState):
+class _DecoratedState(_TransitionState):
     def __init__(self):
         super().__init__()
 
@@ -24,10 +24,19 @@ class DecoratedReplyState(ReplyState):
             app.log.write_by_internal(
                 f"(178) 初手を指します m=[{m}]")
 
-    def on_start_me(self, context):
-        """自分の手番へ"""
-        clean_up_vote(context)
+    def on_reject_c(self, req):
+        pass
 
-    def on_start_you(self, context):
-        """相手の手番へ"""
-        clean_up_vote(context)
+    def on_reject_s(self, req):
+        pass
+
+    def on_agree(self, req):
+        """対局条件を読み終わったところでAgreeします"""
+        app.log.write_by_internal(
+            f"[DEBUG] [Listen]on_agree (listen.py 17)")
+        # 常に AGREE を返します
+        req.context.agree_func()
+
+    def on_start(self, req):
+        """自分の手番へ"""
+        clean_up_vote(req)
