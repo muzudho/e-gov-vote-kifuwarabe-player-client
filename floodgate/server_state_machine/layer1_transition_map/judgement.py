@@ -1,6 +1,6 @@
 import re
 from app import app
-from floodgate.keywords import E_FLOODGATE, E_GAME_OVER, E_MOVE_C, E_MOVE_S, E_WCSC, JUDGEMENT
+from floodgate.keywords import E_EMPTY, E_FLOODGATE, E_GAME_OVER, E_MOVE, E_MOVE_ECHO, E_WCSC, JUDGEMENT
 from shogi_d.csa_helper import do_move
 from state_machine_py.abstract_state import AbstractState
 from context import Context
@@ -32,9 +32,9 @@ class JudgementState(AbstractState):
 
         if edge_path == "":
             pass
-        elif edge_path == f"{E_MOVE_C}":
+        elif edge_path == f"{E_MOVE}":
             pass
-        elif edge_path == f"{E_MOVE_S}":
+        elif edge_path == f"{E_MOVE_ECHO}":
             pass
         elif edge_path == f"{E_GAME_OVER}":
             pass
@@ -61,39 +61,47 @@ class JudgementState(AbstractState):
             辺の名前
         """
 
-        # ----[+5756FU,T20]---->
-        #      -            先後(+)(-)
-        #       --          元升
-        #         --        先升
-        #           --      駒
-        #              ---  消費時間（秒）
-        result = self._move_pattern.match(line)
-        if result:
-            phase = result.group(1)
-            source = int(result.group(2))
-            destination = int(result.group(3))
-            piece = result.group(4)
-            expend_time = int(result.group(5))
+        edge_path = ".".join(req.edge_path)
 
-            do_move(context.position, phase, source,
-                    destination, piece, expend_time)
+        if edge_path == "":
+            # ----[+5756FU,T20]---->
+            #      -            先後(+)(-)
+            #       --          元升
+            #         --        先升
+            #           --      駒
+            #              ---  消費時間（秒）
+            result = self._move_pattern.match(line)
+            if result:
+                phase = result.group(1)
+                source = int(result.group(2))
+                destination = int(result.group(3))
+                piece = result.group(4)
+                expend_time = int(result.group(5))
 
-            # 自分の指し手のエコーか、相手の指し手の通知か区別します
-            if context.current_turn != context.my_turn:
-                # 相手の指し手の通知だった
-                self.on_play_me(context)
-                return '----PlayMe---->'
-            else:
-                # 自分の指し手のエコーだった
-                self.on_echo_self(context)
-                return '----EchoSelf---->'
+                do_move(req.context.position, phase, source,
+                        destination, piece, expend_time)
 
-        # ----[#SENNICHITE]---->
-        #      -----------
-        #      千日手
-        if line == '#SENNICHITE':
-            self.on_sennichite(context)
-            return '----Loopback---->'
+                # 自分の指し手のエコーか、相手の指し手の通知か区別します
+                if context.current_turn != context.my_turn:
+                    # 相手の指し手の通知だった
+                    self.on_move(req)
+                    return E_MOVE
+                else:
+                    # 自分の指し手のエコーだった
+                    self.on_move_echo(req)
+                    return E_MOVE_ECHO
+
+            # ----[#SENNICHITE]---->
+            #      -----------
+            #      千日手
+            if req.line == '#SENNICHITE':
+                self.on_sennichite(context)
+                return E_EMPTY
+
+        elif edge_path == f"{E_GAME_OVER}":
+            pass
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         # ----[#OUTE_SENNICHITE]---->
         #      ----------------
@@ -163,10 +171,10 @@ class JudgementState(AbstractState):
         #      その他
         return '----Unknown1---->'
 
-    def on_move_c(self, req):
+    def on_move(self, req):
         pass
 
-    def on_move_s(self, req):
+    def on_move_echo(self, req):
         pass
 
     def on_game_over(self, req):

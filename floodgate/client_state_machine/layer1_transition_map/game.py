@@ -1,5 +1,5 @@
 from state_machine_py.abstract_state import AbstractState
-from floodgate.keywords import E_COMPLETED, E_FLOODGATE, E_GAME_OVER, E_GAME_SUMMARY, E_LOGOUT, E_MOVE_C, E_MOVE_S, E_WCSC, GAME
+from floodgate.keywords import E_COMPLETED, E_FLOODGATE, E_GAME_OVER, E_GAME_SUMMARY, E_LOGOUT, E_MOVE, E_MOVE_ECHO, E_WCSC, GAME
 
 
 class GameState(AbstractState):
@@ -17,9 +17,9 @@ class GameState(AbstractState):
 
         if edge_path == "":
             pass
-        elif edge_path == f"{E_MOVE_C}":
+        elif edge_path == f"{E_MOVE}":
             pass
-        elif edge_path == f"{E_MOVE_S}":
+        elif edge_path == f"{E_MOVE_ECHO}":
             pass
         elif edge_path == f"{E_GAME_OVER}":
             pass
@@ -32,10 +32,10 @@ class GameState(AbstractState):
 
         return None
 
-    def on_move_c(self, req):
+    def on_move(self, req):
         pass
 
-    def on_move_s(self, req):
+    def on_move_echo(self, req):
         pass
 
     def on_game_over(self, req):

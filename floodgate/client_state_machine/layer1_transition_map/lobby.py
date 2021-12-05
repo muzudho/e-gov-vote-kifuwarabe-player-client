@@ -2,7 +2,7 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
-from floodgate.keywords import E_COMPLETED, E_GAME_SUMMARY, E_LOGOUT, LOBBY
+from floodgate.keywords import E_COMPLETED, E_EMPTY, E_END_GAME_SUMMARY, E_GAME_SUMMARY, E_LOGOUT, LOBBY, E_BEGIN_GAME_SUMMARY
 
 
 class LobbyState(AbstractState):
@@ -86,81 +86,91 @@ class LobbyState(AbstractState):
             辺の名前
         """
 
-        # ----[BEGIN Game_Summary]---->
-        #      ------------------
-        #      1. 対局条件通知開始
-        if line == 'BEGIN Game_Summary':
-            self.on_begin_game_summary(context)
-            return '----BeginGameSummary---->'
+        edge_path = ".".join(req.edge_path)
 
-        # ----[Name+:John]---->
-        #     [Name-:John]
-        #          - ----
-        #          | |
-        #          +------- 1. (+)先手、(-)後手
-        #            +----- 2. プレイヤー名
-        matched = self._player_name_pattern.match(line)
-        if matched:
-            turn = matched.group(1)
-            if turn == '+':
-                context.player_names[1] = matched.group(2)
-            elif turn == '-':
-                context.player_names[2] = matched.group(2)
-            else:
-                # Error
-                raise ValueError(f'ここにはこないはず')
+        if edge_path == "":
+            # ----[BEGIN Game_Summary]---->
+            #      ------------------
+            #      1. 対局条件通知開始
+            if line == 'BEGIN Game_Summary':
+                self.on_begin_game_summary(context)
+                return E_BEGIN_GAME_SUMMARY
 
-            return '----Loopback---->'
+            # ----[Name+:John]---->
+            #     [Name-:John]
+            #          - ----
+            #          | |
+            #          +------- 1. (+)先手、(-)後手
+            #            +----- 2. プレイヤー名
+            matched = self._player_name_pattern.match(line)
+            if matched:
+                turn = matched.group(1)
+                if turn == '+':
+                    context.player_names[1] = matched.group(2)
+                elif turn == '-':
+                    context.player_names[2] = matched.group(2)
+                else:
+                    # Error
+                    raise ValueError(f'ここにはこないはず')
 
-        # ----[Your_Turn:+]---->
-        #                -
-        #                1. わたしの手番(+)(-)
-        matched = self._my_turn_pattern.match(line)
-        if matched:
-            context.my_turn = matched.group(1)
-            return '----Loopback---->'
+                return E_EMPTY
 
-        # ----[To_Move:+]---->
-        #              -
-        #              1. 開始局面での手番(+)(-)
-        matched = self._startpos_turn_pattern.match(line)
-        if matched:
-            context.current_turn = matched.group(1)
-            return '----Loopback---->'
+            # ----[Your_Turn:+]---->
+            #                -
+            #                1. わたしの手番(+)(-)
+            matched = self._my_turn_pattern.match(line)
+            if matched:
+                context.my_turn = matched.group(1)
+                return E_EMPTY
 
-        # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
-        #              ---------------------------------------------------------------------
-        #              1. game_id
-        matched = self._game_id_pattern.match(line)
-        if matched:
-            context.game_id = matched.group(1)
+            # ----[To_Move:+]---->
+            #              -
+            #              1. 開始局面での手番(+)(-)
+            matched = self._startpos_turn_pattern.match(line)
+            if matched:
+                context.current_turn = matched.group(1)
+                return E_EMPTY
 
-            self.on_game_id(context)
+            # ----[Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002]----> ログイン成功
+            #              ---------------------------------------------------------------------
+            #              1. game_id
+            matched = self._game_id_pattern.match(line)
+            if matched:
+                context.game_id = matched.group(1)
 
-            return '----Loopback---->'
+                self.on_game_id(context)
 
-        # ----[開始局面の各行]---->
-        matched = self._begin_pos_row_pattern.match(line)
-        if matched:
-            rank = int(matched.group(1))
-            context.position.board[90 + rank] = matched.group(2)
-            context.position.board[80 + rank] = matched.group(3)
-            context.position.board[70 + rank] = matched.group(4)
-            context.position.board[60 + rank] = matched.group(5)
-            context.position.board[50 + rank] = matched.group(6)
-            context.position.board[40 + rank] = matched.group(7)
-            context.position.board[30 + rank] = matched.group(8)
-            context.position.board[20 + rank] = matched.group(9)
-            context.position.board[10 + rank] = matched.group(10)
+                return E_EMPTY
 
-            return '----Loopback---->'
+            # ----[開始局面の各行]---->
+            matched = self._begin_pos_row_pattern.match(line)
+            if matched:
+                rank = int(matched.group(1))
+                context.position.board[90 + rank] = matched.group(2)
+                context.position.board[80 + rank] = matched.group(3)
+                context.position.board[70 + rank] = matched.group(4)
+                context.position.board[60 + rank] = matched.group(5)
+                context.position.board[50 + rank] = matched.group(6)
+                context.position.board[40 + rank] = matched.group(7)
+                context.position.board[30 + rank] = matched.group(8)
+                context.position.board[20 + rank] = matched.group(9)
+                context.position.board[10 + rank] = matched.group(10)
 
-        # ----[END Game_Summary]---->
-        #      ----------------
-        #      1. 対局条件通知終了
-        if line == 'END Game_Summary':
-            self.on_agree(context)
-            return '----Agree---->'
+                return E_EMPTY
+
+            # ----[END Game_Summary]---->
+            #      ----------------
+            #      1. 対局条件通知終了
+            if line == 'END Game_Summary':
+                self.on_agree(context)
+                return E_END_GAME_SUMMARY
+
+        elif edge_path == f"{E_LOGOUT}":
+            self.on_logout(req)
+            return E_LOGOUT
+
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         app.log.write_by_internal(
             f"[DEBUG] Unknown line=[{line}]")

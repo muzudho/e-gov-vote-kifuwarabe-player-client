@@ -46,14 +46,16 @@ class InitState(AbstractState):
         """
         edge_path = ".".join(req.edge_path)
 
-        if req.line == 'pass_on':
-            if edge_path == "":
-                self.on_login(context)
-                return E_LOGIN
-
-        app.log.write_by_internal(f'処理できなかったline=[{line}]')
-
-        return '----InvalidOperation---->'
+        if edge_path == "":
+            self.on_login(req)
+            return E_LOGIN
+        elif edge_path == f"{E_LOGIN}":
+            self.on_ok(req)
+            return E_OK
+            # self.on_incorrect(req)
+            # return E_OK
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
     def on_login(self, req):
         pass

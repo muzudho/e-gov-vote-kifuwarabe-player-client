@@ -14,10 +14,10 @@ class _DecoratedState(_TransitionState):
     def __init__(self):
         super().__init__()
 
-    def on_move_c(self, req):
+    def on_move(self, req):
         pass
 
-    def on_move_s(self, req):
+    def on_move_echo(self, req):
         pass
 
     def on_game_over(self, req):

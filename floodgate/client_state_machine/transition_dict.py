@@ -1,4 +1,4 @@
-from floodgate.keywords import E_AGREE, E_COMPLETED, E_FLOODGATE, E_GAME_OVER, E_GAME_SUMMARY, E_INCORRECT, E_LOGIN, E_LOGOUT, E_MOVE_C, E_MOVE_S, E_OK, E_REJECT, E_START, E_WCSC, GAME, INIT, LOBBY, REPLY
+from floodgate.keywords import E_AGREE, E_COMPLETED, E_FLOODGATE, E_GAME_OVER, E_GAME_SUMMARY, E_INCORRECT, E_LOGIN, E_LOGOUT, E_MOVE, E_MOVE_ECHO, E_OK, E_REJECT, E_START, E_WCSC, GAME, INIT, LOBBY, REPLY
 
 # Client side
 transition_dict = {
@@ -23,8 +23,8 @@ transition_dict = {
         }
     },
     GAME: {
-        E_MOVE_C: GAME,
-        E_MOVE_S: GAME,
+        E_MOVE: GAME,
+        E_MOVE_ECHO: GAME,
         E_GAME_OVER: {
             E_FLOODGATE: INIT,
             E_WCSC: LOBBY,

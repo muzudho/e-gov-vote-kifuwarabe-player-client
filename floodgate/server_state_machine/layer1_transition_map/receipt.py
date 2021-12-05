@@ -51,14 +51,22 @@ class EntranceState(AbstractState):
             辺の名前
         """
 
-        # ----Ok---->
-        matched = self._ok_pattern.match(req.line)
-        if matched:
-            req.context.user_name = matched.group(1)
+        edge_path = ".".join(req.edge_path)
 
-            self.on_ok(req)
+        if edge_path == "":
+            self.on_login(req)
 
-            return '----Ok---->'
+        elif edge_path == f"{E_LOGIN}":
+            # ----Ok---->
+            matched = self._ok_pattern.match(req.line)
+            if matched:
+                req.context.user_name = matched.group(1)
+
+                self.on_ok(req)
+                return E_OK
+
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         app.log.write_by_internal(f'処理できなかったline=[{req.line}]')
 

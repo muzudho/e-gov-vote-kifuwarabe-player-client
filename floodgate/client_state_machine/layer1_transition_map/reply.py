@@ -52,26 +52,30 @@ class ReplyState(AbstractState):
             辺の名前
         """
 
-        # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
-        #            ------------------------------------------------------------------------------------------
-        #            1. game_id
-        matched = self._start_pattern.match(line)
-        if matched:
-            start_game_id = matched.group(1)
-            if context.game_id == start_game_id:
+        edge_path = ".".join(req.edge_path)
 
-                # TODO 自分の手番か、相手の手番かで分けたい
-                if context.my_turn == context.current_turn:
-                    # 初手を考えます
-                    self.on_start_me(context)
-                    return '----StartMe---->'
+        if edge_path == "":
+            pass
+        elif edge_path == f"{E_REJECT}":
+            pass
+        elif edge_path == f"{E_AGREE}":
+            # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
+            #            ------------------------------------------------------------------------------------------
+            #            1. game_id
+            matched = self._start_pattern.match(req.line)
+            if matched:
+                start_game_id = matched.group(1)
+                if req.context.game_id == start_game_id:
+
+                    self.on_start(req)
+                    return E_START
+
                 else:
-                    self.on_start_you(context)
-                    return '----StartOpponent---->'
+                    raise ValueError(
+                        f'GameIdが一致しませんでした context.game_id:{context.game_id} Start:{start_game_id}')
 
-            else:
-                raise ValueError(
-                    f'GameIdが一致しませんでした context.game_id:{context.game_id} Start:{start_game_id}')
+        else:
+            raise ValueError(f"Edge path {edge_path} is not found")
 
         app.log.write_by_internal(
             f"[DEBUG] Unknown line=[{line}]")

@@ -15,7 +15,7 @@ class _DecoratedState(_TransitionState):
     def __init__(self):
         super().__init__()
 
-    def on_move_c(self, req):
+    def on_move(self, req):
         """ここでサーバーへ指し手を送信してください"""
         # 相手の指し手だったら、自分の指し手を入力する番になります
         if req.context.current_turn != req.context.my_turn:
@@ -32,7 +32,7 @@ class _DecoratedState(_TransitionState):
         text = req.context.position.formatBoard()
         app.log.write_by_internal(text)
 
-    def on_move_s(self, req):
+    def on_move_echo(self, req):
         pass
 
     def on_game_over(self, req):

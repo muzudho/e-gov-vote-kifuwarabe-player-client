@@ -24,12 +24,6 @@ class _DecoratedState(_TransitionState):
             app.log.write_by_internal(
                 f"(178) 初手を指します m=[{m}]")
 
-    def on_reject_c(self, req):
-        pass
-
-    def on_reject_s(self, req):
-        pass
-
     def on_agree(self, req):
         """対局条件を読み終わったところでAgreeします"""
         app.log.write_by_internal(
@@ -40,3 +34,15 @@ class _DecoratedState(_TransitionState):
     def on_start(self, req):
         """自分の手番へ"""
         clean_up_vote(req)
+
+        if req.context.my_turn == req.context.current_turn:
+            # TODO 自分の手番なら、初手を考えます
+            pass
+        else:
+            pass
+
+    def on_reject_c(self, req):
+        pass
+
+    def on_reject_s(self, req):
+        pass
