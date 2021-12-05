@@ -1,13 +1,14 @@
 from app import app
-from floodgate_client.layer1_transition_map.listen import ListenState
+from floodgate.client_state_machine.layer1_transition_map.lobby import LobbyState
 
 
 def create():
     """ステート生成"""
-    return DecoratedListenState()
+    return DecoratedLobbyState()
 
 
-class DecoratedListenState(ListenState):
+class DecoratedLobbyState(LobbyState):
+
     def __init__(self):
         super().__init__()
 

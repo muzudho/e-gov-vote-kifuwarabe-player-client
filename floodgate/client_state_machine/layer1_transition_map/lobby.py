@@ -2,9 +2,11 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
+from floodgate.keywords import LOBBY
 
 
-class ListenState(AbstractState):
+class LobbyState(AbstractState):
+
     def __init__(self):
         super().__init__()
 
@@ -50,20 +52,35 @@ class ListenState(AbstractState):
 
     @property
     def name(self):
-        return "[Listen]"
+        return LOBBY
 
-    def leave(self, context, line):
+    def entry(self, req):
+        super().entry(req)
+
+        edge_path = ".".join(req.edge_path)
+
+        return None
+
+    def exit(self, req):
         """次の辺の名前を返します
+
         Parameters
         ----------
-        str : line
-            文字列（末尾に改行なし）
+        req : Request
+            ステートマシンからステートへ与えられる引数のまとまり
 
         Returns
         -------
         str
             辺の名前
         """
+
+        # ----[BEGIN Game_Summary]---->
+        #      ------------------
+        #      1. 対局条件通知開始
+        if line == 'BEGIN Game_Summary':
+            self.on_begin_game_summary(context)
+            return '----BeginGameSummary---->'
 
         # ----[Name+:John]---->
         #     [Name-:John]
@@ -138,6 +155,9 @@ class ListenState(AbstractState):
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
+    def on_begin_game_summary(self, req):
+        pass
+
     def on_game_id(self, context):
         """----GameId---->時"""
         pass
@@ -148,11 +168,18 @@ class ListenState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.layer1_transition_map.listen
+# python.exe -m floodgate_client_state.layer1_transition_map.lobby
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
-    state = ListenState()
+    state = LobbyState()
+
+    line = 'xxxxxxx'
+    edge_name = state.leave(context, line)
+    if edge_name == '----Loopback---->':
+        app.log.write_by_internal('.', end='')
+    else:
+        app.log.write_by_internal('f', end='')
 
     line = 'Game_ID:wdoor+floodgate-300-10F+Yss1000k+e-gov-vote-kifuwarabe+20211103193002'
     edge_name = state.leave(context, line)

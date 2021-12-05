@@ -1,8 +1,9 @@
 import sys
 import signal
 from app import app
-from diagram import Diagram, SplitTextBlock
+from main import MainDiagram
 from context import Context
+from main_diagram import SplitTextBlock
 
 
 class Test():
@@ -16,7 +17,7 @@ class Test():
     def set_up(self):
         context = Context()
 
-        self._diagram = Diagram(context)
+        self._diagram = MainDiagram(context)
 
         # Implement test handlers
         def test_agree_func():

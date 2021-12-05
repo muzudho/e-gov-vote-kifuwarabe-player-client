@@ -1,5 +1,5 @@
 from app import app
-from floodgate_client.layer1_transition_map.entrance import EntranceState
+from floodgate_server_state.layer1_transition_map.receipt import EntranceState
 
 
 def create():

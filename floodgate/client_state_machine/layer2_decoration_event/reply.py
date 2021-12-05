@@ -1,6 +1,6 @@
 from app import app
-from floodgate_client.layer1_transition_map.reply import ReplyState
-from floodgate_client.layer2_decoration_event.clean_up_vote import clean_up_vote
+from floodgate_client_state.layer1_transition_map.reply import ReplyState
+from floodgate_client_state.layer2_decoration_event.clean_up_vote import clean_up_vote
 
 
 def create():

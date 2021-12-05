@@ -1,7 +1,7 @@
 from config import CLIENT_USER, CLIENT_PASS
 from config import CLIENT_USER, CLIENT_PASS
 from app import app
-from floodgate_client.layer1_transition_map.init import InitState
+from floodgate_client_state.layer1_transition_map.init import InitState
 
 
 def create():

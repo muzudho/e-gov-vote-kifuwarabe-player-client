@@ -2,6 +2,7 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
+from floodgate.keywords import E_LOGIN, INIT
 
 
 class InitState(AbstractState):
@@ -10,29 +11,37 @@ class InitState(AbstractState):
 
     @property
     def name(self):
-        return "[Init]"
+        return INIT
 
-    def entry(self, context):
-        super().entry(context)
-        return "pass_on"
+    def entry(self, req):
+        super().entry(req)
 
-    def leave(self, context, line):
+        edge_path = ".".join(req.edge_path)
+
+        if edge_path == "":
+            return "pass_on"
+
+        return None
+
+    def exit(self, req):
         """次の辺の名前を返します
+
         Parameters
         ----------
-        str : line
-            入力文字列
+        req : Request
+            ステートマシンからステートへ与えられる引数のまとまり
 
         Returns
         -------
         str
             辺の名前
         """
-        app.log.write_by_internal('leaveします (init.py 36)')
+        edge_path = ".".join(req.edge_path)
 
-        if line == 'pass_on':
-            self.on_login(context)
-            return '----Login---->'
+        if req.line == 'pass_on':
+            if edge_path == "":
+                self.on_login(context)
+                return E_LOGIN
 
         app.log.write_by_internal(f'処理できなかったline=[{line}]')
 
@@ -44,7 +53,7 @@ class InitState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.init
+# python.exe -m floodgate_client_state.state_d.init
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

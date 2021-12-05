@@ -1,7 +1,7 @@
 import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
-from context import Context
+from floodgate.keywords import RECEIPT
 
 
 class EntranceState(AbstractState):
@@ -17,18 +17,22 @@ class EntranceState(AbstractState):
 
     @property
     def name(self):
-        return "[Entrance]"
+        return RECEIPT
 
-    def on_ok(self, context):
-        """----Ok---->時"""
-        pass
+    def entry(self, req):
+        super().entry(req)
 
-    def leave(self, context, line):
+        edge_path = ".".join(req.edge_path)
+
+        return None
+
+    def exit(self, req):
         """次の辺の名前を返します
+
         Parameters
         ----------
-        str : line
-            入力文字列
+        req : Request
+            ステートマシンからステートへ与えられる引数のまとまり
 
         Returns
         -------
@@ -37,14 +41,17 @@ class EntranceState(AbstractState):
         """
 
         # ----Ok---->
-        matched = self._ok_pattern.match(line)
+        matched = self._ok_pattern.match(req.line)
         if matched:
-            context.user_name = matched.group(1)
+            req.context.user_name = matched.group(1)
 
-            self.on_ok(context)
+            self.on_ok(req)
 
             return '----Ok---->'
 
-        app.log.write_by_internal(f'処理できなかったline=[{line}]')
+        app.log.write_by_internal(f'処理できなかったline=[{req.line}]')
 
         return '----InvalidOperation---->'
+
+    def on_ok(self, req):
+        pass

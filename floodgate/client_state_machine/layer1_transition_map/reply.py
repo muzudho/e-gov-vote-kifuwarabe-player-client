@@ -2,6 +2,7 @@ import re
 from state_machine_py.abstract_state import AbstractState
 from app import app
 from context import Context
+from floodgate.keywords import REPLY
 
 
 class ReplyState(AbstractState):
@@ -15,27 +16,28 @@ class ReplyState(AbstractState):
 
     @property
     def name(self):
-        return "[Reply]"
+        return REPLY
 
-    def on_start_me(self, context):
-        pass
+    def entry(self, req):
+        super().entry(req)
 
-    def on_start_you(self, context):
-        pass
+        edge_path = ".".join(req.edge_path)
 
-    def leave(self, context, line):
+        return None
+
+    def leave(self, req):
         """次の辺の名前を返します
+
         Parameters
         ----------
-        str : line
-            文字列（末尾に改行なし）
+        req : Request
+            ステートマシンからステートへ与えられる引数のまとまり
 
         Returns
         -------
         str
             辺の名前
         """
-        pass
 
         # ----[START:wdoor+floodgate-300-10F+e-gov-vote-kifuwarabe+Kristallweizen-Core2Duo-P7450+20211105220005]----> 対局合意成立
         #            ------------------------------------------------------------------------------------------
@@ -62,9 +64,15 @@ class ReplyState(AbstractState):
             f"[DEBUG] Unknown line=[{line}]")
         return '----Loopback---->'
 
+    def on_start_me(self, req):
+        pass
+
+    def on_start_you(self, req):
+        pass
+
 
 # Test
-# python.exe -m floodgate_client.state_d.agreement
+# python.exe -m floodgate_client_state.state_d.agreement
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()

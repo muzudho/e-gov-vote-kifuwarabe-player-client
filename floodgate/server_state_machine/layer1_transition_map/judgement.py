@@ -1,11 +1,12 @@
 import re
 from app import app
+from floodgate.keywords import JUDGEMENT
 from shogi_d.csa_helper import do_move
 from state_machine_py.abstract_state import AbstractState
 from context import Context
 
 
-class JudgeState(AbstractState):
+class JudgementState(AbstractState):
     """`START:` してからの状態"""
 
     def __init__(self):
@@ -22,14 +23,22 @@ class JudgeState(AbstractState):
 
     @property
     def name(self):
-        return "[Judge]"
+        return JUDGEMENT
 
-    def leave(self, context, line):
+    def entry(self, req):
+        super().entry(req)
+
+        edge_path = ".".join(req.edge_path)
+
+        return None
+
+    def exit(self, req):
         """次の辺の名前を返します
+
         Parameters
         ----------
-        str : line
-            入力文字列
+        req : Request
+            ステートマシンからステートへ与えられる引数のまとまり
 
         Returns
         -------
@@ -189,11 +198,11 @@ class JudgeState(AbstractState):
 
 
 # Test
-# python.exe -m floodgate_client.state_d.judge
+# python.exe -m floodgate_client_state.state_d.judgement
 if __name__ == "__main__":
     app.log.set_up()
     context = Context()
-    state = JudgeState()
+    state = JudgementState()
 
     line = '+5756FU,T20'
     edge_name = state.leave(context, line)

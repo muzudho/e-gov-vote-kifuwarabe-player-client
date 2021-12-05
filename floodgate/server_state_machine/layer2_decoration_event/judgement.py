@@ -1,6 +1,6 @@
 import time
 from app import app
-from floodgate_client.layer1_transition_map.judge import JudgeState
+from floodgate_client_state.layer1_transition_map.judge import JudgeState
 from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 from my_dynamodb.create_table_bestmove import create_bestmove_table
 

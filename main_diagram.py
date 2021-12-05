@@ -1,12 +1,10 @@
-import sys
-import signal
 from threading import Thread
 from config import IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
 from state_machine_py.state_machine import StateMachine
+from floodgate_client_state.transition_dict import transition_dict
+from floodgate_client_state.state_creator_dict import state_creator_dict
 from context import Context
-from floodgate_client.transition_dict import transition_dict
-from floodgate_client.state_creator_dict import state_creator_dict
 
 
 def SplitTextBlock(text_block):
@@ -21,10 +19,20 @@ def SplitTextBlock(text_block):
     return lines
 
 
-class Diagram():
-    def __init__(self, context):
+class MainDiagram():
+    def __init__(self):
+        context = Context()
+
         self._state_machine = StateMachine(
             context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
+
+        # Implement all handlers
+        def __agree_func():
+            context.client_socket.send_line(
+                f"AGREE {self._state_machine.context.game_id}\n")
+
+        # 後付け
+        context.agree_func = __agree_func
 
         # デバッグ情報出力
         self._state_machine.verbose = True
@@ -66,9 +74,6 @@ class Diagram():
         app.log.write_by_internal(
             f"初期状態に戻します (init.py init 62)")
 
-        # （強制的に）ステートマシンを初期状態に戻します。 leave は行いません
-        self.state_machine.arrive_sequence("[Init]")
-
         # 以降、コマンドの受信をトリガーにして状態を遷移します
         thr = Thread(target=self.listen_for_messages)
         thr.daemon = True
@@ -96,7 +101,8 @@ class Diagram():
 
                 return lines
 
-            self.state_machine.leave_and_loop(__lines_getter)
+            # （強制的に）ステートマシンを初期状態に戻して、開始します
+            self.state_machine.start("[Init]", __lines_getter)
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか
@@ -114,39 +120,3 @@ class Diagram():
         # Close log file
         if not(app.log is None):
             app.log.clean_up()
-
-
-def main():
-    def sigterm_handler(_signum, _frame) -> None:
-        sys.exit(1)
-
-    # 強制終了のシグナルを受け取ったら、強制終了するようにします
-    signal.signal(signal.SIGTERM, sigterm_handler)
-
-    context = Context()
-
-    diagram = Diagram(context)
-
-    # Implement all handlers
-    def __agree_func():
-        context.client_socket.send_line(
-            f"AGREE {diagram.state_machine.context.game_id}\n")
-
-    # 後付け
-    context.agree_func = __agree_func
-
-    try:
-        diagram.run()
-    finally:
-        # 強制終了のシグナルを無視するようにしてから、クリーンアップ処理へ進みます
-        signal.signal(signal.SIGTERM, signal.SIG_IGN)
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
-        diagram.clean_up()
-        # 強制終了のシグナルを有効に戻します
-        signal.signal(signal.SIGTERM, signal.SIG_DFL)
-        signal.signal(signal.SIGINT, signal.SIG_DFL)
-
-
-# このファイルを直接実行したときは、以下の関数を呼び出します
-if __name__ == "__main__":
-    sys.exit(main())
