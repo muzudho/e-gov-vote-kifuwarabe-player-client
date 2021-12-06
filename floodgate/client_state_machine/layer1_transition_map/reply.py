@@ -1,7 +1,7 @@
 import re
 from state_machine_py.abstract_state import AbstractState
 from app import app
-from context import Context
+from floodgate.client_state_machine.context import Context
 from floodgate.keywords import E_AGREE, E_REJECT, E_START, REPLY
 
 

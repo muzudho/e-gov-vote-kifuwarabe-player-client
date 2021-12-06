@@ -1,4 +1,9 @@
-# GUI side state
+# Statemachines
+
+MACHINE_C = "[[MachineC]]"
+MACHINE_S = "[[MachineS]]"
+
+# Client side state
 
 INIT = "[Init]"
 LOBBY = "[Lobby]"

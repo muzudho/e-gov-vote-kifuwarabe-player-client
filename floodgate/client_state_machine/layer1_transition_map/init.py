@@ -1,7 +1,7 @@
 import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
-from context import Context
+from floodgate.client_state_machine.context import Context
 from floodgate.keywords import E_INCORRECT, E_LOGIN, E_OK, INIT
 
 

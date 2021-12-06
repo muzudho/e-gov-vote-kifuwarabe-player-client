@@ -3,7 +3,7 @@ from app import app
 from floodgate.keywords import E_EMPTY, E_FLOODGATE, E_GAME_OVER, E_MOVE, E_MOVE_ECHO, E_WCSC, JUDGEMENT
 from shogi_d.csa_helper import do_move
 from state_machine_py.abstract_state import AbstractState
-from context import Context
+from floodgate.client_state_machine.context import Context
 
 
 class JudgementState(AbstractState):

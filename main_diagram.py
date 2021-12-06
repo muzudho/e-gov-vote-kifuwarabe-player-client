@@ -2,10 +2,13 @@ from threading import Thread
 from state_machine_py.multiple_state_machine import MultipleStateMachine
 from config import IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
-from state_machine_py.state_machine import StateMachine
-from floodgate.client_state_machine.transition_dict import transition_dict
-from floodgate.client_state_machine.state_creator_dict import state_creator_dict
-from context import Context
+from floodgate.keywords import INIT, MACHINE_C, MACHINE_S, RECEIPT
+from floodgate.client_state_machine.transition_dict import transition_dict as transition_dict_c
+from floodgate.client_state_machine.state_creator_dict import state_creator_dict as state_creator_dict_c
+from floodgate.client_state_machine.context import Context as ContextC
+from floodgate.server_state_machine.transition_dict import transition_dict as transition_dict_s
+from floodgate.server_state_machine.state_creator_dict import state_creator_dict as state_creator_dict_s
+from floodgate.server_state_machine.context import Context as ContextS
 
 
 def SplitTextBlock(text_block):
@@ -24,10 +27,19 @@ class MainDiagram():
     def __init__(self):
         self._multiple_state_machine = MultipleStateMachine()
 
-        context = Context()
+        machine_c = self._multiple_state_machine.create_machine(
+            MACHINE_C,
+            context=ContextC(),
+            state_creator_dict=state_creator_dict_c,
+            transition_dict=transition_dict_c)
+        machine_c.verbose = True  # デバッグ情報を出力します
 
-        self._state_machine = StateMachine(
-            context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
+        machine_s = self._multiple_state_machine.create_machine(
+            MACHINE_S,
+            context=ContextS(),
+            state_creator_dict=state_creator_dict_s,
+            transition_dict=transition_dict_s)
+        machine_s.verbose = True  # デバッグ情報を出力します
 
         def __lines_getter():
             while True:
@@ -47,28 +59,26 @@ class MainDiagram():
 
             return lines
 
-        self._state_machine.lines_getter = __lines_getter
+        machine_c.lines_getter = __lines_getter
 
         # Implement all handlers
         def __agree_func():
-            context.client_socket.send_line(
+            machine_c.context.client_socket.send_line(
                 f"AGREE {self._state_machine.context.game_id}\n")
 
         # 後付け
-        context.agree_func = __agree_func
-
-        # デバッグ情報出力
-        self._state_machine.verbose = True
+        machine_c.context.agree_func = __agree_func
 
         def __on_line(line):
             app.log.write_by_receive(line)
 
-        self._state_machine.on_line = __on_line
+        machine_c.on_line = __on_line
+        machine_s.on_line = __on_line
 
     @property
-    def state_machine(self):
-        """状態遷移マシン"""
-        return self._state_machine
+    def multiple_state_machine(self):
+        """複数の状態遷移マシン"""
+        return self._multiple_state_machine
 
     def run(self):
         """自動対話"""
@@ -97,28 +107,48 @@ class MainDiagram():
         app.log.write_by_internal(
             f"初期状態に戻します (init.py init 62)")
 
-        # 以降、コマンドの受信をトリガーにして状態を遷移します
-        thr = Thread(target=self.listen_for_messages)
+        self.init_c()
+        self.init_s()
+
+    def init_c(self):
+        # Client side
+        thr = Thread(target=self.work_of_machine_c)
         thr.daemon = True
         thr.start()
 
-    def listen_for_messages(self):
-        """コンピューターの動き"""
+    def init_s(self):
+        # Server side
+        thr = Thread(target=self.work_of_machine_s)
+        thr.daemon = True
+        thr.start()
 
+    def work_of_machine_c(self):
         try:
-
-            # （強制的に）ステートマシンを初期状態に戻して、開始します
-            self.state_machine.start("[Init]")
-
+            # （強制的に）ステートマシンを初期状態から始めます
+            self._multiple_state_machine.machines[MACHINE_C].start(INIT)
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか
             app.log.write_by_internal(
-                f"(Err.51) 接続が破棄された [{e}]")
+                f"[C] 接続が破棄された e={e}")
 
             # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
             if IS_RECONNECT_WHEN_CONNECTION_ABORT:
                 # ログイン、スレッド生成からやり直すので、このスレッドは終了してください
-                self.init()
+                self.init_c()
+
+    def work_of_machine_s(self):
+        try:
+            # （強制的に）ステートマシンを初期状態から始めます
+            self._multiple_state_machine.machines[MACHINE_S].start(RECEIPT)
+        except ConnectionAbortedError as e:
+            # floodgate に切断されたときとか
+            app.log.write_by_internal(
+                f"[S] 接続が破棄された e={e}")
+
+            # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
+            if IS_RECONNECT_WHEN_CONNECTION_ABORT:
+                # ログイン、スレッド生成からやり直すので、このスレッドは終了してください
+                self.init_s()
 
     def clean_up(self):
         app.log.write_by_internal("# Clean up")

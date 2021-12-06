@@ -23,12 +23,6 @@ Example:
 📄`config--floodgate.py`
 📄`config--local.py`
 
-## Smoke test
-
-```shell
-python.exe test.py
-```
-
 ## Run
 
 ```shell
@@ -39,5 +33,5 @@ python.exe main.py
 
 📖 [floodgate のログ](http://wdoor.c.u-tokyo.ac.jp/shogi/x/shogi-server.log)
 
-![20211205shogi21a3.png](docs/img/20211205shogi21a3.png)  
+![20211205shogi21a4.png](docs/img/20211205shogi21a4.png)  
 👆 （WIP 書きかけ）むずでょの独自解釈の状態遷移図  
