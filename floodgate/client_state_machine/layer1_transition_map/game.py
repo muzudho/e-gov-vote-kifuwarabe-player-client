@@ -13,7 +13,7 @@ class GameState(AbstractState):
     def entry(self, req):
         super().entry(req)
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             pass
@@ -23,9 +23,9 @@ class GameState(AbstractState):
             pass
         elif edge_path == f"{E_GAME_OVER}":
             pass
-        elif edge_path == f"{E_GAME_OVER}.{E_FLOODGATE}":
+        elif edge_path == f"{E_GAME_OVER}/{E_FLOODGATE}":
             pass
-        elif edge_path == f"{E_GAME_OVER}.{E_WCSC}":
+        elif edge_path == f"{E_GAME_OVER}/{E_WCSC}":
             pass
         else:
             raise ValueError(f"Edge path {edge_path} is not found")

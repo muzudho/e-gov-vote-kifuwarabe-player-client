@@ -16,15 +16,15 @@ class InitState(AbstractState):
     def entry(self, req):
         super().entry(req)
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             return "pass_on"
         elif edge_path == f"{E_LOGIN}":
             pass
-        elif edge_path == f"{E_LOGIN}.{E_OK}":
+        elif edge_path == f"{E_LOGIN}/{E_OK}":
             pass
-        elif edge_path == f"{E_LOGIN}.{E_INCORRECT}":
+        elif edge_path == f"{E_LOGIN}/{E_INCORRECT}":
             pass
         else:
             raise ValueError(f"Edge path {edge_path} is not found")
@@ -44,7 +44,7 @@ class InitState(AbstractState):
         str
             辺の名前
         """
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             self.on_login(req)

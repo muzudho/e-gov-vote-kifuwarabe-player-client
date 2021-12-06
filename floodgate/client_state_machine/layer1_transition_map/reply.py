@@ -21,17 +21,17 @@ class ReplyState(AbstractState):
     def entry(self, req):
         super().entry(req)
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             pass
         elif edge_path == f"{E_REJECT}":
             pass
-        elif edge_path == f"{E_REJECT}.{E_REJECT}":
+        elif edge_path == f"{E_REJECT}/{E_REJECT}":
             pass
         elif edge_path == f"{E_AGREE}":
             pass
-        elif edge_path == f"{E_AGREE}.{E_START}":
+        elif edge_path == f"{E_AGREE}/{E_START}":
             pass
         else:
             raise ValueError(f"Edge path {edge_path} is not found")
@@ -52,7 +52,7 @@ class ReplyState(AbstractState):
             辺の名前
         """
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             pass

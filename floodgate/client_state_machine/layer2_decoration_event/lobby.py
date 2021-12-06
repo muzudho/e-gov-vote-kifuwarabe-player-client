@@ -1,5 +1,5 @@
 from app import app
-from floodgate.client_state_machine.layer1_transition_map.lobby import _TransitionState
+from floodgate.client_state_machine.layer1_transition_map.lobby import LobbyState as _TransitionState
 
 
 def create():

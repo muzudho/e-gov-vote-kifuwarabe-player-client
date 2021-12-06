@@ -2,7 +2,7 @@ import re
 from app import app
 from state_machine_py.abstract_state import AbstractState
 from context import Context
-from floodgate.keywords import E_COMPLETED, E_EMPTY, E_END_GAME_SUMMARY, E_GAME_SUMMARY, E_LOGOUT, LOBBY, E_BEGIN_GAME_SUMMARY
+from floodgate.keywords import E_COMPLETED, E_EMPTY, E_END_GAME_SUMMARY, E_GAME_SUMMARY, E_LOGOUT, LOBBY, E_GAME_SUMMARY
 
 
 class LobbyState(AbstractState):
@@ -57,13 +57,13 @@ class LobbyState(AbstractState):
     def entry(self, req):
         super().entry(req)
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             pass
         elif edge_path == f"{E_LOGOUT}":
             pass
-        elif edge_path == f"{E_LOGOUT}.{E_COMPLETED}":
+        elif edge_path == f"{E_LOGOUT}/{E_COMPLETED}":
             pass
         elif edge_path == f"{E_GAME_SUMMARY}":
             pass
@@ -86,7 +86,7 @@ class LobbyState(AbstractState):
             辺の名前
         """
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             # ----[BEGIN Game_Summary]---->
@@ -94,7 +94,7 @@ class LobbyState(AbstractState):
             #      1. 対局条件通知開始
             if line == 'BEGIN Game_Summary':
                 self.on_begin_game_summary(context)
-                return E_BEGIN_GAME_SUMMARY
+                return E_GAME_SUMMARY
 
             # ----[Name+:John]---->
             #     [Name-:John]

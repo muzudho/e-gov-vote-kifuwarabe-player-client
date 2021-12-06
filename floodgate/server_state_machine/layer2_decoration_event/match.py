@@ -1,4 +1,4 @@
-from floodgate.server_state_machine.layer1_transition_map.match import _TransitionState
+from floodgate.server_state_machine.layer1_transition_map.match import MatchState as _TransitionState
 
 
 def create():

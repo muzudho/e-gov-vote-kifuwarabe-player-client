@@ -1,6 +1,6 @@
 import time
 from app import app
-from floodgate.server_state_machine.layer1_transition_map.judgement import _TransitionState
+from floodgate.server_state_machine.layer1_transition_map.judgement import JudgementState as _TransitionState
 # from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 # from my_dynamodb.create_table_bestmove import create_bestmove_table
 

@@ -1,9 +1,10 @@
 from threading import Thread
+from state_machine_py.multiple_state_machine import MultipleStateMachine
 from config import IS_RECONNECT_WHEN_CONNECTION_ABORT
 from app import app
 from state_machine_py.state_machine import StateMachine
-from floodgate_client_state.transition_dict import transition_dict
-from floodgate_client_state.state_creator_dict import state_creator_dict
+from floodgate.client_state_machine.transition_dict import transition_dict
+from floodgate.client_state_machine.state_creator_dict import state_creator_dict
 from context import Context
 
 
@@ -21,10 +22,32 @@ def SplitTextBlock(text_block):
 
 class MainDiagram():
     def __init__(self):
+        self._multiple_state_machine = MultipleStateMachine()
+
         context = Context()
 
         self._state_machine = StateMachine(
             context=context, state_creator_dict=state_creator_dict, transition_dict=transition_dict)
+
+        def __lines_getter():
+            while True:
+                text_block = self._state_machine.context.client_socket.receive_text_block()
+
+                # FIXME 突然、空行が無限に送られてくるので無視。なんでだろう？
+                if text_block != '':
+                    print('kara')
+                    break
+
+            app.log.write_by_receive(text_block)
+
+            # 受信したテキストブロックを行の配列にして返します
+            lines = SplitTextBlock(text_block)
+
+            app.log.write_by_internal(f"[E-GOV] lines=[{lines}]")
+
+            return lines
+
+        self._state_machine.lines_getter = __lines_getter
 
         # Implement all handlers
         def __agree_func():
@@ -83,26 +106,9 @@ class MainDiagram():
         """コンピューターの動き"""
 
         try:
-            def __lines_getter():
-                while True:
-                    text_block = self._state_machine.context.client_socket.receive_text_block()
-
-                    # FIXME 突然、空行が無限に送られてくるので無視。なんでだろう？
-                    if text_block != '':
-                        print('kara')
-                        break
-
-                app.log.write_by_receive(text_block)
-
-                # 受信したテキストブロックを行の配列にして返します
-                lines = SplitTextBlock(text_block)
-
-                app.log.write_by_internal(f"[E-GOV] lines=[{lines}]")
-
-                return lines
 
             # （強制的に）ステートマシンを初期状態に戻して、開始します
-            self.state_machine.start("[Init]", __lines_getter)
+            self.state_machine.start("[Init]")
 
         except ConnectionAbortedError as e:
             # floodgate に切断されたときとか

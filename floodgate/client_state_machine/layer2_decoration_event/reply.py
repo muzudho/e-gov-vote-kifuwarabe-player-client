@@ -1,5 +1,5 @@
 from app import app
-from floodgate.client_state_machine.layer1_transition_map.reply import _TransitionState
+from floodgate.client_state_machine.layer1_transition_map.reply import ReplyState as _TransitionState
 from floodgate.client_state_machine.layer2_decoration_event.clean_up_vote import clean_up_vote
 
 

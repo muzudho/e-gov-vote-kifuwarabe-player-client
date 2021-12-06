@@ -1,5 +1,5 @@
 from app import app
-from floodgate.client_state_machine.layer1_transition_map.game import _TransitionState
+from floodgate.client_state_machine.layer1_transition_map.game import GameState as _TransitionState
 from floodgate.client_state_machine.layer2_decoration_event.clean_up_vote import clean_up_vote
 # from my_dynamodb.delete_table_bestmove import delete_bestmove_table
 # from my_dynamodb.create_table_bestmove import create_bestmove_table

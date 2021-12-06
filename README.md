@@ -32,7 +32,7 @@ python.exe test.py
 ## Run
 
 ```shell
-python.exe diagram.py
+python.exe main.py
 ```
 
 ## Other documents

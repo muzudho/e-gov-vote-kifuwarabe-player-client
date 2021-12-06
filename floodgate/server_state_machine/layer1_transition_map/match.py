@@ -13,13 +13,13 @@ class MatchState(AbstractState):
     def entry(self, req):
         super().entry(req)
 
-        edge_path = ".".join(req.edge_path)
+        edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
             pass
         elif edge_path == f"{E_LOGOUT}":
             pass
-        elif edge_path == f"{E_LOGOUT}.{E_COMPLETED}":
+        elif edge_path == f"{E_LOGOUT}/{E_COMPLETED}":
             pass
         elif edge_path == f"{E_GAME_SUMMARY}":
             pass

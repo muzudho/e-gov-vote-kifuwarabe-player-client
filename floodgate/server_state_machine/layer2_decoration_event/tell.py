@@ -1,5 +1,5 @@
 from app import app
-from floodgate.server_state_machine.layer1_transition_map.tell import _TransitionState
+from floodgate.server_state_machine.layer1_transition_map.tell import TellState as _TransitionState
 
 
 def create():
