@@ -29,7 +29,7 @@ E_REJECT = "-Reject->"
 E_LOGIN = "-Login->"
 E_LOGOUT = "-Logout->"
 E_AGREE = "-Agree->"
-E_EMPTY = "-Empty->"
+E_EMPTY_LINE = "-Empty->"
 E_MOVE = "-Move->"
 
 # Edges Server side

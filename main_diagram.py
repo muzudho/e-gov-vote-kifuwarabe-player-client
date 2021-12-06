@@ -41,26 +41,6 @@ class MainDiagram():
             transition_dict=transition_dict_s)
         machine_s.verbose = True  # デバッグ情報を出力します
 
-        def __lines_getter():
-            while True:
-                text_block = self._state_machine.context.client_socket.receive_text_block()
-
-                # FIXME 突然、空行が無限に送られてくるので無視。なんでだろう？
-                if text_block != '':
-                    print('kara')
-                    break
-
-            app.log.write_by_receive(text_block)
-
-            # 受信したテキストブロックを行の配列にして返します
-            lines = SplitTextBlock(text_block)
-
-            app.log.write_by_internal(f"[E-GOV] lines=[{lines}]")
-
-            return lines
-
-        machine_c.lines_getter = __lines_getter
-
         # Implement all handlers
         def __agree_func():
             machine_c.context.client_socket.send_line(
@@ -92,6 +72,8 @@ class MainDiagram():
 
             # a way to exit the program
             if to_send.lower() == 'q':
+                # ステートマシーンを終了させます
+                self._state_machine.terminate()
                 break
 
             # 指し手を人力で入力するとき
@@ -104,23 +86,55 @@ class MainDiagram():
 
         # ログを初期状態に戻します
         app.log.init()
-        app.log.write_by_internal(
-            f"初期状態に戻します (init.py init 62)")
+        app.log.write_by_internal(f"初期状態に戻します (init.py init 62)")
 
+        self.init_cr()
         self.init_c()
         self.init_s()
 
+    def init_cr(self):
+        # 読取
+        thr = Thread(target=self.work_of_machine_client_receive, daemon=True)
+        thr.start()
+
     def init_c(self):
         # Client side
-        thr = Thread(target=self.work_of_machine_c)
-        thr.daemon = True
+        thr = Thread(target=self.work_of_machine_c, daemon=True)
         thr.start()
 
     def init_s(self):
         # Server side
-        thr = Thread(target=self.work_of_machine_s)
-        thr.daemon = True
+        thr = Thread(target=self.work_of_machine_s, daemon=True)
         thr.start()
+
+    def work_of_machine_client_receive(self):
+        try:
+            while True:
+                text_block = self._state_machine.context.client_socket.receive_text_block()
+
+                # FIXME 突然、空行が無限に送られてくるので無視。なんでだろう？
+                if text_block != '':
+                    print('kara')
+                    break
+
+            app.log.write_by_receive(text_block)
+
+            # 受信したテキストブロックを行の配列にして返します
+            lines = SplitTextBlock(text_block)
+            for line in lines:
+                app.log.write_by_internal(f"[E-GOV] line=[{line}]")
+                self.multiple_state_machine.machines[MACHINE_C].input_queue.put(
+                    line)
+
+        except ConnectionAbortedError as e:
+            # floodgate に切断されたときとか
+            app.log.write_by_internal(
+                f"[ClientReceive] 接続が破棄された e={e}")
+
+            # 接続のタイミングによっては状態遷移が壊れるけど（＾～＾）
+            if IS_RECONNECT_WHEN_CONNECTION_ABORT:
+                # ログイン、スレッド生成からやり直すので、このスレッドは終了してください
+                self.init_cr()
 
     def work_of_machine_c(self):
         try:

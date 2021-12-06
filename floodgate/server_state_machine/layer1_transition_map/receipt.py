@@ -1,7 +1,8 @@
 import re
+import time
 from app import app
 from state_machine_py.abstract_state import AbstractState
-from floodgate.keywords import E_INCORRECT, E_LOGIN, E_OK, RECEIPT
+from floodgate.keywords import E_EMPTY, E_INCORRECT, E_LOGIN, E_OK, RECEIPT
 
 
 class ReceiptState(AbstractState):
@@ -54,7 +55,9 @@ class ReceiptState(AbstractState):
         edge_path = "/".join(req.edge_path)
 
         if edge_path == "":
-            self.on_login(req)
+            # Clientのターン
+            time.sleep(0.1)
+            return E_EMPTY
 
         elif edge_path == f"{E_LOGIN}":
             # ----Ok---->
@@ -68,12 +71,9 @@ class ReceiptState(AbstractState):
         else:
             raise ValueError(f"Edge path {edge_path} is not found")
 
-        app.log.write_by_internal(f'処理できなかったline=[{req.line}]')
-
-        return '----InvalidOperation---->'
-
-    def on_login(self, req):
-        pass
+        msg = f'処理できなかったline=[{req.line}] edge_path={edge_path}'
+        app.log.write_by_internal(msg)
+        raise ValueError(msg)
 
     def on_ok(self, req):
         pass
